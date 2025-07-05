@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
 </head>
@@ -38,10 +40,6 @@
                             About </a>
                     </li>
                     <li class="menu-list-items">
-                        <a class="links" href="#services">
-                            Services </a>
-                    </li>
-                    <li class="menu-list-items">
                         <a class="links" href="#contact"> Contact Me
                         </a>
                     </li>
@@ -55,12 +53,10 @@
             <div class="headings">
                 <h3 class="greet-heading">Hello, I'm</h3>
                 <h1 class="my-heading">Raseef Azeez</h1>
-                <h4 class="sub-heading">
-                    An AWS Cloud Engineer with 4+ years of Experience.
-                </h4>
+                <p class="small-para blue-text">An AWS Cloud Engineer with 4+ years of experience in the cloud and 9+ years of Overall IT experience.</p>
             </div>
             <div class="intro-buttons">
-                <button class="btn common-btn">Hire Me</button>
+                <button class="btn common-btn">My Projects</button>
                 <button class="btn ghost-btn">Get Resume</button>
             </div>
         </div>
@@ -68,9 +64,9 @@
     
    <!-- Portfolio Section -->
    <section class="portfolio" id="portfolio">
-    <div class="portfolio-heading">
-        <h1 class="my-heading text-center">Featured Portfolio</h1>
-    </div>
+        <div class="portfolio-heading">
+            <h1 class="my-heading text-center">Featured Portfolio</h1>
+        </div>
     <div class="portfolio-content">
         <div class="my-row">
             <div class="my-col">
@@ -92,75 +88,131 @@
                     </h3>
                     <p class="small-para blue-text">Cloud Engineer-2</p>
                 </div>
-            </div>
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="./Images/SEOImage2.avif" alt="SEO Image">
-                    </div>
-                    <h3 class="greet-heading blue-text">SEO</h3>
-                    <p class="small-para blue-text">Optimization</p>
-                </div>
-            </div>
-        </div>
-        <div class="my-row">
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="./Images/contentImage2.avif" alt="Content Writting Image">
+            
+                <div class="my-row">
+                    <div class="my-col">
+                        <div class="my-card port-card">
+                            <div class="image">
+                        <img src="../Assets/Images/cloud-image-3.jpg" alt="Known Technologies-1">
                     </div>
                     <h3 class="greet-heading blue-text">
-                        Content Writing
+                        Known Technologies-1
                     </h3>
-                    <p class="small-para blue-text">Writing</p>
+                    <p class="small-para blue-text">Known Technologies-1</p>
                 </div>
             </div>
             <div class="my-col">
                 <div class="my-card port-card">
                     <div class="image">
-                        <img src="./Images/wordpressImage2.avif" alt="Wordpress Image">
+                        <img src="../Assets/Images/cloud-image-4.jpg" alt="Known Technologies-2">
                     </div>
                     <h3 class="greet-heading blue-text">
-                        Wordpress Dev
+                        Known Technologies-2
                     </h3>
                     <p class="small-para blue-text">
-                        Content Management System
+                        Known Technologies-2
                     </p>
                 </div>
             </div>
             <div class="my-col">
                 <div class="my-card port-card">
                     <div class="image">
-                        <img src="./Images/videoEditing2.avif" alt="Video Editing Image">
+                        <img src="../Assets/Images/cloud-image-5.jpg" alt="Known Technologies-3">
                     </div>
                     <h3 class="greet-heading blue-text">
-                        Video Editing
+                        Known Technologies-3
                     </h3>
-                    <p class="small-para blue-text">Editing</p>
+                        <p class="small-para blue-text">Known Technologies-3</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <!-- About Section -->
 <section id="about" class="about">
     <div class="about-text">
         <h1 class="my-heading">About Me</h1>
-        <p class="lead-para">
-            GeeksforGeeks is a leading platform
-            that provides computer science
-            resources and coding challenges for
-            programmers and technology
-            enthusiasts, along with interview
-            and exam preparations for upcoming
-            aspirants. With a strong emphasis on
-            enhancing coding skills and knowledge,
-            it has become a trusted destination
-            for over 12 million plus registered
-            users worldwide. The platform offers
-            a vast collection of tutorials, practice
-            problems, interview tutorials, articles,
-            and courses, covering various domains
-            of computer science.
+        <p class="center-aligned">
+            As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven
+            history of implementing, managing, and optimizing cloud solutions. I
+            thrive in collaborative environments, where I can contribute to
+            innovation and drive efficiency in cloud infrastructure management.
+            With expertise across both AWS and Azure platforms, I'm passionate
+            about solving complex technical challenges. 
         </p>
+    </div>
+    <div class="about-image">
+        <img src="../Assets/Images/cloud-image-6.jpg" alt="About Image">
+    </div>
+</section>
+
+<!-- Contact me section -->
+<section class="contact" id="contact">
+    <div class="contact-heading">
+        <h1 class="my-heading text-center">Contact Me</h1>
+    </div>
+    <div class="contact-content">
+        <div class="contact-form-container">
+            <h1 class="greet-heading">Get In Touch</h1>
+            <form class="contact-form">
+                <input class="form-controls" type="text" placeholder="Your Name">
+                <input class="form-controls" type="text" placeholder="Your Email">
+                <input class="form-controls" type="text" placeholder="Your Phone">
+                <textarea class="form-controls" placeholder="Write your message" name="message" id="" cols="30"
+                    rows="10">
+                  </textarea>
+                <input class="form-btn btn common-btn" type="submit" value="Send Message">
+            </form>
+        </div>
+        <div class="contact-details">
+            <h1 class="greet-heading">Contact Details</h1>
+            <div class="details">
+                <h5 class="contact-heading">EMAIL</h5>
+                <p class="contact-text">raseefazeez@gmail.com</p>
+            </div>
+            <div class="details">
+                <h5 class="contact-heading">PHONE</h5>
+                <p class="contact-text">+91 6383890464</p>
+            </div>
+            <div class="details">
+                <h5 class="contact-heading">ADDRESS</h5>
+                <p class="contact-text">Address Line-1, Address Line-2</p>
+                <p>Address Line-3</p>
+                <p>Address Line-4</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer section -->
+<footer class="footer">
+    <div class="footer-content text-center">
+        <h4>
+            Copyright © 2025 All rights reserved.
+        </h4>
+        <div class="social-links">
+            <div class="footer-menu">
+                <ul class="footer-menu-list">
+                    <li class="footer-list-items">
+                        <a class="footer-links" href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    <li class="footer-list-items">
+                        <a class="footer-links" href="#">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+    integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+<script src="script.js"></script>
+</body>
+
+</html>
