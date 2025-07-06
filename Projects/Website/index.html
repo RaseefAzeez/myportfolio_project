@@ -19,7 +19,7 @@
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <h2 class="logo-heading">Raseef Azeez</h2>
+                <h3 class="logo-heading">Raseef Azeez</h3>
             </div>
             <!-- <div class="hamburger" id="hamburger">
                 <i class="fas fa-bars hamburger-icon"></i>
@@ -51,12 +51,12 @@
     <section id="home" class="hero">
         <div class="intro">
             <div class="headings">
-                <h2 class="greet-heading">Hello, I'm</h2>
-                <h1 class="my-heading">Raseef Azeez</h1>
-                <p class="small-para blue-text">An AWS Cloud Engineer with 4+ years of experience in the cloud and 9+ years of Overall IT experience.</p>
+                <h2 class="greet-heading white-text">Hello, I'm</h2>
+                <h1 class="my-heading white-text" style="font-weight: normal;">Raseef Azeez</h1>
+                <p class="small-para white-text">An AWS Cloud Engineer with 4+ years of experience in the cloud and 9+ years of Overall IT experience.</p>
             </div>
             <div class="intro-buttons">
-                <button class="btn common-btn">My Projects</button>
+                <button class="btn common-btn" id="viewmyprojects">My Projects</button>
                 <button class="btn ghost-btn" id="downloadresume">Get Resume</button>
             </div>
         </div>
@@ -64,8 +64,8 @@
     
    <!-- Portfolio Section -->
    <section class="portfolio" id="portfolio">
-        <div class="portfolio-heading">
-            <h1 class="my-heading text-center">Featured Portfolio</h1>
+        <div class="portfolio-heading"><br>
+            <h1 class="my-heading white-text text-center" style="font-weight: normal;">Portfolio</h1>
         </div>
     <div class="portfolio-content">
         <div class="my-row">
@@ -117,12 +117,12 @@
             <div class="my-col">
                 <div class="my-card port-card">
                     <div class="image">
-                        <img src="../Assets/Images/cloud-image-5.jpg" alt="Known Technologies-3">
+                        <img src="../Assets/Images/cloud-image-5.jpg" alt="My Certifications">
                     </div>
                     <h3 class="greet-heading blue-text">
-                        Known Technologies-3
+                        My Certifications
                     </h3>
-                        <p class="small-para blue-text">Known Technologies-3</p>
+                        <p class="small-para blue-text">My Certifications</p>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
 <!-- About Section -->
 <section id="about" class="about">
     <div class="about-text">
-        <h1 class="my-heading">About Me</h1>
+        <h1 class="my-heading" style="font-weight: normal;">About Me</h1>
         <p class="center-aligned">
             As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven
             history of implementing, managing, and optimizing cloud solutions. I
@@ -149,37 +149,46 @@
 
 <!-- Contact me section -->
 <section class="contact" id="contact">
-    <div class="contact-heading">
-        <h1 class="my-heading text-center">Contact Me</h1>
+    <div class="contact-heading"><br>
+        <h1 class="my-heading text-center" style="font-weight: normal;">Contact Me</h1>
     </div>
     <div class="contact-content">
         <div class="contact-form-container">
             <h1 class="greet-heading">Get In Touch</h1>
-            <form class="contact-form">
-                <input class="form-controls" type="text" placeholder="Your Name">
-                <input class="form-controls" type="text" placeholder="Your Email">
-                <input class="form-controls" type="text" placeholder="Your Phone">
-                <textarea class="form-controls" placeholder="Write your message" name="message" id="" cols="30"
-                    rows="10">
-                  </textarea>
-                <input class="form-btn btn common-btn" type="submit" value="Send Message">
+            <form class="contact-form" id="contactForm">
+                <div> 
+                    <!-- <label for="userName">Name:</label> -->
+                    <input class="form-controls" type="text" id="userName" name="userName" placeholder="Your Name" required>
+                </div>
+                <div> 
+                    <!-- <label for="userEmail">Email Address:</label> -->
+                    <input class="form-controls" type="email" id="userEmail" name="userEmail" placeholder="your.email@example.com" required>
+                </div>
+                <div>
+                    <!-- <label for="userPhone">Phone Number (Optional):</label> -->
+                    <input class="form-controls" type="tel" id="userPhone" name="userPhone" placeholder="e.g., +91 9876543210">
+                </div>
+                <div>
+                    <!-- <label for="userMessage">Your Message:</label> -->
+                    <textarea class="form-controls" placeholder="Write your message here..." name="userMessage" id="userMessage" cols="30" rows="10" required></textarea>
+                </div>
+                <button class="form-btn btn common-btn" type="submit">Send Message</button>
             </form>
         </div>
         <div class="contact-details">
-            <h1 class="greet-heading">Contact Details</h1>
+            <h1 class="greet-heading">Contact Details</h1><br>
             <div class="details">
                 <i class="fa-solid fa-envelope"></i>
                 <p class="contact-text">raseefazeez@gmail.com</p>
             </div>
             <div class="details">
                 <i class="fa-solid fa-phone"></i>
-                <p class="contact-text">+91 6383890464</p>
+                <p class="contact-text">+91-6383890464</p>
             </div>
             <div class="details">
                 <i class="fa-solid fa-location-dot"></i>
-                <p class="contact-text">Address Line-1, Address Line-2</p>
-                <p>Address Line-3</p>
-                <p>Address Line-4</p>
+                <p class="contact-text">Trivandrum, Kerala</p>
+                <p>India</p>
             </div>
         </div>
     </div>
@@ -212,7 +221,9 @@
     integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
-<script src="script.js"></script>
+<script src="get-mycv.js"></script>
+<script src="myproject-list.js"></script>
+<script src="contact-getinput.js"></script>
 </body>
 
 </html>

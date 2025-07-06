@@ -15,7 +15,8 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-image: linear-gradient(45deg, #363D73, #2794B3);
+    background-image: linear-gradient(45deg, #363D73, #ba1f43);    
+    /* background-image: linear-gradient(45deg, #363D73, #2794B3); */
     /* background-image: linear-gradient(90deg, #73e1c2, #53C8B6, #35A99C); */
     background-color: transparent;
 }
@@ -60,7 +61,7 @@ body {
 
 /* Main Hero Section Styles */
 .hero {
-    background-image: linear-gradient(45deg, #d5d8ea, #2794B3);
+    background-image: linear-gradient(45deg, #363D73, #ba1f43);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 100%;
@@ -87,7 +88,7 @@ body {
 .about {
     display: flex;
     align-items: center;
-    background-image: linear-gradient(45deg, #363D73, #2794B3);
+    background-image: linear-gradient(45deg, #363D73, #ba1f43);
     justify-content: space-between;
     width: 100%;
 }
@@ -108,7 +109,7 @@ body {
 .portfolio {
     margin: 4.8rem 0;
     padding: 0 5rem;
-    background-image: linear-gradient(45deg, #d5d8ea, #207188);
+    background-image: linear-gradient(45deg, #a2a7cb, #ba1f43);
 }
 
 .port-card {
@@ -160,13 +161,14 @@ body {
 
 .contact-details {
     /* margin: 0; */
-    line-height: 1.52;
+    margin-bottom: 5px;
+    line-height: 1.2;
     width: 35%;
 }
 
 /* Footer Styles */
 .footer {
-    background-color: #000;
+    background-color: rgb(28, 26, 73);
     color: #fff;
     padding: 2rem;
 }
@@ -179,7 +181,7 @@ body {
     width: 50px;
     margin: 1rem 1rem 0 1rem;
     border-radius: 50%;
-    background-color: #53C8B6;
+    background-color: #ba1f43;
 }
 
 .footer-links {
@@ -212,7 +214,7 @@ body {
 }
 
 .my-heading {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     margin: 0;
 }
 
@@ -245,35 +247,35 @@ body {
 }
 
 .common-btn {
-    background-color: #35A99C;
+    background-color: #ba1f43;
     color: #fff;
-    border: 2px solid #35A99C;
+    border: 2px solid #ba1f43;
     transition: all 0.25s;
 }
 
 .common-btn:hover {
     background-color: #fff;
-    color: #35A99C;
-    border: 2px solid #35A99C;
+    color: #ba1f43;
+    border: 2px solid #ba1f43;
     outline: none;
 }
 
 .ghost-btn {
     background-color: #fff;
-    color: #35A99C;
-    border: 2px solid #35A99C;
+    color: #ba1f43;
+    border: 2px solid #ba1f43;
     outline: none;
 }
 
 .ghost-btn:hover {
-    background-color: #35A99C;
+    background-color: #ba1f43;
     color: #fff;
     transition: all 0.25s;
-    border: 2px solid #35A99C;
+    border: 2px solid #ba1f43;
 }
 
 .heading-span {
-    font-weight: bolder;
+    font-weight: normal;
 }
 
 .text-center {
@@ -290,5 +292,5 @@ body {
 }
 
 .blue-text {
-    color: #363D73;
+    color: #ffffff;
 }
