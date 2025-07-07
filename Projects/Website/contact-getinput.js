@@ -7,10 +7,10 @@ contactForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     // 2. Get references to the input elements
-    const nameInput = document.getElementById('Your Name');
-    const emailInput = document.getElementById('Your Email');
-    const phoneInput = document.getElementById('Your Phone'); // Get phone input
-    const messageInput = document.getElementById('message');
+    const nameInput = document.getElementById('userName');
+    const emailInput = document.getElementById('userEmail');
+    const phoneInput = document.getElementById('userPhone'); // Get phone input
+    const messageInput = document.getElementById('userMessage');
 
     // 3. Get the values from the input elements
     const userName = nameInput.value.trim();
@@ -23,14 +23,14 @@ contactForm.addEventListener('submit', function(event) {
     let isValid = true; // Flag to track overall form validity
 
     if (userName === '') {
-        alert('Please enter your name.');
+        alert('Please enter your name');
         isValid = false;
         nameInput.focus();
         return; // Stop execution if validation fails
     }
 
     if (userEmail === '' || !userEmail.includes('@') || !userEmail.includes('.')) {
-        alert('Please enter a valid email address.');
+        alert('Please enter a valid email address');
         isValid = false;
         emailInput.focus();
         return;
@@ -39,7 +39,7 @@ contactForm.addEventListener('submit', function(event) {
     // Basic phone validation (optional, can be more complex with regex for specific formats)
     // Only check if it's not empty; if it's empty, we allow it because it's not 'required' in HTML
     if (phoneInput.hasAttribute('required') && userPhone === '') {
-        alert('Please enter your phone number.');
+        alert('Please enter your phone number');
         isValid = false;
         phoneInput.focus();
         return;
@@ -54,7 +54,7 @@ contactForm.addEventListener('submit', function(event) {
 
 
     if (userMessage === '') {
-        alert('Please enter your message.');
+        alert('Please enter your message');
         isValid = false;
         messageInput.focus();
         return;

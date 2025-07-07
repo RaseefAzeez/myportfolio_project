@@ -13,7 +13,7 @@
         right: 0;
         padding: 0 3rem;
         top: 75px;
-        background-image: linear-gradient(45deg, #363D73, #2794B3);
+        background-image: linear-gradient(45deg, #363D73, #ba1f43);
         /* background-image: linear-gradient(180deg, #74D7BB, #53C8B6, #35A99C); */
         display: none;
         transition: all 0.25s;
@@ -51,7 +51,7 @@
     .hero {
         justify-content: center;
         color: #fff;
-        background-image: linear-gradient(45deg, #d5d8ea, #2794B3), url('../Assets/Images/main-image.jpg')
+        background-image: linear-gradient(45deg, #363D73, #ba1f43), url('../Assets/Images/main-image.jpg')
     }
     .sub-heading {
         color: #fff9f9cc;
@@ -70,7 +70,7 @@
         right: 0;
         padding: 0 2rem;
         top: 75px;
-        background-image: linear-gradient(180deg, #35A99C, #53C8B6, #74D7BB);
+        background-image: linear-gradient(180deg, #363D73, #ba1f43);
         display: none;
         transition: all 0.25s;
     }

@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
 </head>
@@ -53,7 +54,8 @@
             <div class="headings">
                 <h2 class="greet-heading white-text">Hello, I'm</h2>
                 <h1 class="my-heading white-text" style="font-weight: normal;">Raseef Azeez</h1>
-                <p class="small-para white-text">An AWS Cloud Engineer with 4+ years of experience in the cloud and 9+ years of Overall IT experience.</p>
+                <p class="small-para white-text">An AWS Cloud Engineer with 4+ years of experience in the cloud and 9+
+                    years of Overall IT experience.</p>
             </div>
             <div class="intro-buttons">
                 <button class="btn common-btn" id="viewmyprojects">My Projects</button>
@@ -61,169 +63,173 @@
             </div>
         </div>
     </section>
-    
-   <!-- Portfolio Section -->
-   <section class="portfolio" id="portfolio">
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
         <div class="portfolio-heading"><br>
             <h1 class="my-heading white-text text-center" style="font-weight: normal;">Portfolio</h1>
         </div>
-    <div class="portfolio-content">
-        <div class="my-row">
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="../Assets/Images/cloud-image-1.jpg" alt="Cloud Engineer-1 Image">
+        <div class="portfolio-content">
+            <div class="my-row">
+                <div class="my-col">
+                    <div class="my-card port-card">
+                        <div class="image">
+                            <img src="../Assets/Images/cloud-image-1.jpg" alt="Cloud Engineer-1 Image">
+                        </div>
+                        <h3 class="greet-heading blue-text">Cloud Engineer-1</h3>
+                        <p class="small-para blue-text">Cloud Engineer-1</p>
                     </div>
-                    <h3 class="greet-heading blue-text">Cloud Engineer-1</h3>
-                    <p class="small-para blue-text">Cloud Engineer-1</p>
                 </div>
+                <div class="my-col">
+                    <div class="my-card port-card">
+                        <div class="image">
+                            <img src="../Assets/Images/cloud-image-2.jpg" alt="Cloud Engineer-2 Image">
+                        </div>
+                        <h3 class="greet-heading blue-text">
+                            Cloud Engineer-2
+                        </h3>
+                        <p class="small-para blue-text">Cloud Engineer-2</p>
+                    </div>
+
+                    <div class="my-row">
+                        <div class="my-col">
+                            <div class="my-card port-card">
+                                <div class="image">
+                                    <img src="../Assets/Images/cloud-image-3.jpg" alt="Known Technologies-1">
+                                </div>
+                                <h3 class="greet-heading blue-text">
+                                    Known Technologies-1
+                                </h3>
+                                <p class="small-para blue-text">Known Technologies-1</p>
+                            </div>
+                        </div>
+                        <div class="my-col">
+                            <div class="my-card port-card">
+                                <div class="image">
+                                    <img src="../Assets/Images/cloud-image-4.jpg" alt="Known Technologies-2">
+                                </div>
+                                <h3 class="greet-heading blue-text">
+                                    Known Technologies-2
+                                </h3>
+                                <p class="small-para blue-text">
+                                    Known Technologies-2
+                                </p>
+                            </div>
+                        </div>
+                        <div class="my-col">
+                            <div class="my-card port-card">
+                                <div class="image">
+                                    <img src="../Assets/Images/cloud-image-5.jpg" alt="My Certifications">
+                                </div>
+                                <h3 class="greet-heading blue-text">
+                                    My Certifications
+                                </h3>
+                                <p class="small-para blue-text">My Certifications</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-text">
+            <h1 class="my-heading" style="font-weight: normal;">About Me</h1>
+            <p class="center-aligned">
+                As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven
+                history of implementing, managing, and optimizing cloud solutions. I
+                thrive in collaborative environments, where I can contribute to
+                innovation and drive efficiency in cloud infrastructure management.
+                With expertise across both AWS and Azure platforms, I'm passionate
+                about solving complex technical challenges.
+            </p>
+        </div>
+        <div class="about-image">
+            <img src="../Assets/Images/cloud-image-6.jpg" alt="About Image">
+        </div>
+    </section>
+
+    <!-- Contact me section -->
+    <section class="contact" id="contact">
+        <div class="contact-heading"><br>
+            <h1 class="my-heading text-center" style="font-weight: normal;">Contact Me</h1>
+        </div>
+        <div class="contact-content">
+            <div class="contact-form-container">
+                <h1 class="greet-heading">Get In Touch</h1>
+                <form class="contact-form" id="contactForm">
+                    <div>
+                        <!-- <label for="userName">Name:</label> -->
+                        <input class="form-controls" type="text" id="userName" name="userName" placeholder="Your Name"
+                            required>
+                    </div>
+                    <div>
+                        <!-- <label for="userEmail">Email Address:</label> -->
+                        <input class="form-controls" type="email" id="userEmail" name="userEmail"
+                            placeholder="your.email@example.com" required>
+                    </div>
+                    <div>
+                        <!-- <label for="userPhone">Phone Number (Optional):</label> -->
+                        <input class="form-controls" type="tel" id="userPhone" name="userPhone"
+                            placeholder="e.g., +91 9876543210">
+                    </div>
+                    <div>
+                        <!-- <label for="userMessage">Your Message:</label> -->
+                        <textarea class="form-controls" placeholder="Write your message here..." name="userMessage"
+                            id="userMessage" cols="30" rows="10" required></textarea>
+                    </div>
+                    <button class="form-btn btn common-btn" type="submit">Send Message</button>
+                </form>
             </div>
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="../Assets/Images/cloud-image-2.jpg" alt="Cloud Engineer-2 Image">
-                    </div>
-                    <h3 class="greet-heading blue-text">
-                        Cloud Engineer-2
-                    </h3>
-                    <p class="small-para blue-text">Cloud Engineer-2</p>
+            <div class="contact-details">
+                <h1 class="greet-heading">Contact Details</h1><br>
+                <div class="details">
+                    <i class="fa-solid fa-envelope"></i>
+                    <p class="contact-text">raseefazeez@gmail.com</p>
                 </div>
-            
-                <div class="my-row">
-                    <div class="my-col">
-                        <div class="my-card port-card">
-                            <div class="image">
-                        <img src="../Assets/Images/cloud-image-3.jpg" alt="Known Technologies-1">
-                    </div>
-                    <h3 class="greet-heading blue-text">
-                        Known Technologies-1
-                    </h3>
-                    <p class="small-para blue-text">Known Technologies-1</p>
+                <div class="details">
+                    <i class="fa-solid fa-phone"></i>
+                    <p class="contact-text">+91-6383890464</p>
                 </div>
-            </div>
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="../Assets/Images/cloud-image-4.jpg" alt="Known Technologies-2">
-                    </div>
-                    <h3 class="greet-heading blue-text">
-                        Known Technologies-2
-                    </h3>
-                    <p class="small-para blue-text">
-                        Known Technologies-2
-                    </p>
-                </div>
-            </div>
-            <div class="my-col">
-                <div class="my-card port-card">
-                    <div class="image">
-                        <img src="../Assets/Images/cloud-image-5.jpg" alt="My Certifications">
-                    </div>
-                    <h3 class="greet-heading blue-text">
-                        My Certifications
-                    </h3>
-                        <p class="small-para blue-text">My Certifications</p>
-                    </div>
+                <div class="details">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="contact-text">Trivandrum, Kerala</p>
+                    <p>India</p>
                 </div>
             </div>
         </div>
     </section>
-
-<!-- About Section -->
-<section id="about" class="about">
-    <div class="about-text">
-        <h1 class="my-heading" style="font-weight: normal;">About Me</h1>
-        <p class="center-aligned">
-            As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven
-            history of implementing, managing, and optimizing cloud solutions. I
-            thrive in collaborative environments, where I can contribute to
-            innovation and drive efficiency in cloud infrastructure management.
-            With expertise across both AWS and Azure platforms, I'm passionate
-            about solving complex technical challenges. 
-        </p>
-    </div>
-    <div class="about-image">
-        <img src="../Assets/Images/cloud-image-6.jpg" alt="About Image">
-    </div>
-</section>
-
-<!-- Contact me section -->
-<section class="contact" id="contact">
-    <div class="contact-heading"><br>
-        <h1 class="my-heading text-center" style="font-weight: normal;">Contact Me</h1>
-    </div>
-    <div class="contact-content">
-        <div class="contact-form-container">
-            <h1 class="greet-heading">Get In Touch</h1>
-            <form class="contact-form" id="contactForm">
-                <div> 
-                    <!-- <label for="userName">Name:</label> -->
-                    <input class="form-controls" type="text" id="userName" name="userName" placeholder="Your Name" required>
+    <!-- Footer section -->
+    <footer class="footer">
+        <div class="footer-content text-center">
+            <h4>
+                Copyright © 2025 All rights reserved.
+            </h4>
+            <div class="social-links">
+                <div class="footer-menu">
+                    <ul class="footer-menu-list">
+                        <li class="footer-list-items">
+                            <a class="footer-links" href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        <li class="footer-list-items">
+                            <a class="footer-links" href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div> 
-                    <!-- <label for="userEmail">Email Address:</label> -->
-                    <input class="form-controls" type="email" id="userEmail" name="userEmail" placeholder="your.email@example.com" required>
-                </div>
-                <div>
-                    <!-- <label for="userPhone">Phone Number (Optional):</label> -->
-                    <input class="form-controls" type="tel" id="userPhone" name="userPhone" placeholder="e.g., +91 9876543210">
-                </div>
-                <div>
-                    <!-- <label for="userMessage">Your Message:</label> -->
-                    <textarea class="form-controls" placeholder="Write your message here..." name="userMessage" id="userMessage" cols="30" rows="10" required></textarea>
-                </div>
-                <button class="form-btn btn common-btn" type="submit">Send Message</button>
-            </form>
-        </div>
-        <div class="contact-details">
-            <h1 class="greet-heading">Contact Details</h1><br>
-            <div class="details">
-                <i class="fa-solid fa-envelope"></i>
-                <p class="contact-text">raseefazeez@gmail.com</p>
-            </div>
-            <div class="details">
-                <i class="fa-solid fa-phone"></i>
-                <p class="contact-text">+91-6383890464</p>
-            </div>
-            <div class="details">
-                <i class="fa-solid fa-location-dot"></i>
-                <p class="contact-text">Trivandrum, Kerala</p>
-                <p>India</p>
             </div>
         </div>
-    </div>
-</section>
-<!-- Footer section -->
-<footer class="footer">
-    <div class="footer-content text-center">
-        <h4>
-            Copyright © 2025 All rights reserved.
-        </h4>
-        <div class="social-links">
-            <div class="footer-menu">
-                <ul class="footer-menu-list">
-                    <li class="footer-list-items">
-                        <a class="footer-links" href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    <li class="footer-list-items">
-                        <a class="footer-links" href="#">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
-    integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-<script src="get-mycv.js"></script>
-<script src="myproject-list.js"></script>
-<script src="contact-getinput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+        integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <script src="get-mycv.js"></script>
+    <script src="myproject-list.js"></script>
+    <script src="contact-getinput.js"></script>
 </body>
 
 </html>
