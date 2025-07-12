@@ -178,7 +178,10 @@
                         <textarea class="form-controls" placeholder="Write your message here..." name="userMessage"
                             id="userMessage" cols="30" rows="10" required></textarea>
                     </div>
-                    <button class="form-btn btn common-btn" type="submit">Send Message</button>
+                    <div id="loadingSpinner" style="display: none; text-align: center; margin-top: 10px;">
+                        <p>Sending...</p>
+                    </div>
+                    <button class="form-btn btn common-btn" type="submit" id="submitButton">Send Message</button>
                 </form>
             </div>
             <div class="contact-details">

@@ -20,4 +20,4 @@ const getResumeButton = document.getElementById('downloadresume');
                     }
 
 
-// "My Projects" Button script goes here
+

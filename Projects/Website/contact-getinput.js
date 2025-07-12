@@ -2,23 +2,15 @@
 const contactForm = document.getElementById('contactForm');
 
 // Get references to UI feedback elements
-// IMPORTANT: Ensure these elements exist in your HTML with these IDs:
-// <div id="form-message"></div>
-// <button type="submit" id="submitButton">Send Message</button>
-// <div id="loadingSpinner" style="display: none;"></div> (add basic CSS for spinner animation)
+// IMPORTANT: These elements must exist in your HTML with these IDs:
 const formMessage = document.getElementById('form-message');
 const submitButton = document.getElementById('submitButton');
 const loadingSpinner = document.getElementById('loadingSpinner');
 
-
 // IMPORTANT: This API_GATEWAY_URL must be replaced with your actual API Gateway Invoke URL.
-// Example: 'https://xxxxxxxx.execute-api.your-region.amazonaws.com/prod/submit'
-// During local development, you can hardcode it.
-// For production, your CI/CD pipeline (e.g., GitHub Actions) should inject the correct URL
-// by replacing this placeholder.
-const API_GATEWAY_URL = 'https://8o1uqi2tkb.execute-api.us-east-1.amazonaws.com/prod'; // <<< REPLACE THIS WITH YOUR ACTUAL API GATEWAY URL
+const API_GATEWAY_URL = 'https://9jrcfloh2g.execute-api.us-east-1.amazonaws.com/prod/submit';
 
-/**
+/**s
  * Helper function to display messages to the user.
  * It checks if the formMessage element exists before attempting to update it.
  * @param {string} message - The message text to display.
@@ -30,14 +22,12 @@ function displayMessage(message, type) {
         formMessage.className = type; // Adds 'success' or 'error' class for styling
         formMessage.style.display = 'block'; // Make the message visible
     } else {
-        // Fallback if form-message element is not found, useful for debugging
         console.warn('HTML element with ID "form-message" not found. Message displayed via alert.');
-        alert(message);
+        alert(message); // Fallback to alert if form-message element is missing
     }
 }
 
 // Add an event listener for the 'submit' event to the contact form
-// The 'async' keyword is crucial here because we will use 'await' inside.
 contactForm.addEventListener('submit', async function(event) {
     // 1. Prevent the default form submission (stops the page from refreshing)
     event.preventDefault();
@@ -72,25 +62,21 @@ contactForm.addEventListener('submit', async function(event) {
     if (userName === '') {
         displayMessage('Please enter your name.', 'error');
         isValid = false;
-        nameInput.focus(); // Focus on the problematic input field
+        nameInput.focus();
     } else if (userEmail === '' || !userEmail.includes('@') || !userEmail.includes('.')) {
         displayMessage('Please enter a valid email address.', 'error');
         isValid = false;
         emailInput.focus();
     }
-    // Check if phone input exists and is required, then validate if empty
+    // The phone number input does NOT have the 'required' attribute in your HTML,
+    // so this specific validation for 'required' will not trigger unless you add 'required'
+    // to the userPhone input in HTML: <input type="tel" id="userPhone" name="userPhone" required>
     else if (phoneInput && phoneInput.hasAttribute('required') && userPhone === '') {
         displayMessage('Please enter your phone number.', 'error');
         isValid = false;
         phoneInput.focus();
     }
-    // Example: Add more complex phone number validation using regex if needed
-    // else if (userPhone !== '' && !/^\d{10}$/.test(userPhone)) { // Example for 10 digits
-    //     displayMessage('Please enter a valid 10-digit phone number.', 'error');
-    //     isValid = false;
-    //     phoneInput.focus();
-    // }
-    else if (userMessage === '') { // Ensure the message field is also filled
+    else if (userMessage === '') {
         displayMessage('Please enter your message.', 'error');
         isValid = false;
         messageInput.focus();
@@ -98,49 +84,55 @@ contactForm.addEventListener('submit', async function(event) {
 
     // If any validation failed, stop the submission process here
     if (!isValid) {
-        if (submitButton) submitButton.disabled = false; // Re-enable button
-        if (loadingSpinner) loadingSpinner.style.display = 'none'; // Hide spinner
-        return; // Exit the function
+        if (submitButton) submitButton.disabled = false;
+        if (loadingSpinner) loadingSpinner.style.display = 'none';
+        return;
     }
 
     // 6. Prepare the data payload for sending to API Gateway
-    // The keys here (name, email, phone, message) should match what your Lambda function expects.
     const formData = {
         name: userName,
         email: userEmail,
-        phone: userPhone, // Send phone even if empty; Lambda can handle it as optional
+        phone: userPhone,
         message: userMessage
     };
 
     // 7. Send the data to API Gateway using the Fetch API
     try {
         const response = await fetch(API_GATEWAY_URL, {
-            method: 'POST', // Use POST method for submitting form data
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json', // Inform the server that we are sending JSON
-                'Accept': 'application/json' // Inform the server that we prefer JSON back
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
-            body: JSON.stringify(formData) // Convert the JavaScript object to a JSON string
+            body: JSON.stringify(formData)
         });
 
         // 8. Handle the response from API Gateway
-        if (response.ok) { // 'response.ok' is true for HTTP status codes 200-299 (success)
-            // const result = await response.json(); // You can parse the response body if your API returns data on success
+        if (response.ok) {
             displayMessage('Thank you for your message! We will get back to you soon.', 'success');
             contactForm.reset(); // Clear all form fields after successful submission
         } else {
-            // If the response is not OK (e.g., 4xx or 5xx error from API Gateway/Lambda)
-            const errorData = await response.json(); // Attempt to parse the error message from the API response
-            console.error('API Gateway Error:', errorData); // Log the detailed error object to the console for debugging
-            displayMessage(`Failed to send message: ${errorData.message || 'An unexpected error occurred. Please try again.'}`, 'error');
+            let errorDetails = 'An unexpected error occurred. Please try again.';
+            try {
+                const errorData = await response.json();
+                if (errorData && errorData.message) {
+                    errorDetails = errorData.message;
+                }
+                console.error('API Gateway Error Details:', errorData);
+            } catch (parseError) {
+                console.warn('Could not parse error response as JSON:', parseError);
+                errorDetails = `Server responded with status: ${response.status} ${response.statusText}`;
+            }
+            console.error('API Gateway Error Status:', response.status, response.statusText);
+            displayMessage(`Failed to send message: ${errorDetails}`, 'error');
         }
     } catch (error) {
-        // This 'catch' block handles network errors (e.g., no internet, CORS issues, unreachable API)
-        console.error('Network or Fetch API Error:', error); // Log the actual error object
+        console.error('Network or Fetch API Error:', error);
         displayMessage('Could not send message. Please check your internet connection or try again later.', 'error');
     } finally {
-        // This 'finally' block always executes, regardless of success or failure, to reset UI state
-        if (submitButton) submitButton.disabled = false; // Re-enable the submit button
-        if (loadingSpinner) loadingSpinner.style.display = 'none'; // Hide the loading spinner
+        // This finally block always executes, regardless of success or failure, to reset UI state
+        if (submitButton) submitButton.disabled = false;
+        if (loadingSpinner) loadingSpinner.style.display = 'none';
     }
 });
