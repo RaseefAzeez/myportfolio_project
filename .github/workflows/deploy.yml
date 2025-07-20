@@ -23,7 +23,7 @@ jobs:
 
       - name: Sync HTML and CSS to S3
         run: |
-          aws s3 sync . s3://my-own-aws-static-website-content-bucket \
+          aws s3 sync ./Projects/Website/ s3://my-own-aws-static-website-content-bucket \
             --exclude "*" \
             --include "*.html" \
             --include "*.css" \
