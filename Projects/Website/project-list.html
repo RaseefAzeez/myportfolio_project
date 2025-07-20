@@ -6,17 +6,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
-    
+    <title>My Portfolio - Projects</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        
-    <!-- <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="project-list-style.css">
+    <link rel="stylesheet" href="project-list-responsive.css">
 </head>
 
 <body>
-    <p> My Project Details will be listed here </p>
+    <header>
+        <nav>
+            <div class="logo">Raseef Azeez</div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="projects" class="projects-page-section container">
+            <h1>My Projects</h1>
+
+            <article class="project-detail-card">
+                <h2 class="project-title">My Portfolio Website</h2>
+                <p class="project-intro">This is a Static website hosted on AWS S3 with a contact form connected via API
+                    Gateway, Lambda, and DynamoDB. Integrated email notification with SNS and CI/CD via GitHub Actions.
+                </p>
+
+                <div class="project-section">
+                    <h3>Architecture Overview</h3>
+                    <p class="architecture-description">This diagram illustrates the serverless architecture of my
+                        portfolio website, featuring static hosting on Amazon S3, a contact form powered by AWS API
+                        Gateway and Lambda, data storage in DynamoDB, and real-time notifications via SNS. The entire
+                        infrastructure is managed as code using CloudFormation, with CI/CD automation handled by GitHub
+                        Actions for seamless deployments.</p>
+                    <div class="architecture-diagram-container">
+                        <img src="../Assets/Images/Project-Details-Images/Arch_portfolio website-1.PNG"
+                            alt="Portfolio Website Architecture Diagram" class="responsive-img"> <br>
+                        <img src="../Assets/Images/Project-Details-Images/Arch_portfolio website-2.PNG"
+                            alt="Portfolio Website Architecture Diagram" class="responsive-img">
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Technologies Used</h3>
+                    <ul class="tech-list">
+                        <li>AWS Services: S3 (Static Hosting), API Gateway, Lambda, DynamoDB, SNS, CloudFormation, IAM
+                        </li>
+                        <li>CI/CD: GitHub Actions</li>
+                        <li>Version Control: Git, GitHub</li>
+                        <li>Frontend: HTML, CSS, JavaScript</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        <li>Static website hosting with high availability.</li>
+                        <li>Serverless contact form with data persistence.</li>
+                        <li>Real-time email notifications on form submission.</li>
+                        <li>Infrastructure as Code (IaC) for consistent deployments.</li>
+                        <li>Automated CI/CD pipeline for both frontend and backend.</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://github.com/RaseefAzeez/myprojectfile_test" target="_blank" class="btn-primary">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-detail-card">
+                <h2 class="project-title">Project Title 2: Serverless Image Processing & Analysis</h2>
+                <p class="project-intro">Project details will be added soon</p>
+
+                <div class="project-section">
+                    <h3>Project Goal & Solution</h3>
+                    <p>Project details will be added soon</p>
+                </div>
+
+                <div class="project-section">
+                    <h3>Technologies Used</h3>
+                    <ul class="tech-list">
+                        <li>Technology 1</li>
+                        <li>Technology 2</li>
+                        <li>Technology 3</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Feature A</li>
+                        <li>Feature B</li>
+                        <li>Feature C</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <!-- <a href="#" target="_blank" class="btn-primary disabled"><i class="fab fa-github"></i> GitHub (Coming Soon)</a> -->
+                    <a href="#" target="_blank" class="btn-primary disabled"><i class="fas fa-external-link-alt"></i>
+                        Live Demo (Coming Soon)</a>
+
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p> 2025 Raseef Azeez, All rights reserved.</p>
+    </footer>
+
 </body>
+
 </html>
