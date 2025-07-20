@@ -23,7 +23,7 @@ jobs:
       - name: Sync Website Files to S3
         # UPDATED SOURCE PATH: Navigate to the 'website' folder inside 'Projects'
         run: |
-          aws s3 sync ./Projects/Website/ s3://my-own-aws-static-website-content-bucket/ \
+          aws s3 sync ./Projects/Website/ s3://myown-portfolio-website-content-bucket / \
             --delete --acl public-read
         env:
           AWS_REGION: us-east-1 # Ensure this matches the above region
