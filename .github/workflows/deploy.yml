@@ -18,12 +18,18 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # <<< IMPORTANT: Double-check this is your S3 bucket's actual region!
+          aws-region: us-east-1 # <<< IMPORTANT: VERIFY THIS IS YOUR S3 BUCKET'S ACTUAL REGION
 
-      - name: Sync Website Files to S3
-        # UPDATED SOURCE PATH: Navigate to the 'website' folder inside 'Projects'
+      - name: Sync All Website Files (including images) to S3
+        # Ensure the source path points to your website's root content directory
+        # Example: if your website files are in ./Projects/Website/
         run: |
-          aws s3 sync ./Projects/Website/ s3://myown-portfolio-website-content-bucket / \
+          aws s3 sync ./Projects/Website/ s3://myown-portfolio-website-content-bucket/ \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "node_modules/*" \
+            --exclude "package.json" \
+            --exclude "package-lock.json" \
             --delete --acl public-read
         env:
           AWS_REGION: us-east-1 # Ensure this matches the above region
