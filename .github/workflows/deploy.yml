@@ -18,17 +18,35 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # <<< VERIFY THIS IS YOUR S3 BUCKET'S ACTUAL REGION
+          aws-region: us-east-1 # <<< CRITICAL: VERIFY THIS IS YOUR S3 BUCKET'S ACTUAL REGION
 
-      - name: Sync All Website Files (including images) to S3
-        # REMOVED: --acl public-read
+      - name: Prepare Deployment Content
         run: |
-          aws s3 sync ./Projects/Website/ s3://myown-portfolio-website-content-bucket/ \
+          mkdir -p build_output/Assets # Create the main output dir and the Assets sub-dir
+
+          # Copy contents of the Website folder (HTML, CSS, JS etc.) to the root of build_output
+          # The trailing '.' ensures only content is copied, not the 'Website' folder itself.
+          cp -R ./Projects/Website/. ./build_output/
+
+          # Copy the entire Assets folder and its contents into build_output/
+          # This will create build_output/Assets/Images/...
+          cp -R ./Projects/Assets/. ./build_output/Assets/ # The trailing '.' ensures content is copied
+
+          # Optional: List content of build_output to verify structure before sync
+          echo "--- Content of build_output/ ---"
+          ls -R build_output
+          echo "-----------------------------"
+
+      - name: Sync All Consolidated Website Files to S3
+        # Now, sync the single 'build_output' directory to S3
+        run: |
+          aws s3 sync ./build_output/ s3://myown-portfolio-website-content-bucket/ \
             --delete \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "node_modules/*" \
             --exclude "package.json" \
-            --exclude "package-lock.json"
+            --exclude "package-lock.json" \
+            --exclude "README.md" # Add any other files from repo root you don't want to sync
         env:
-          AWS_REGION: us-east-1 # Ensure this matches the above region
+          AWS_REGION: us-east-1 # Ensure consistency
