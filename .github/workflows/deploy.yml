@@ -1,4 +1,3 @@
-
 name: Deploy a static website to S3
 
 on:
@@ -19,12 +18,12 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # e.g., ap-south-1 for Mumbai
+          aws-region: us-east-1 # <<< IMPORTANT: Double-check this is your S3 bucket's actual region!
 
-      - name: Sync HTML and CSS to S3
+      - name: Sync Website Files to S3
+        # UPDATED SOURCE PATH: Navigate to the 'website' folder inside 'Projects'
         run: |
-          aws s3 sync ./Projects/Website/ s3://my-own-aws-static-website-content-bucket \
-            --exclude "*" \
-            --include "*.html" \
-            --include "*.css" \
+          aws s3 sync ./Projects/Website/ s3://my-own-aws-static-website-content-bucket/ \
             --delete --acl public-read
+        env:
+          AWS_REGION: us-east-1 # Ensure this matches the above region
