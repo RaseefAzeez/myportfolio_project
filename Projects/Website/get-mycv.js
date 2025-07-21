@@ -1,7 +1,7 @@
 // "Get Resume" Button action script goes here
 
 const getResumeButton = document.getElementById('downloadresume');
-                    const resumePdfUrl = '../Website/Resumes/Raseef_CV_completed.pdf';
+                    const resumePdfUrl = 'Resumes/Raseef_CV_completed.pdf';
                     const suggestedResumeFileName = 'Downloaded_Raseef_Resume.pdf'; 
             
                     if (getResumeButton) {
