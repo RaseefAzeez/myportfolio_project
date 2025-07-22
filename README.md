@@ -12,10 +12,4 @@ In order perform Infrastructure as Code (IaC) for consistent deployments, useed 
 <<<<<<< HEAD
 A Basic Structural architechture has been shared below:
 
-![Structural Architecture Diagram](Projects\Assets\Images\Project-Details-Images\structure- architecture.PNG)
-=======
-![A Basic Structural architechture has been shared below:](Projects/Assets/Images/Project-Details-Images/structure- architecture.PNG)
-
-
-
->>>>>>> e8f52730cab11299f19e62cc657f9e21ee0c7ea8
+![Structural Achitecture Digaram](Projects\Assets\Images\Project-Details-Images\structure- architecture.PNG)
