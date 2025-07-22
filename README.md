@@ -1,6 +1,6 @@
 # myportfolio_project
 
-Here's a quick overview of the project.
+Here's a quick overview of the project:
 
 This is a portfolio website hosted on AWS S3 as staic website which will get user data using a contact form (via API gateway) and process the event data via Lambda to store on DynamoDB, which will sent an even notification via SNS and lambda events are logged under Cloud Watch
 
@@ -9,7 +9,7 @@ Granular IAM roles/ policies are assigned to appropriate resources including S3,
 
 In order perform Infrastructure as Code (IaC) for consistent deployments, useed AWS CloudFormation with GitSync feature enabled.
 
-A Basic Structural architechture has been shared below:
+A Basic Structural architechture has been shared below: (Projects/Assets/Images/Project-Details-Images/structure- architecture.PNG)
 
 
 
