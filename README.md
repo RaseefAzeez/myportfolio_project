@@ -12,4 +12,4 @@ In order perform Infrastructure as Code (IaC) for consistent deployments, useed 
 
 A Basic Structural architechture has been shared below:
 
-![Structural Achitecture Digaram] (readme-images\structure-1.PNG)
+![Structural Achitecture Digaram](readme-images\structure-1.PNG)
