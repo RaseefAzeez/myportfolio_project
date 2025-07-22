@@ -9,7 +9,7 @@ Granular IAM roles/ policies are assigned to appropriate resources including S3,
 
 In order perform Infrastructure as Code (IaC) for consistent deployments, useed AWS CloudFormation with GitSync feature enabled.
 
-A Basic Structural architechture has been shared below: (Projects/Assets/Images/Project-Details-Images/structure- architecture.PNG)
+![A Basic Structural architechture has been shared below:](Projects/Assets/Images/Project-Details-Images/structure- architecture.PNG)
 
 
 
