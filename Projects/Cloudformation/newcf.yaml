@@ -1,0 +1,9 @@
+# cloud formation initial template 
+
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources :
+    RestApi :
+        Type : AWS::ApiGateway::RestApi
+        Properties:
+          Name : myApiusingCF
