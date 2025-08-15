@@ -1,6 +1,7 @@
 # cloud formation initial template 
 
 AWSTemplateFormatVersion: "2010-09-09"
+Description: "Cloud Formation template for creating aws services for my portfolio website"
 
 Resources :
     RestApi :
