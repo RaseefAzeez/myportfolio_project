@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     const defaultHeaders = {
         'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
         'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-        'Access-Control-Allow-Methods': 'POST,OPTIONS', // Include all methods your API handles
+        'Access-Control-Allow-Methods': 'POST,OPTIONS', // Include all methods on API handles
         'Content-Type': 'application/json' // Essential for JSON responses
     };
 

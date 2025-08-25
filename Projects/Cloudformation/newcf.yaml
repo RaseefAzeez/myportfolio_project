@@ -3,8 +3,33 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Cloud Formation template for creating aws services for my portfolio website"
 
-Resources :
-    RestApi :
+Resources:
+    RestAPI:
         Type : AWS::ApiGateway::RestApi
         Properties:
           Name : myApiusingCF
+          Description: "API for contact form submission"
+
+    submitResource:
+      Type : AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: !Ref RestAPI
+        ParentId: !GetAtt RestAPI.RootResourceId
+        PathPart: submit
+
+    myOPTIONMethod:
+        Type: AWS::ApiGateway::Method
+        Properties:
+          HttpMethod: OPTIONS
+          ResourceId: !Ref submitResource
+          RestApiId: !Ref RestAPI
+
+    myPOSTMethod:
+      Type: AWS::ApiGateway::Method
+      Properties:
+        HttpMethod: POST 
+        ResourceId: !Ref submitResource
+        RestApiId: !Ref RestAPI
+
+
+          
