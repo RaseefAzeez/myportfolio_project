@@ -3,12 +3,15 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Cloud Formation template for creating aws services for my portfolio website"
 
+
+# API Gateway Resouece creation and method defenition follows here
+
 Resources:
     RestAPI:
         Type : AWS::ApiGateway::RestApi
         Properties:
           Name : myApiusingCF
-          Description: "API for contact form submission"
+          Description: "API Gateway for contact form submission"
 
     submitResource:
       Type : AWS::ApiGateway::Resource
@@ -17,19 +20,86 @@ Resources:
         ParentId: !GetAtt RestAPI.RootResourceId
         PathPart: submit
 
-    myOPTIONMethod:
+    myPOSTMethod:
         Type: AWS::ApiGateway::Method
         Properties:
-          HttpMethod: OPTIONS
+          HttpMethod: POST
           ResourceId: !Ref submitResource
           RestApiId: !Ref RestAPI
-
-    myPOSTMethod:
+          AuthorizationType: NONE
+          Integration:
+            IntegrationHttpMethod:  POST
+            Type: AWS_PROXY
+            Uri: !Sub 'arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${processContactForm.Arn}/invocations'
+  
+    myOPTIONMethod:
       Type: AWS::ApiGateway::Method
       Properties:
-        HttpMethod: POST 
+        HttpMethod: OPTIONS 
         ResourceId: !Ref submitResource
         RestApiId: !Ref RestAPI
+        AuthorizationType: NONE
+        RequestParameters:
+          method.request.header.myheader: false
+        Integration:
+          Type: MOCK
+          RequestTemplates:
+            application/json: "{\"statusCode\": 200}"
+          RequestParameters:
+            integration.request.header.header1: method.request.header.myheader
+          IntegrationResponses:
+            - StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                method.response.header.Access-Control-Allow-Origin: "'https://myown-portfolio-website-content-bucket.s3.us-east-1.amazonaws.com'"
+        MethodResponses:
+          - StatusCode: '200'
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Headers: true 
+              method.response.header.Access-Control-Allow-Origin: true
+
+    myLambdaPermissions:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref processContactForm
+        Principal: apigateway.amazonaws.com
+
+    processContactForm:
+      Type: AWS::Lambda::Function
+      Properties:
+        Runtime: nodejs20.x
+        Handler: index.handler
+        Role: arn:aws:iam::061051251789:role/ProcessContactFormLambdaRole
+        Code:
+          ZipFile: |
+            exports.handler = async (event) => {
+              return {
+                statusCode: 200,
+                body: "Hello from Lambda"
+              };
+            };
+    
+    myAPIDeployment:
+      Type: 'AWS::ApiGateway::Deployment'
+      Properties:
+        RestApiId: !Ref RestAPI
+        Description: !Sub "Deployment - ${AWS::StackName} - ${AWS::Timestamp}"
+      DependsOn: 
+        - myPOSTMethod
+        - myOPTIONMethod
+
+    myAPIStage:
+      Type: AWS::ApiGateway::Stage
+      Properties:
+        RestApiId: !Ref RestAPI
+        DeploymentId: !Ref myAPIDeployment
+        StageName: prod
+        
+
+
 
 
           

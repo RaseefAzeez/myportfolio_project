@@ -129,7 +129,7 @@ contactForm.addEventListener('submit', async function(event) {
         }
     } catch (error) {
         console.error('Network or Fetch API Error:', error);
-        displayMessage('Could not send message. Please check your internet connection or try again later.', 'error');
+        displayMessage('Something Went Wrong! Could not send message or try again later.', 'error');
     } finally {
         // This finally block always executes, regardless of success or failure, to reset UI state
         if (submitButton) submitButton.disabled = false;
