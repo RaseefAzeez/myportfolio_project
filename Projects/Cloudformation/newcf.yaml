@@ -60,12 +60,7 @@ Resources:
               method.response.header.Access-Control-Allow-Headers: true 
               method.response.header.Access-Control-Allow-Origin: true
 
-    myLambdaPermissions:
-      Type: AWS::Lambda::Permission
-      Properties:
-        Action: lambda:InvokeFunction
-        FunctionName: !Ref processContactForm
-        Principal: apigateway.amazonaws.com
+#Lambda function creation done here
 
     processContactForm:
       Type: AWS::Lambda::Function
@@ -81,7 +76,17 @@ Resources:
                 body: "Hello from Lambda"
               };
             };
+
     
+    myLambdaPermissions:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref processContactForm
+        Principal: apigateway.amazonaws.com
+  
+# API gateay Deployment using (POST/OPTIONS (CORS)) method(s) done here
+
     myAPIDeployment:
       Type: 'AWS::ApiGateway::Deployment'
       Properties:
@@ -97,7 +102,25 @@ Resources:
         RestApiId: !Ref RestAPI
         DeploymentId: !Ref myAPIDeployment
         StageName: prod
-        
+
+#DynamoDB is created here and the data will be inserted to PortfolioContactSubmissions table based on submissionId (Primary Key)
+    
+    myDynamoDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PortfolioContactSubmissions
+        AttributeDefinitions:
+          - AttributeName: submissionId
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: S
+        KeySchema:
+          - AttributeName: submissionId 
+            KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+
 
 
 
