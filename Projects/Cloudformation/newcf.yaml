@@ -70,11 +70,21 @@ Resources:
       Code:
         ZipFile: |
           exports.handler = async (event) => {
+            console.log("Event: ", JSON.stringify(event));
+            
             return {
               statusCode: 200,
+              headers: {
+                "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN,
+              },
               body: "Hello from Lambda"
             };
           };
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref myDynamoDB
+          SNS_TOPIC_ARN: !Ref MySNSTopic
+          ALLOWED_ORIGIN: "https://myown-portfolio-website-content-bucket.s3.us-east-1.amazonaws.com"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
