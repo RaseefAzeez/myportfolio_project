@@ -51,7 +51,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'https://myown-portfolio-website-content-bucket.s3.us-east-1.amazonaws.com'"
+              method.response.header.Access-Control-Allow-Origin: "'http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
@@ -71,7 +71,7 @@ Resources:
         ZipFile: |
           exports.handler = async (event) => {
             console.log("Event: ", JSON.stringify(event));
-            
+
             return {
               statusCode: 200,
               headers: {
@@ -84,7 +84,7 @@ Resources:
         Variables:
           TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: "https://myown-portfolio-website-content-bucket.s3.us-east-1.amazonaws.com"
+          ALLOWED_ORIGIN: !Sub "http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -167,3 +167,47 @@ Resources:
                 Action: sns:Publish
                 Resource: !Ref MySNSTopic
           PolicyName: inlineForDynamoDbAndSnsAccess
+  
+  #S3 bucket creation along with bucket policy 
+
+  myPortfolioContentS3bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      AccessControl: PublicRead 
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        #ErrorDocument: error.html 
+
+
+  myS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref myPortfolioContentS3bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt myPortfolioContentS3bucket.WebsiteURL
+    Export:
+      Name: !Sub "${AWS::StackName}-WebsiteURL"
+
+
+
+            
+        
+      
