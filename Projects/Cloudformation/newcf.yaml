@@ -139,36 +139,35 @@ Resources:
         - Endpoint: "raseefaz@gmail.com"
           Protocol: email
 
-
   #IAM role for Lambda Execurtion with permissions for DynamoDB PutItem and SNS Publish
 
   myLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument:  # Trust policy added here -which lambda assumes 
+      AssumeRolePolicyDocument: # Trust policy added here -which lambda assumes
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
-      ManagedPolicyArns: 
+      ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              - Sid:  DynamoDBPutItem
+              - Sid: DynamoDBPutItem
                 Effect: Allow
                 Action: dynamodb:PutItem
                 Resource: !GetAtt myDynamoDB.Arn
-              - Sid:  SNSemail
+              - Sid: SNSemail
                 Effect: Allow
                 Action: sns:Publish
                 Resource: !Ref MySNSTopic
           PolicyName: inlineForDynamoDbAndSnsAccess
-  
-  #S3 bucket creation along with bucket policy 
+
+  #S3 bucket creation along with bucket policy
 
   myPortfolioContentS3bucket:
     Type: AWS::S3::Bucket
@@ -182,11 +181,10 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
-      AccessControl: PublicRead 
+      AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-        #ErrorDocument: error.html 
-
+        #ErrorDocument: error.html
 
   myS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -196,7 +194,7 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - 's3:GetObject'
+              - "s3:GetObject"
             Effect: Allow
             Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
 
@@ -205,9 +203,3 @@ Outputs:
     Value: !GetAtt myPortfolioContentS3bucket.WebsiteURL
     Export:
       Name: !Sub "${AWS::StackName}-WebsiteURL"
-
-
-
-            
-        
-      
