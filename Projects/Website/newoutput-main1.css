@@ -4,6 +4,7 @@
 /* ---------- THEME ---------- */
 @layer theme {
   :root, :host {
+    --header-height: 80px; 
     --color-primary: #1f2c92;
     --color-secondary: #c4c4c4;
     --default-font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
