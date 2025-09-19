@@ -23,10 +23,10 @@
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="newindex.html" class="text-2xl font-bold text-white hover:text-blue-500 transition-colors duration-300">Raseef Azeez</a>
             <ul class="flex space-x-6">
-                <li><a class="text-gray-400 hover:text-white transition" href="index.html#home">Home</a></li>
-                <li><a class="text-gray-400 hover:text-white transition" href="index.html#portfolio">Portfolio</a></li>
-                <li><a class="text-gray-400 hover:text-white transition" href="index.html#about">About</a></li>
-                <li><a class="text-gray-400 hover:text-white transition" href="index.html#contact">Contact</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="newindex.html#home">Home</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="newindex.html#portfolio">Portfolio</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="newindex.html#about">About</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="newindex.html#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -38,29 +38,29 @@
 
                 <article class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl mb-16 transition-transform duration-300 transform hover:scale-[1.01]">
                     <h2 class="text-2xl md:text-2xl font-bold text-white-400 mb-4">My Portfolio Website</h2>
-                    <p class="text-gray-400 mb-8 max-w-4xl">This is a static website hosted on AWS S3 with a contact form connected via **API Gateway**, **Lambda**, and **DynamoDB**. The entire setup uses **Infrastructure as Code (IaC)** with CloudFormation and features a CI/CD pipeline automated by **GitHub Actions**.</p>
+                    <p class="text-gray-400 mb-8 max-w-4xl">This is a static website hosted on <span class="text-white">AWS S3</span> with a contact form connected via <span class="text-white">API Gateway</span>, <span class="text-white">Lambda</span>, and <span class="text-white">DynamoDB</span>. The entire setup uses <span class="text-white">Infrastructure as Code (IaC)</span> with <span class="text-white">CloudFormation</span> and features a <span class="text-white">CI/CD pipeline</span> automated using <span class="text-white">GitHub Actions.</span></p>
                     
                     <div class="mb-12">
                         <h3 class="text-2xl md:text-2xl font-bold text-white-400 mb-4">Architecture Overview</h3>
                         <p class="text-gray-400 mb-6">This diagram illustrates the serverless architecture of my portfolio website, featuring static hosting on Amazon S3, a contact form powered by AWS API Gateway and Lambda, data storage in DynamoDB, and real-time notifications via SNS. The entire infrastructure is managed as code using CloudFormation, with CI/CD automation handled by GitHub Actions for seamless deployments and logging via CloudWatch.
-                        
                         </p>
-                        
+                        <img src="/readme-images/portfolio-website-architecture.PNG" alt="Portfolio Website Architecture Diagram"
+     class="rounded-xl shadow-lg mx-auto mb-8 max-w-full md:max-w-3xl">
                     </div>
     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                         <div class="bg-gray-700 p-6 rounded-xl">
                             <h3 class="text-xl font-bold text-white mb-4">Technologies Used</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-400">
-                                <li>AWS Services: S3, API Gateway, Lambda, DynamoDB, SNS, CloudFormation, IAM, CloudWatch</li>
-                                <li>CI/CD: GitHub Actions</li>
-                                <li>Version Control: Git, GitHub</li>
-                                <li>Frontend: HTML, CSS, JavaScript</li>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                                <li><span class="text-white">AWS Services:</span> S3, API Gateway, Lambda, DynamoDB, SNS, CloudFormation, IAM, CloudWatch</li>
+                                <li><span class="text-white">CI/CD:</span> GitHub Actions, GitHub workflow</li>
+                                <li><span class="text-white">Version Control:</span> Git, GitHub</li>
+                                <li><span class="text-white">Frontend:</span> HTML, Tailwind CSS, JavaScript</li>
                             </ul>
                         </div>
                         <div class="bg-gray-700 p-6 rounded-xl">
                             <h3 class="text-xl font-bold text-white mb-4">Features</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
                                 <li>Static website hosting with high availability.</li>
                                 <li>Serverless contact form with data persistence.</li>
                                 <li>Real-time email notifications on form submission.</li>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="bg-gray-700 p-6 rounded-xl">
                             <h3 class="text-xl font-bold text-white mb-4">Future Enhancements</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
                                 <li>Integrate a blog section with content hosted on DynamoDB.</li>
                                 <li>Implement a CI/CD pipeline for the blog content.</li>
                                 <li>Add a custom domain with Route 53 and CloudFront.</li>
