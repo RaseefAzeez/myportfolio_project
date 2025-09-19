@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,90 +14,87 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="font-[Public_Sans] text-gray-800 bg-white">
+<body class="font-[Public_Sans] bg-gray-900 text-gray-200">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+    <header class="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-xl border-b border-gray-800">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-900">Raseef Azeez</a>
+            <a href="#" class="text-2xl font-bold text-white hover:text-blue-500 transition-colors duration-300">Raseef Azeez</a>
             <ul class="flex space-x-6">
-                <li><a class="text-gray-800 hover:text-blue-600 transition" href="#home">Home</a></li>
-                <li><a class="text-gray-800 hover:text-blue-600 transition" href="#portfolio">Portfolio</a></li>
-                <li><a class="text-gray-800 hover:text-blue-600 transition" href="#about">About</a></li>
-                <li><a class="text-gray-800 hover:text-blue-600 transition" href="#contact">Contact</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="#home">Home</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="#portfolio">Portfolio</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="#about">About</a></li>
+                <li><a class="text-gray-400 hover:text-white transition" href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="pt-20">
         <section id="home" class="h-screen flex items-center justify-center text-center bg-gray-900 text-white">
-            <div class="max-w-3xl p-6">
-                <h2 class="text-4xl md:text-5xl font-light mb-2">Hello, I'm</h2>
-                <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight mb-4">Raseef Azeez</h1>
-                <p class="text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-6">An AWS Cloud Engineer with 4+ years of
-                    experience in the cloud and 9+ years of Overall IT experience.</p>
-                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <div class="max-w-4xl p-6">
+                <h2 class="text-3xl md:text-4xl font-light mb-2 text-gray-400">Hello, I'm</h2>
+                <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tight mb-4 text-white">Raseef Azeez</h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8">An **AWS Cloud Engineer** with over 4 years of experience and 9+ years of overall IT expertise, specializing in building and managing scalable cloud solutions.</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-10">
                     <a href="#portfolio"
-                        class="inline-block px-8 py-3 rounded-full text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">My
-                        Projects</a>
+                        class="inline-block px-10 py-4 rounded-full text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">My
+                        Projects <i class="fa-solid fa-arrow-right-long ml-2"></i></a>
                     <button
-                        class="inline-block px-8 py-3 rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors duration-300">Get
-                        Resume</button>
+                        class="inline-block px-10 py-4 rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 transform hover:scale-105">Get
+                        Resume <i class="fa-solid fa-download ml-2"></i></button>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="py-20 px-4">
+        <section id="portfolio" class="py-20 px-4 bg-gray-800">
             <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">My Portfolio</h2>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">My Portfolio</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A showcase of my projects and certifications, demonstrating a deep understanding of cloud engineering and solution architecture.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                        <div class="text-blue-600 text-3xl mb-4">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-blue-500 text-4xl mb-6">
                             <i class="fa-solid fa-user-tie"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-2">My Portfolio Website</h3>
-                        <p class="text-gray-600 mb-4">This application demonstrates a dynamic frontend, robust backend
-                            data processing, and an automated CI/CD pipeline for AWS deployments.</p>
-                        <p class="text-sm font-semibold text-gray-700">Core Services:</p>
-                        <p class="text-sm text-gray-500">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway, AWS
-                            Lambda (Node.js), Amazon DynamoDB, IAM, CloudWatch, HTML/CSS/JavaScript.</p>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">My Portfolio Website</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">This application demonstrates a dynamic frontend, robust backend data processing, and an automated CI/CD pipeline for AWS deployments.</p>
+                        <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
+                        <p class="text-xs text-gray-400">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway, AWS Lambda (Node.js), Amazon DynamoDB, IAM, CloudWatch, HTML/CSS/JavaScript.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                        <div class="text-blue-600 text-3xl mb-4">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-blue-500 text-4xl mb-6">
                             <i class="fa-solid fa-code"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-2">Serverless Image Processing & Analysis</h3>
-                        <p class="text-gray-600 mb-4">Project details will be added soon.</p>
-                        <p class="text-sm font-semibold text-gray-700">Core Services:</p>
-                        <p class="text-sm text-gray-500">AWS S3, AWS Lambda, Amazon Rekognition, Amazon Textract,
-                            CloudWatch, IAM, Serverless Application Model (SAM).</p>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Serverless Image Processing & Analysis</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">A serverless solution to process and analyze images, showcasing the power of AWS's AI/ML services in an automated workflow.</p>
+                        <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
+                        <p class="text-xs text-gray-400">AWS S3, AWS Lambda, Amazon Rekognition, Amazon Textract, CloudWatch, IAM, Serverless Application Model (SAM).</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                        <div class="text-blue-600 text-3xl mb-4">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-blue-500 text-4xl mb-6">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-2">Upcoming Project #3</h3>
-                        <p class="text-gray-600 mb-4">Project details will be added soon.</p>
-                        <p class="text-sm font-semibold text-gray-700">Core Services:</p>
-                        <p class="text-sm text-gray-500">Project details will be added here.</p>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Upcoming Project #3</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Details about this new project will be added soon. It will focus on a scalable data pipeline.</p>
+                        <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
+                        <p class="text-xs text-gray-400">Project details will be added here.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                        <div class="text-blue-600 text-3xl mb-4">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-blue-500 text-4xl mb-6">
                             <i class="fas fa-quote-left"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-2">Skill Set</h3>
-                        <p class="text-gray-600 mb-4">Skill set needs to be updated.</p>
-                        <p class="text-sm text-gray-500">Additional information needed to be added here.</p>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Skill Set</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">This section will be updated with a comprehensive list of my technical skills, including programming languages, frameworks, and tools.</p>
+                        <p class="text-sm text-gray-400 mt-auto">Additional information needed to be added here.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                        <div class="text-blue-600 text-3xl mb-4">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-blue-500 text-4xl mb-6">
                             <i class="fa-brands fa-aws"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-2">AWS Solutions Architect Associate (SAA-C03)</h3>
-                        <p class="text-gray-600 mb-4">Issued: May 2024 | Active till May 2027</p>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">AWS Solutions Architect Associate (SAA-C03)</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Issued: May 2024 | Active till May 2027</p>
                         <a href="https://www.credly.com/badges/bb09b07e-814c-436f-b136-25ad12022d3d" target="_blank"
-                            class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-300 font-semibold text-sm mt-auto">
+                            class="inline-flex items-center text-blue-500 hover:text-blue-400 transition-colors duration-300 font-semibold text-sm mt-auto">
                             <i class="fas fa-external-link-alt mr-2"></i> Verify Credential
                         </a>
                     </div>
@@ -107,81 +102,91 @@
             </div>
         </section>
 
-        <section id="about" class="py-20 px-4 bg-gray-100">
-            <div class="container mx-auto flex flex-col md:flex-row items-center gap-10">
+        <section id="about" class="py-20 px-4 bg-gray-900 text-white">
+            <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
                 <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">About Me</h2>
-                    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">As an experienced AWS Cloud
-                        Infrastructure Associate Engineer, I've a proven history of implementing, managing, and
-                        optimizing cloud solutions. I thrive in collaborative environments, where I can contribute to
-                        innovation and drive efficiency in cloud infrastructure management. With expertise across both
-                        AWS and Azure platforms, I'm passionate about solving complex technical challenges.</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">About Me</h2>
+                    <p class="text-gray-400 leading-relaxed max-w-2xl mx-auto md:mx-0 text-lg">As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven history of implementing, managing, and optimizing cloud solutions. I thrive in collaborative environments, where I can contribute to innovation and drive efficiency in cloud infrastructure management. With expertise across both AWS and Azure platforms, I'm passionate about solving complex technical challenges.</p>
                 </div>
                 <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-                    <img src="https://via.placeholder.com/500" alt="About Image" class="rounded-lg shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9408?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About Image" class="rounded-xl shadow-2xl">
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-20 px-4 bg-white">
+        <section id="contact" class="py-20 px-4 bg-gray-800 text-white">
             <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <form class="bg-gray-50 p-8 rounded-lg shadow-md space-y-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <form class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6 transform hover:scale-105 transition-transform duration-300">
+                    <h2 class="text-3xl font-bold text-white mb-4">Get In Touch</h2>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                             type="text" id="userName" name="userName" placeholder="Your Name" required>
                     </div>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                             type="email" id="userEmail" name="userEmail" placeholder="your.email@example.com" required>
                     </div>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                             type="tel" id="userPhone" name="userPhone" placeholder="Phone Number (Optional)">
                     </div>
                     <div>
-                        <textarea class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        <textarea class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Write your message here..." name="userMessage" id="userMessage" rows="6" required></textarea>
                     </div>
                     <button type="submit"
-                        class="w-full text-white py-3 px-4 rounded-md transition text-lg bg-blue-600 hover:bg-blue-700 font-semibold">
-                        Send Message
+                        class="w-full text-white py-4 px-4 rounded-md transition text-lg bg-blue-600 hover:bg-blue-700 font-semibold transform hover:scale-105 duration-300">
+                        Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
                     </button>
                 </form>
 
-                <div class="bg-gray-50 p-8 rounded-lg shadow-md space-y-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Contact Details</h2>
+                <div class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6">
+                    <h2 class="text-3xl font-bold text-white mb-4">Contact Details</h2>
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-envelope text-blue-600 text-xl"></i>
-                        <p class="text-gray-600">raseefazeez@gmail.com</p>
+                        <i class="fa-solid fa-envelope text-blue-500 text-xl"></i>
+                        <p class="text-gray-400">raseefazeez@gmail.com</p>
                     </div>
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-phone text-blue-600 text-xl"></i>
-                        <p class="text-gray-600">+91-6383890464</p>
+                        <i class="fa-solid fa-phone text-blue-500 text-xl"></i>
+                        <p class="text-gray-400">+91-6383890464</p>
                     </div>
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-location-dot text-blue-600 text-xl"></i>
-                        <p class="text-gray-600">Trivandrum, Kerala, India</p>
+                        <i class="fa-solid fa-location-dot text-blue-500 text-xl"></i>
+                        <p class="text-gray-400">Trivandrum, Kerala, India</p>
+                    </div>
+                    <div class="flex space-x-6 mt-6">
+                        <a href="https://twitter.com" target="_blank"
+                            class="text-gray-400 hover:text-blue-500 transition-colors duration-300 transform hover:scale-125">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank"
+                            class="text-gray-400 hover:text-blue-500 transition-colors duration-300 transform hover:scale-125">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                        <a href="https://github.com/RaseefAzeez" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-125">
+                            <i class="fab fa-github fa-lg"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-gray-900 text-white py-8">
+    <footer class="bg-gray-950 text-white py-8">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-400">&copy; 2025 Raseef Azeez, All rights reserved.</p>
+            <p class="text-sm text-gray-500">&copy; 2025 Raseef Azeez, All rights reserved.</p>
             <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" target="_blank"
-                    class="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                <a href="https://twitter.com" target="_blank"
+                    class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-twitter fa-lg"></i>
                 </a>
                 <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank"
-                    class="text-gray-400 hover:text-blue-600 transition-colors duration-300">
+                    class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-linkedin fa-lg"></i>
                 </a>
                 <a href="https://github.com/RaseefAzeez" target="_blank"
-                    class="text-gray-400 hover:text-gray-300 transition-colors duration-300">
+                    class="text-gray-500 hover:text-white transition-colors duration-300">
                     <i class="fab fa-github fa-lg"></i>
                 </a>
             </div>
@@ -190,4 +195,3 @@
 </body>
 
 </html>
-
