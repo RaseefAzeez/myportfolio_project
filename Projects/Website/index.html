@@ -11,14 +11,14 @@
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         #other-expertise {
             scroll-behavior: smooth;
             scroll-padding-top: 80px;
         }
-        
+
         /* New CSS for the hover effect on slider cards */
         .swiper-slide {
             transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
@@ -29,40 +29,141 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init({
+                duration: 900, // Animation duration in ms
+                easing: 'ease-out-cubic',
+                once: true // Animation happens only once when scrolling down
+            });
+        });
+    </script>
+
+
 </head>
 
 <body class="font-[Public_Sans] bg-gray-900 text-gray-200">
     <header class="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-xl border-b border-gray-800">
-    <nav class="container mx-auto px-4 py-4 flex justify-between items-center relative">
-        <a href="#" class="text-2xl text-white hover:text-blue-500 transition-colors duration-300">Raseef Azeez</a>
-        <button id="mobile-menu-button" class="text-white hover:text-blue-500 md:hidden">
-            <i class="fas fa-bars fa-xl"></i>
-        </button>
-        <ul id="main-nav-menu" class="hidden md:flex flex-col md:flex-row md:space-x-6 md:static absolute top-full right-0 w-full md:w-auto bg-gray-900 md:bg-transparent shadow-xl md:shadow-none p-4 md:p-0">
-            <li><a class="text-gray-400 hover:text-white transition block py-2" href="#home">Home</a></li>
-            <li><a class="text-gray-400 hover:text-white transition block py-2" href="#portfolio">Portfolio</a></li>
-            <li><a class="text-gray-400 hover:text-white transition block py-2" href="#about">About</a></li>
-            <li><a class="text-gray-400 hover:text-white transition block py-2" href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center relative">
+            <a href="#" class="text-2xl text-white hover:text-blue-500 transition-colors duration-300">Raseef Azeez</a>
+            <button id="mobile-menu-button" class="text-white hover:text-blue-500 md:hidden">
+                <i class="fas fa-bars fa-xl"></i>
+            </button>
+            <ul id="main-nav-menu"
+                class="hidden md:flex flex-col md:flex-row md:space-x-6 md:static absolute top-full right-0 w-full md:w-auto bg-gray-900 md:bg-transparent shadow-xl md:shadow-none p-4 md:p-0">
+                <li><a class="text-gray-400 hover:text-white transition block py-2" href="#home">Home</a></li>
+                <li><a class="text-gray-400 hover:text-white transition block py-2" href="#portfolio">Portfolio</a></li>
+                <li><a class="text-gray-400 hover:text-white transition block py-2" href="#about">About</a></li>
+                <li><a class="text-gray-400 hover:text-white transition block py-2" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
     <main class="pt-20">
-        <section id="home" class="h-screen flex items-center justify-center text-center bg-gray-900 text-white">
+        <!-- <section id="home" class="h-screen flex items-center justify-center text-center bg-gray-900 text-white">
             <div class="max-w-4xl p-6">
                 <h2 class="text-3xl md:text-4xl font-light mb-2 text-gray-400">Hello, I'm</h2>
-                <h1 class="text-6xl md:text-7xl lg:text-8xl leading-tight tracking-tight mb-4 text-white">Raseef Azeez</h1>
-                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8">An AWS Cloud Engineer with over 4 years of experience and 9+ years of overall IT expertise, specializing in building and managing scalable cloud solutions.</p>
-                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-10">
-                    <a href="project-list.html" class="inline-block px-10 py-4 rounded-full text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">My Projects <i class="fa-solid fa-arrow-right-long ml-2"></i></a>
-                    <a href="Resumes/Raseef_CV_completed.pdf" download="Raseef_Azeez_CV.pdf" class="inline-block px-10 py-4 rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 transform hover:scale-105">Get Resume <i class="fa-solid fa-download ml-2"></i></a>
+                <h1 class="text-6xl md:text-7xl lg:text-8xl leading-tight tracking-tight mb-4 text-white">Raseef Azeez
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8">An AWS Cloud Engineer with over 4
+                    years of experience and 9+ years of overall IT expertise, specializing in building and managing
+                    scalable cloud solutions.</p>
+                <div
+                    class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-10">
+                    <a href="project-list.html"
+                        class="inline-block px-10 py-4 rounded-full text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">My
+                        Projects <i class="fa-solid fa-arrow-right-long ml-2"></i></a>
+                    <a href="Resumes/Raseef_CV_completed.pdf" download="Raseef_Azeez_CV.pdf"
+                        class="inline-block px-10 py-4 rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 transform hover:scale-105">Get
+                        Resume <i class="fa-solid fa-download ml-2"></i></a>
                 </div>
             </div>
+        </section> -->
+        <section id="home"
+            class="relative h-screen flex flex-col items-center justify-center bg-gray-900 text-white overflow-hidden">
+            <!-- Background Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-90"></div>
+        
+            <!-- Decorative Glow Element -->
+            <div
+                class="absolute top-1/4 left-1/3 w-72 h-72 bg-blue-600/30 rounded-full mix-blend-overlay filter blur-3xl opacity-40 animate-pulse">
+            </div>
+        
+            <!-- Content -->
+            <div class="relative z-10 max-w-4xl p-6 text-center" data-aos="fade-up">
+                <!-- Intro -->
+                <h2 class="text-2xl md:text-3xl font-light mb-4 text-gray-400 tracking-wide">
+                    Hello, I'm
+                </h2>
+        
+                <!-- Name -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl leading-tight tracking-tight mb-6">
+                    Raseef Azeez
+                </h1>
+        
+                <!-- Typing Animation -->
+                <p class="text-lg md:text-xl text-blue-400 font-semibold max-w-2xl mx-auto mb-6">
+                    <span id="typed-text"></span>
+                </p>
+        
+                <!-- Subtitle -->
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Specializing in building <span class="text-blue-400">secure</span>,
+                    <span class="text-blue-400">scalable</span>, and
+                    <span class="text-blue-400">automated</span> cloud solutions.
+                </p>
+        
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="project-list.html" class="inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold bg-blue-600 hover:bg-blue-500 
+                       transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-900/50">
+                        My Projects <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </a>
+        
+                    <a href="Resumes/Raseef_CV_completed.pdf" download="Raseef_Azeez_CV.pdf" class="inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold border-2 border-white text-white
+                       hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105">
+                        Get Resume <i class="fa-solid fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-6 flex flex-col items-center space-y-2 animate-bounce">
+                <span class="text-gray-400 text-sm">Scroll Down</span>
+                <a href="#portfolio">
+                    <i class="fa-solid fa-chevron-down text-gray-400 text-2xl hover:text-blue-400 transition-colors"></i>
+                </a>
+            </div>
         </section>
-        <section id="portfolio" class="py-20 px-4 bg-gray-800">
+        
+        <!-- Typed.js Script -->
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                new Typed("#typed-text", {
+                    strings: [
+                        "AWS Cloud Engineer",
+                        "DevOps Enthusiast",
+                        "Solution Architect in Progress"
+                    ],
+                    typeSpeed: 60,
+                    backSpeed: 40,
+                    backDelay: 1500,
+                    loop: true
+                });
+            });
+        </script>
+
+
+
+        <!-- <section id="portfolio" class="py-20 px-4 bg-gray-800">
             <div class="container mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">My Portfolio</h2>
-                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A showcase of my projects and certifications,
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A showcase of my projects
                         demonstrating a deep understanding of cloud engineering and solution architecture.</p>
                 </div>
                 <div class="swiper mySwiper">
@@ -71,16 +172,19 @@
                             class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-solid fa-user-tie"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">My Portfolio Website</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">This application demonstrates a dynamic frontend, robust
+                            <p class="text-gray-400 mb-4 flex-grow">This application demonstrates a dynamic frontend,
+                                robust
                                 backend data processing, and an automated CI/CD pipeline for AWS deployments.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
-                            <p class="text-xs text-gray-400">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway, AWS Lambda
+                            <p class="text-xs text-gray-400">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway,
+                                AWS Lambda
                                 (Node.js), Amazon DynamoDB, IAM, CloudWatch, HTML/CSS/JavaScript.</p>
                         </div>
                         <div
                             class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-solid fa-code"></i></div>
-                            <h3 class="text-2xl font-semibold mb-2 text-white">Serverless Image Processing & Analysis</h3>
+                            <h3 class="text-2xl font-semibold mb-2 text-white">Serverless Image Processing & Analysis
+                            </h3>
                             <p class="text-gray-400 mb-4 flex-grow">A serverless solution to process and analyze images,
                                 showcasing the power of AWS's AI/ML services in an automated workflow.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
@@ -91,7 +195,8 @@
                             class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-chart-line"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">Upcoming Project #3</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">Details about this new project will be added soon. It will
+                            <p class="text-gray-400 mb-4 flex-grow">Details about this new project will be added soon.
+                                It will
                                 focus on a scalable data pipeline.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
                             <p class="text-xs text-gray-400">Project details will be added here.</p>
@@ -102,26 +207,149 @@
                     <div class="swiper-button-prev text-white hover:text-blue-500 transition-colors"></div>
                 </div>
             </div>
-        </section>
-        
-        <section id="about" class="py-20 px-4 bg-gray-900 text-white">
-            <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">About Me</h2>
-                    <p class="text-gray-400 leading-relaxed max-w-2xl mx-auto md:mx-0 text-lg">As an experienced AWS Cloud Infrastructure Associate Engineer, I've a proven history of implementing, managing, and optimizing cloud solutions. I thrive in collaborative environments, where I can contribute to innovation and drive efficiency in cloud infrastructure management. With expertise across both AWS and Azure platforms, I'm passionate about solving complex technical challenges.</p>
+        </section> -->
+
+        <section id="portfolio" class="py-24 px-6 bg-gray-800 text-white">
+            <div class="container mx-auto">
+                <!-- Heading -->
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl tracking-tight mb-4">
+                        My Portfolio
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                        A showcase of my projects demonstrating expertise in cloud engineering, automation, and solution
+                        architecture.
+                    </p>
                 </div>
-                <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9408?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About Image" class="rounded-xl shadow-2xl">
+        
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        
+                    <!-- Project Card 1 -->
+                    <div data-aos="fade-up" data-aos-delay="100"
+                        class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-user-tie"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">My Portfolio Website</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            This project demonstrates a dynamic frontend, robust backend data processing, and a fully automated
+                            CI/CD pipeline for AWS deployments.
+                        </p>
+                        <p class="text-sm font-semibold text-gray-300">Core Services:</p>
+                        <p class="text-xs text-gray-400 mb-6">
+                            AWS S3, GitHub Actions, CloudFormation, API Gateway, Lambda (Node.js), DynamoDB, IAM, CloudWatch.
+                        </p>
+                        <a href="project-list.html#portfolio-viewpage" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                                                      rounded-lg text-sm font-semibold transition">
+                            View More
+                        </a>
+                    </div>
+        
+                    <!-- Project Card 2 -->
+                    <div data-aos="fade-up" data-aos-delay="200"
+                        class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-code"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">Serverless Image Processing</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            A serverless solution to process and analyze images, using AWS AI/ML services for a fully automated
+                            workflow.
+                        </p>
+                        <p class="text-sm font-semibold text-gray-300">Core Services:</p>
+                        <p class="text-xs text-gray-400 mb-6">
+                            AWS S3, Lambda, Rekognition, Textract, CloudWatch, IAM, SAM.
+                        </p>
+                        <a href="project-list.html#serverless-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                                                      rounded-lg text-sm font-semibold transition">
+                            View More
+                        </a>
+                    </div>
+        
+                    <!-- Project Card 3 -->
+                    <div data-aos="fade-up" data-aos-delay="300"
+                        class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-blue-400 text-4xl mb-6"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">Upcoming Project</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            Details about this upcoming project will be added soon, focusing on building a scalable data
+                            pipeline solution.
+                        </p>
+                        <p class="text-sm font-semibold text-gray-300">Core Services:</p>
+                        <p class="text-xs text-gray-400 mb-6">Details will be updated.</p>
+                        <a href="project-list.html#serverless-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                                                      rounded-lg text-sm font-semibold transition">
+                            Coming Soon 
+                        </a>
+                    </div>
+        
                 </div>
             </div>
         </section>
 
-        <section id="other-expertise" class="py-20 px-4 bg-gray-900">
+
+        <!-- <section id="about" class="py-20 px-4 bg-gray-900 text-white">
+            <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">About Me</h2>
+                    <p class="text-gray-400 leading-relaxed max-w-2xl mx-auto md:mx-0 text-lg">As an experienced AWS
+                        Cloud Infrastructure Associate Engineer, I've a proven history of implementing, managing, and
+                        optimizing cloud solutions. I thrive in collaborative environments, where I can contribute to
+                        innovation and drive efficiency in cloud infrastructure management. With expertise across both
+                        AWS and Azure platforms, I'm passionate about solving complex technical challenges.</p>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9408?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="About Image" class="rounded-xl shadow-2xl">
+                </div>
+            </div>
+        </section> -->
+
+        <section id="about" class="py-24 px-6 bg-gray-900 text-white">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Image Section -->
+                <div class="relative flex justify-center md:justify-end" data-aos="fade-right">
+                    <div class="relative group">
+                        <img src="/Projects/Assets/Images/Raseef_portfolio_image.jpeg" alt="Raseef Azeez"
+                            class="rounded-2xl shadow-2xl w-80 h-80 object-cover transform transition duration-500 group-hover:scale-105 group-hover:rotate-1">
+                        <div
+                            class="absolute inset-0 rounded-2xl bg-blue-600/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500">
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Text Section -->
+                <div class="space-y-6 text-center md:text-left" data-aos="fade-left">
+                    <h2 class="text-4xl md:text-5xl tracking-tight">
+                        About Me
+                    </h2>
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        I’m <span class="text-blue-400 font-semibold">Raseef Azeez</span>, an AWS Cloud Engineer with over
+                        <span class="font-bold">4 years of experience</span> and 9+ years of overall IT expertise.
+                        I specialize in designing and managing scalable cloud solutions, leveraging AWS services to
+                        create efficient, secure, and cost-effective infrastructure. I thrive in collaborative environments
+                        and love solving challenging technical problems.
+                    </p>
+                    <!-- <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+                        <a href="Resumes/Raseef_CV_completed.pdf" download="Raseef_Azeez_CV.pdf"
+                            class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-lg transform hover:scale-105">
+                            Download Resume <i class="fa-solid fa-download ml-2"></i>
+                        </a>
+                        <a href="#contact"
+                            class="px-6 py-3 rounded-full bg-gray-800 hover:bg-gray-700 transition text-gray-200 font-semibold shadow-lg transform hover:scale-105">
+                            Contact Me <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- <section id="other-expertise" class="py-20 px-4 bg-gray-900">
             <div class="container mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">Previous Work Experience & Certifications
+                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">Previous Work Experience &
+                        Certifications
                     </h2>
-                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">This section highlights my previous work experience and
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">This section highlights my previous work
+                        experience and
                         professional certifications.</p>
                 </div>
                 <div class="swiper mySecondSwiper">
@@ -130,14 +358,16 @@
                             class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-quote-left"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">Previous Work Experience</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">This section will be updated with history of my previous
+                            <p class="text-gray-400 mb-4 flex-grow">This section will be updated with history of my
+                                previous
                                 work experience, including frameworks and tools.</p>
                             <p class="text-sm text-gray-400 mt-auto">Additional information needed to be added here.</p>
                         </div>
                         <div
                             class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-brands fa-aws"></i></div>
-                            <h3 class="text-2xl font-semibold mb-2 text-white">AWS Solutions Architect Associate (SAA-C03)</h3>
+                            <h3 class="text-2xl font-semibold mb-2 text-white">AWS Solutions Architect Associate
+                                (SAA-C03)</h3>
                             <p class="text-gray-400 mb-4 flex-grow">Issued: May 2024 | Active till May 2027</p>
                             <a href="https://www.credly.com/badges/bb09b07e-814c-436f-b136-25ad12022d3d" target="_blank"
                                 class="inline-flex items-center text-blue-500 hover:text-blue-400 transition-colors duration-300 font-semibold text-sm mt-auto">
@@ -150,8 +380,72 @@
                     <div class="swiper-button-prev text-white hover:text-blue-500 transition-colors"></div>
                 </div>
             </div>
+        </section> -->
+
+        <section id="other-expertise" class="py-24 px-6 bg-gray-900 text-white">
+            <div class="container mx-auto">
+                <!-- Heading -->
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl tracking-tight mb-4">
+                        Previous Work Experience & Certifications
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                        A glimpse into my professional journey and the certifications that power my expertise.
+                    </p>
+                </div>
+        
+                <!-- Cards Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        
+                    <!-- Work Experience Card -->
+                    <div data-aos="fade-up" data-aos-delay="100"
+                        class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-briefcase"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">Previous Work Experience</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            Extensive hands-on experience in AWS Cloud, automation, and scalable infrastructure design.
+                            Previously contributed to enterprise projects using AWS services like Lambda, API Gateway, S3,
+                            DynamoDB, and CI/CD pipelines.
+                        </p>
+                        <p class="text-sm text-gray-500 mt-auto">
+                            Full details will be updated with company names, roles, and tech stack highlights.
+                        </p>
+                    </div>
+        
+                    <!-- Certification 1 -->
+                    <div data-aos="fade-up" data-aos-delay="200"
+                        class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-yellow-400 text-4xl mb-6"><i class="fa-brands fa-aws"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">AWS Solutions Architect Associate</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            Credential ID: SAA-C03<br>Issued: May 2024 | Expires: May 2027
+                        </p>
+                        <a href="https://www.credly.com/badges/bb09b07e-814c-436f-b136-25ad12022d3d" target="_blank"
+                            class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors font-semibold text-sm mt-auto">
+                            <i class="fas fa-external-link-alt mr-2"></i> Verify Credential
+                        </a>
+                    </div>
+        
+                    <!-- Certification 2 (Placeholder for Future) -->
+                    <div data-aos="fade-up" data-aos-delay="300"
+                        class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
+                        <div class="text-green-400 text-4xl mb-6"><i class="fas fa-certificate"></i></div>
+                        <h3 class="text-2xl font-semibold mb-2">Coming Soon</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">
+                            I’m currently preparing for additional certifications to strengthen my expertise and
+                            expand my capabilities in cloud-native architecture and DevOps.
+                        </p>
+                        <p class="text-sm text-gray-500 mt-auto">
+                            Stay tuned for updates here.
+                        </p>
+                    </div>
+        
+                </div>
+            </div>
         </section>
-        <section id="contact" class="py-20 px-4 bg-gray-800 text-white">
+
+
+        <!-- <section id="contact" class="py-20 px-4 bg-gray-800 text-white">
             <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                 <form id="contactForm"
                     class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6 transform hover:scale-105 transition-transform duration-300">
@@ -202,7 +496,96 @@
                     </div>
                 </div>
             </div>
+        </section> -->
+        <section id="contact" class="relative py-24 px-6 bg-gray-900 text-white">
+            <!-- Decorative Background Glow -->
+            <div class="absolute top-1/3 left-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl opacity-40"></div>
+        
+            <div class="relative container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Contact Form -->
+                <form id="contactForm"
+                    class="bg-gray-800/80 backdrop-blur-lg p-10 rounded-2xl shadow-lg space-y-6 border border-gray-700"
+                    data-aos="fade-up">
+        
+                    <h2 class="text-3xl md:text-4xl text-white mb-6 text-center">Get In Touch</h2>
+        
+                    <div id="form-message" class="hidden py-2 px-4 rounded-md text-sm"></div>
+        
+                    <!-- Name -->
+                    <div>
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                         transition-all duration-300" type="text" id="userName" name="userName" placeholder="Your Name"
+                            required>
+                    </div>
+        
+                    <!-- Email -->
+                    <div>
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                         transition-all duration-300" type="email" id="userEmail" name="userEmail" placeholder="Email"
+                            required>
+                    </div>
+        
+                    <!-- Phone -->
+                    <div>
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                         transition-all duration-300" type="tel" id="userPhone" name="userPhone"
+                            placeholder="Phone Number (Optional)">
+                    </div>
+        
+                    <!-- Message -->
+                    <div>
+                        <textarea class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                         transition-all duration-300" placeholder="Write your message here..." name="userMessage"
+                            id="userMessage" rows="6" required></textarea>
+                    </div>
+        
+                    <!-- Submit Button -->
+                    <button id="submitButton" type="submit" class="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-lg font-semibold 
+                       bg-blue-600 hover:bg-blue-500 transition-all duration-300 transform hover:scale-[1.03] 
+                       shadow-lg shadow-blue-900/50">
+                        <span id="buttonText">Send Message</span>
+                        <span id="loadingSpinner" class="hidden">
+                            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                        </span>
+                    </button>
+                </form>
+        
+                <!-- Contact Details -->
+                <div class="bg-gray-800/80 backdrop-blur-lg p-10 rounded-2xl shadow-lg border border-gray-700 space-y-8"
+                    data-aos="fade-left">
+                    <h2 class="text-3xl md:text-4xl text-white mb-6 text-center">Contact Details</h2>
+        
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div class="flex items-center gap-4 group">
+                            <i
+                                class="fa-solid fa-envelope text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
+                            <p class="text-gray-300 group-hover:text-white transition-colors">raseefazeez@gmail.com</p>
+                        </div>
+        
+                        <!-- Phone -->
+                        <div class="flex items-center gap-4 group">
+                            <i class="fa-solid fa-phone text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
+                            <p class="text-gray-300 group-hover:text-white transition-colors">+91-6383890464</p>
+                        </div>
+        
+                        <!-- Location -->
+                        <div class="flex items-center gap-4 group">
+                            <i
+                                class="fa-solid fa-location-dot text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
+                            <p class="text-gray-300 group-hover:text-white transition-colors">Trivandrum, Kerala, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+
+
+
     </main>
     <footer class="bg-gray-950 text-white py-8">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
@@ -211,13 +594,16 @@
                 <a href="#" class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <span>V1.0</span>
                 </a>
-                <a href="https://x.com/RaseefAzeez" target="_blank" class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
+                <a href="https://x.com/RaseefAzeez" target="_blank"
+                    class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-x-twitter fa-lg"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank" class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
+                <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank"
+                    class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-linkedin fa-lg"></i>
                 </a>
-                <a href="https://github.com/RaseefAzeez" target="_blank" class="text-gray-500 hover:text-white transition-colors duration-300">
+                <a href="https://github.com/RaseefAzeez" target="_blank"
+                    class="text-gray-500 hover:text-white transition-colors duration-300">
                     <i class="fab fa-github fa-lg"></i>
                 </a>
             </div>
