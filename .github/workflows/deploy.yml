@@ -18,17 +18,15 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # <<< CRITICAL: VERIFY THIS IS YOUR S3 BUCKET'S ACTUAL REGION
+          aws-region: us-east-1
 
       - name: Prepare Deployment Content
         run: |
-          # Create a new, clean build directory
+          # This command correctly copies the entire 'Website' folder and all its contents
+          # (including the 'Assets' folder) into a single 'build_output' directory.
           mkdir -p build_output
-          
-          # Copy the entire consolidated 'WebsiteAssets' folder to the build directory
-          # The trailing '.' ensures only the contents are copied
-          cp -R ./Projects/WebsiteAssets/. ./build_output/
-          
+          cp -R ./Projects/Website/. ./build_output/
+
           # Optional: List content of build_output to verify structure before sync
           echo "--- Content of build_output/ ---"
           ls -R build_output
@@ -45,4 +43,4 @@ jobs:
             --exclude "package-lock.json" \
             --exclude "README.md"
         env:
-          AWS_REGION: us-east-1 # Ensure consistency
+          AWS_REGION: us-east-1
