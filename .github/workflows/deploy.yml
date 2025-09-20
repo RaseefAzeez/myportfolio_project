@@ -25,11 +25,9 @@ jobs:
           # Create a new, clean build directory
           mkdir -p build_output
           
-          # Copy the contents of your 'Website' folder to the root of the build directory
-          cp -R ./Projects/Website/. ./build_output/
-          
-          # Copy the contents of your 'Assets' folder to the 'Assets' sub-directory in the build output
-          cp -R ./Projects/Assets/. ./build_output/Assets/
+          # Copy the entire consolidated 'WebsiteAssets' folder to the build directory
+          # The trailing '.' ensures only the contents are copied
+          cp -R ./Projects/WebsiteAssets/. ./build_output/
           
           # Optional: List content of build_output to verify structure before sync
           echo "--- Content of build_output/ ---"
