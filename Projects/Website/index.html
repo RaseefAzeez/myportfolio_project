@@ -15,9 +15,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         #other-expertise {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-}
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        /* New CSS for the hover effect on slider cards */
+        .swiper-slide {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        .swiper-slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -52,28 +62,37 @@
             <div class="container mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">My Portfolio</h2>
-                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A showcase of my projects and certifications, demonstrating a deep understanding of cloud engineering and solution architecture.</p>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A showcase of my projects and certifications,
+                        demonstrating a deep understanding of cloud engineering and solution architecture.</p>
                 </div>
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper pb-12">
-                        <div class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col">
+                        <div
+                            class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-solid fa-user-tie"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">My Portfolio Website</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">This application demonstrates a dynamic frontend, robust backend data processing, and an automated CI/CD pipeline for AWS deployments.</p>
+                            <p class="text-gray-400 mb-4 flex-grow">This application demonstrates a dynamic frontend, robust
+                                backend data processing, and an automated CI/CD pipeline for AWS deployments.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
-                            <p class="text-xs text-gray-400">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway, AWS Lambda (Node.js), Amazon DynamoDB, IAM, CloudWatch, HTML/CSS/JavaScript.</p>
+                            <p class="text-xs text-gray-400">AWS S3, GitHub Actions, CloudFormation, AWS API Gateway, AWS Lambda
+                                (Node.js), Amazon DynamoDB, IAM, CloudWatch, HTML/CSS/JavaScript.</p>
                         </div>
-                        <div class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col">
+                        <div
+                            class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-solid fa-code"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">Serverless Image Processing & Analysis</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">A serverless solution to process and analyze images, showcasing the power of AWS's AI/ML services in an automated workflow.</p>
+                            <p class="text-gray-400 mb-4 flex-grow">A serverless solution to process and analyze images,
+                                showcasing the power of AWS's AI/ML services in an automated workflow.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
-                            <p class="text-xs text-gray-400">AWS S3, AWS Lambda, Amazon Rekognition, Amazon Textract, CloudWatch, IAM, Serverless Application Model (SAM).</p>
+                            <p class="text-xs text-gray-400">AWS S3, AWS Lambda, Amazon Rekognition, Amazon Textract,
+                                CloudWatch, IAM, Serverless Application Model (SAM).</p>
                         </div>
-                        <div class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col">
+                        <div
+                            class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-chart-line"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">Upcoming Project #3</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">Details about this new project will be added soon. It will focus on a scalable data pipeline.</p>
+                            <p class="text-gray-400 mb-4 flex-grow">Details about this new project will be added soon. It will
+                                focus on a scalable data pipeline.</p>
                             <p class="text-sm font-semibold text-gray-300 mt-auto">Core Services:</p>
                             <p class="text-xs text-gray-400">Project details will be added here.</p>
                         </div>
@@ -100,18 +119,23 @@
         <section id="other-expertise" class="py-20 px-4 bg-gray-900">
             <div class="container mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">Previous Work Experience & Certifications</h2>
-                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">This section highlights my previous work experience and professional certifications.</p>
+                    <h2 class="text-4xl md:text-5xl tracking-tight text-white mb-4">Previous Work Experience & Certifications
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">This section highlights my previous work experience and
+                        professional certifications.</p>
                 </div>
                 <div class="swiper mySecondSwiper">
                     <div class="swiper-wrapper pb-12">
-                        <div class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col">
+                        <div
+                            class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-quote-left"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">Previous Work Experience</h3>
-                            <p class="text-gray-400 mb-4 flex-grow">This section will be updated with history of my previous work experience, including frameworks and tools.</p>
+                            <p class="text-gray-400 mb-4 flex-grow">This section will be updated with history of my previous
+                                work experience, including frameworks and tools.</p>
                             <p class="text-sm text-gray-400 mt-auto">Additional information needed to be added here.</p>
                         </div>
-                        <div class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col">
+                        <div
+                            class="swiper-slide h-96 bg-gray-700 p-8 rounded-xl shadow-lg flex flex-col transition-transform duration-300 transform hover:scale-105">
                             <div class="text-blue-500 text-4xl mb-6"><i class="fa-brands fa-aws"></i></div>
                             <h3 class="text-2xl font-semibold mb-2 text-white">AWS Solutions Architect Associate (SAA-C03)</h3>
                             <p class="text-gray-400 mb-4 flex-grow">Issued: May 2024 | Active till May 2027</p>
