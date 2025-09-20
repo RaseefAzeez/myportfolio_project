@@ -42,7 +42,6 @@ jobs:
         run: |
           aws s3 sync ./build_output/ s3://myown-portfolio-website-content-bucket/ \
             --delete \
-            --acl public-read \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "node_modules/*" \
