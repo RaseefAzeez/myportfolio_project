@@ -129,21 +129,38 @@
         </section>
         <section id="contact" class="py-20 px-4 bg-gray-800 text-white">
             <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <form id="contactForm" class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6 transform hover:scale-105 transition-transform duration-300">
+                <form id="contactForm"
+                    class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6 transform hover:scale-105 transition-transform duration-300">
                     <h2 class="text-3xl text-white mb-4">Get In Touch</h2>
+                    <div id="form-message" class="hidden py-2 px-4 rounded-md text-sm"></div>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" type="text" id="userName" name="userName" placeholder="Your Name" required>
+                        <input
+                            class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            type="text" id="userName" name="userName" placeholder="Your Name" required>
                     </div>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" type="email" id="userEmail" name="userEmail" placeholder="Email" required>
+                        <input
+                            class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            type="email" id="userEmail" name="userEmail" placeholder="Email" required>
                     </div>
                     <div>
-                        <input class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" type="tel" id="userPhone" name="userPhone" placeholder="Phone Number (Optional)">
+                        <input
+                            class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            type="tel" id="userPhone" name="userPhone" placeholder="Phone Number (Optional)">
                     </div>
                     <div>
-                        <textarea class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your message here..." name="userMessage" id="userMessage" rows="6" required></textarea>
+                        <textarea
+                            class="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Write your message here..." name="userMessage" id="userMessage" rows="6"
+                            required></textarea>
                     </div>
-                    <button type="submit" class="w-full text-white py-4 px-4 rounded-md transition text-lg bg-blue-600 hover:bg-blue-700 font-semibold transform hover:scale-105 duration-300">Send Message <i class="fa-solid fa-paper-plane ml-2"></i></button>
+                    <button id="submitButton" type="submit"
+                        class="w-full text-white py-4 px-4 rounded-md transition text-lg bg-blue-600 hover:bg-blue-700 font-semibold transform hover:scale-105 duration-300">
+                        <span id="buttonText">Send Message</span>
+                        <span id="loadingSpinner" class="hidden ml-2">
+                            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                        </span>
+                    </button>
                 </form>
                 <div class="bg-gray-700 p-8 rounded-xl shadow-md space-y-6">
                     <h2 class="text-3xl text-white mb-4">Contact Details</h2>
