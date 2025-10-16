@@ -1,0 +1,30 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [dev]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4   # ← from Marketplace
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4   # ← from Marketplace
+        with:
+          role-to-assume: ${{ secrets.GITHUB_OIDC_ROLE_ARN }}
+          aws-region: ap-south-1
+
+      - name: Deploy CloudFormation stack
+        run: |
+          aws cloudformation deploy \
+            --template-file infra/main-template.yaml \
+            --stack-name my-portfolio-stack-dev \
+            --capabilities CAPABILITY_NAMED_IAM
