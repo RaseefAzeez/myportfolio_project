@@ -74,15 +74,14 @@ exports.handler = async (event) => {
         await dynamodb.put(dynamoParams).promise();
         console.log('Successfully wrote to DynamoDB:', item);
 
-        // Optional: Publish to SNS for notifications.
         // Ensure SNS_TOPIC_ARN is set as an environment variable and Lambda has sns:Publish permissions.
         const snsMessage = `New Contact Form Submission!\n\n` +
-                           `Name: ${item.name}\n` +
-                           `Email: ${item.email}\n` +
-                           `Phone: ${item.phone}\n` +
-                           `Message: ${item.message}\n` +
-                           `Timestamp: ${item.timestamp}\n` +
-                           `Submission ID: ${item.submissionId}`;
+            `Name: ${item.name}\n` +
+            `Email: ${item.email}\n` +
+            `Phone: ${item.phone}\n` +
+            `Message: ${item.message}\n` +
+            `Timestamp: ${item.timestamp}\n` +
+            `Submission ID: ${item.submissionId}`;
 
         const snsParams = {
             Message: snsMessage,
