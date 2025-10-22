@@ -1,0 +1,94 @@
+# =======================================
+# Core-Project-Ignore Rules
+# =======================================
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.lock
+
+# Environment and secret files
+.env
+.env.local
+*.secret
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# =======================================
+# Node.js / Lambda Project
+# =======================================
+
+# Node dependencies and cache
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+
+# Ignore Lambda build ZIPs (auto-created in GitHub Actions)
+*.zip
+
+# Keep Lambda source files (these should remain tracked)
+!Projects/Website/*.js
+!Projects/Website/package.json
+!Projects/Website/package-lock.json
+
+# =======================================
+#  AWS / CloudFormation
+# =======================================
+
+# AWS SAM / CDK / CFN generated files
+.aws-sam/
+cdk.out/
+*.template.json
+*.template.yaml
+*.stack.yaml
+*.out
+
+# Ignore AWS CLI local config & keys
+.aws/
+*.pem
+
+# =======================================
+#  GitHub Actions
+# =======================================
+
+# Ignore workflow logs and temporary artifacts
+.github/workflows/*.log
+.github/workflows/*.tmp
+.github/workflows/.DS_Store
+
+#  Keep your workflow definitions
+!.github/workflows/*.yaml
+!.github/workflows/*.yml
+
+# =======================================
+#  Build & Artifact Outputs
+# =======================================
+
+dist/
+build/
+coverage/
+tmp/
+cache/
+
+# =======================================
+#  Project-specific exceptions
+# =======================================
+
+#  Keep your CloudFormation templates
+!Projects/Infra/*.yaml
+!Projects/Infra/*.yml
+
+#  Keep website source code (HTML/CSS/JS)
+!Projects/Website/*.html
+!Projects/Website/*.css
+!Projects/Website/*.js
