@@ -68,6 +68,7 @@ Resources:
   # Lambda function creation
   myLambdaFunction:
     Type: AWS::Lambda::Function
+    DependsOn: myLambdaExecutionRole
     Properties:
       Runtime: nodejs20.x
       Handler: index.handler
@@ -87,6 +88,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref myLambdaFunction
       Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/*/*/*"
 
   # API Gateway deployment and stage
   myAPIDeployment:
@@ -188,6 +190,7 @@ Resources:
 
 Outputs:
   WebsiteURL:
-    Value: !Sub myPortfolioContentS3bucket.WebsiteURL
+    Description: "URL of the static portfolio website hosted on S3"
+    Value: !Sub "http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
     Export:
       Name: !Sub "${AWS::StackName}-WebsiteURL"

@@ -1,12 +1,21 @@
-name: Deploy to AWS
+name: Deploy Dev Environment (portfolio-dev)
 
 on:
   push:
-    branches: [dev]
+    branches: 
+      - infra-dev-setup
+  workflow_dispatch:
 
 permissions:
   id-token: write
   contents: read
+
+env:
+  REGION: us-east-1
+  STACK_NAME: portfolio-dev
+  TEMPLATE_FILE: Projects/Infra/main-template.yaml
+  BOOTSTRAP_STACK: bootstrap-stack
+  LAMBDA_PACKAGE: Projects/Website/lambda-function-code.zip
 
 jobs:
   deploy:
@@ -14,17 +23,49 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4   # ← from Marketplace
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4   # ← from Marketplace
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.GITHUB_OIDC_ROLE_ARN }}
-          aws-region: ap-south-1
+          aws-region: ${{ env.REGION }}
+
+      - name: Verify Lambda package exists
+        run: |
+          if [ ! -f "${{ env.LAMBDA_PACKAGE }}" ]; then
+            echo "Lambda package not found: ${{ env.LAMBDA_PACKAGE }}"
+            exit 1
+          fi
+          echo "Found Lambda package: ${{ env.LAMBDA_PACKAGE }}"
+
+      - name: Get artifact bucket from bootstrap stack
+        id: get-bucket
+        run: |
+          BUCKET=$(aws cloudformation describe-stacks \
+            --stack-name ${{ env.BOOTSTRAP_STACK }} \
+            --query "Stacks[0].Outputs[?OutputKey=='LambdaContentS3BucketName'].OutputValue" \
+            --output text)
+          echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
+          echo "Using artifact bucket: $BUCKET"
+
+      - name: Upload Lambda ZIP to S3
+        run: |
+          aws s3 cp ${{ env.LAMBDA_PACKAGE }} s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code.zip
+          echo "Uploaded Lambda ZIP to S3"
 
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
-            --template-file infra/main-template.yaml \
-            --stack-name my-portfolio-stack-dev \
-            --capabilities CAPABILITY_NAMED_IAM
+            --template-file ${{ env.TEMPLATE_FILE }} \
+            --stack-name ${{ env.STACK_NAME }} \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }}
+
+      - name: Confirm Stack Status
+        run: |
+          STATUS=$(aws cloudformation describe-stacks \
+            --stack-name ${{ env.STACK_NAME }} \
+            --query "Stacks[0].StackStatus" \
+            --output text)
+          echo "Dev Stack Status: $STATUS"
