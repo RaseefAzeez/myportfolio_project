@@ -4,6 +4,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "CloudFormation template for creating AWS services for my portfolio website"
 
+Parameters:
+  myLambdacontentS3bucket:
+    Type: String
+    Description: "Name of the artifact bucket created by the bootstrap stack for Lambda code"
+
 Resources:
 
   # API Gateway Resource and Method Definition
@@ -68,17 +73,8 @@ Resources:
       Handler: index.handler
       Role: !GetAtt myLambdaExecutionRole.Arn
       Code:
-        ZipFile: |
-          exports.handler = async (event) => {
-            console.log("Event: ", JSON.stringify(event));
-            return {
-              statusCode: 200,
-              headers: {
-                "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN,
-              },
-              body: "Hello from Lambda"
-            };
-          };
+        S3Bucket: !Ref myLambdacontentS3bucket
+        S3Key: lambda-function-code.zip
       Environment:
         Variables:
           TABLE_NAME: !Ref myDynamoDB
@@ -190,82 +186,8 @@ Resources:
             Principal: "*"
             Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
 
-  #S3 bucket for running code for lambda
-
-  myLambdacontentS3bucket:
-    Type: AWS::S3::Bucket
-    DeletionPolicy: Retain
-    Properties:
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerPreferred
-
-  myLambdacontentS3bucketpolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref myLambdacontentS3bucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Sid: forMyLambdaBucket
-            Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-                - cloudformation.amazonaws.com
-            Action:
-              - "s3:GetObject"
-              - "s3:GetObjectVersion"
-            Resource: !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
-
-  # OIDC IAM Role for GitHub Actions
-  myOIDCIAMRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: myS3AccessRoleForGitHubActions
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
-            Action: sts:AssumeRoleWithWebIdentity
-            Condition:
-              StringEquals:
-                token.actions.githubusercontent.com:sub: "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
-      Policies:
-        - PolicyName: S3AccessForGitHubActions
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "s3:PutObject"
-                  - "s3:PutObjectAcl"
-                Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
-
-  # CloudFormation Execution Role
-  myCFTExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: myCloudFormationExecutionRole
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: cloudformation.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AdministratorAccess
-
 Outputs:
   WebsiteURL:
-    Value: !GetAtt myPortfolioContentS3bucket.WebsiteURL
+    Value: !Sub myPortfolioContentS3bucket.WebsiteURL
     Export:
       Name: !Sub "${AWS::StackName}-WebsiteURL"

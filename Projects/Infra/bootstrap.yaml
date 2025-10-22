@@ -1,205 +1,109 @@
-# cloud formation initial template
-
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Cloud Formation template for creating aws services for my portfolio website"
+Description: "Bootstrap stack — creates artifact bucket, CFN execution role, and GitHub OIDC role for CI/CD."
 
-# API Gateway Resouece creation and method defenition follows here
-
+#S3 bucket for running code for lambda
 Resources:
-  RestAPI:
-    Type: AWS::ApiGateway::RestApi
-    Properties:
-      Name: myApiusingCF
-      Description: "API Gateway for contact form submission"
 
-  submitResource:
-    Type: AWS::ApiGateway::Resource
-    Properties:
-      RestApiId: !Ref RestAPI
-      ParentId: !GetAtt RestAPI.RootResourceId
-      PathPart: submit
-
-  myPOSTMethod:
-    Type: AWS::ApiGateway::Method
-    Properties:
-      HttpMethod: POST
-      ResourceId: !Ref submitResource
-      RestApiId: !Ref RestAPI
-      AuthorizationType: NONE
-      Integration:
-        IntegrationHttpMethod: POST
-        Type: AWS_PROXY
-        Uri: !Sub "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${myLambdaFunction.Arn}/invocations"
-
-  myOPTIONMethod:
-    Type: AWS::ApiGateway::Method
-    Properties:
-      HttpMethod: OPTIONS
-      ResourceId: !Ref submitResource
-      RestApiId: !Ref RestAPI
-      AuthorizationType: NONE
-      RequestParameters:
-        method.request.header.myheader: false
-      Integration:
-        Type: MOCK
-        RequestTemplates:
-          application/json: '{"statusCode": 200}'
-        RequestParameters:
-          integration.request.header.header1: method.request.header.myheader
-        IntegrationResponses:
-          - StatusCode: "200"
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
-      MethodResponses:
-        - StatusCode: "200"
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Methods: true
-            method.response.header.Access-Control-Allow-Headers: true
-            method.response.header.Access-Control-Allow-Origin: true
-
-  #Lambda function creation done here
-
-  myLambdaFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      Runtime: nodejs20.x
-      Handler: index.handler
-      Role: !GetAtt myLambdaExecutionRole.Arn
-      Code:
-        ZipFile: |
-          exports.handler = async (event) => {
-            console.log("Event: ", JSON.stringify(event));
-
-            return {
-              statusCode: 200,
-              headers: {
-                "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN,
-              },
-              body: "Hello from Lambda"
-            };
-          };
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref myDynamoDB
-          SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: !Sub "http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
-
-  myLambdaPermissions:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref myLambdaFunction
-      Principal: apigateway.amazonaws.com
-
-  # APIgateway deployment using (POST/OPTIONS (CORS)) method(s) done here
-
-  myAPIDeployment:
-    Type: "AWS::ApiGateway::Deployment"
-    Properties:
-      RestApiId: !Ref RestAPI
-      Description: !Sub "Deployment - ${AWS::StackName} - ${AWS::Timestamp}"
-    DependsOn:
-      - myPOSTMethod
-      - myOPTIONMethod
-
-  myAPIStage:
-    Type: AWS::ApiGateway::Stage
-    Properties:
-      RestApiId: !Ref RestAPI
-      DeploymentId: !Ref myAPIDeployment
-      StageName: prod
-
-  #DynamoDB is created here and the data will be inserted to PortfolioContactSubmissions table based on submissionId (Primary Key)
-
-  myDynamoDB:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: PortfolioContactSubmissions
-      AttributeDefinitions:
-        - AttributeName: submissionId
-          AttributeType: S
-        - AttributeName: timestamp
-          AttributeType: S
-      KeySchema:
-        - AttributeName: submissionId
-          KeyType: HASH
-        - AttributeName: timestamp
-          KeyType: RANGE
-      BillingMode: PAY_PER_REQUEST
-
-  #SNS Topic resource creation for email notification
-
-  MySNSTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      TopicName: PortfolioContactSubmissions
-      Subscription:
-        - Endpoint: "raseefaz@gmail.com"
-          Protocol: email
-
-  #IAM role for Lambda Execurtion with permissions for DynamoDB PutItem and SNS Publish
-
-  myLambdaExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument: # Trust policy added here -which lambda assumes
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-      Policies:
-        - PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Sid: DynamoDBPutItem
-                Effect: Allow
-                Action: dynamodb:PutItem
-                Resource: !GetAtt myDynamoDB.Arn
-              - Sid: SNSemail
-                Effect: Allow
-                Action: sns:Publish
-                Resource: !Ref MySNSTopic
-          PolicyName: inlineForDynamoDbAndSnsAccess
-
-  #S3 bucket creation along with bucket policy
-
-  myPortfolioContentS3bucket:
+  myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        #ErrorDocument: error.html
 
-  myS3BucketPolicy:
+  myLambdacontentS3bucketpolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref myPortfolioContentS3bucket
+      Bucket: !Ref myLambdacontentS3bucket
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          - Action:
-              - "s3:GetObject"
+          - Sid: forMyLambdaBucket
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - cloudformation.amazonaws.com
+            Action:
+              - "s3:GetObject"
+              - "s3:GetObjectVersion"
+            Resource: !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
+
+  # OIDC IAM Role for GitHub Actions
+  myOIDCIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: myS3AccessRoleForGitHubActions
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringLike:
+                - token.actions.githubusercontent.com:sub: "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
+                - token.actions.githubusercontent.com:sub: "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
+      Policies:
+        - PolicyName: S3AccessForGitHubActions
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: AllowS3Access
+                Effect: Allow
+                Action:
+                  - "s3:PutObject"
+                  - "s3:PutObjectAcl"
+                  - "s3:GetObject"
+                  - "s3:ListBucket"
+                  - "s3:GetObjectVersion"
+                Resource: 
+                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
+                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
+              
+              - Sid: AllowCFT
+                Effect: Allow
+                Action:
+                  - "cloudformation:*"
+                  - "iam:PassRole"
+                  - "iam:GetRole"
+                Resource: "*"
+
+  # CloudFormation Execution Role
+  myCFTExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: myCloudFormationExecutionRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
 
 Outputs:
-  WebsiteURL:
-    Value: !GetAtt myPortfolioContentS3bucket.WebsiteURL
+  LambdaContentS3BucketName:
+    Description: "Name of the S3 bucket for Lambda content"
+    Value: !Ref myLambdacontentS3bucket
     Export:
-      Name: !Sub "${AWS::StackName}-WebsiteURL"
+      Name: !Sub "${AWS::StackName}-LambdaContentS3BucketName"
+  OIDC_ROLE_ARN:
+    Description: "ARN of the OIDC IAM Role for GitHub Actions"
+    Value: !GetAtt myOIDCIAMRole.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-OIDC_ROLE_ARN"
+  CFTExecutionRoleARN:
+    Description: "ARN of the CloudFormation Execution Role"
+    Value: !GetAtt myCFTExecutionRole.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-CFTExecutionRoleARN"
