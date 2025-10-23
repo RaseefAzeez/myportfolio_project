@@ -51,8 +51,9 @@ Resources:
             Action: sts:AssumeRoleWithWebIdentity
             Condition:
               StringLike:
-                - token.actions.githubusercontent.com:sub: "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
-                - token.actions.githubusercontent.com:sub: "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
+                token.actions.githubusercontent.com:sub: 
+                  - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
+                  - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
       Policies:
         - PolicyName: S3AccessForGitHubActions
           PolicyDocument:
@@ -99,11 +100,13 @@ Outputs:
     Value: !Ref myLambdacontentS3bucket
     Export:
       Name: !Sub "${AWS::StackName}-LambdaContentS3BucketName"
-  OIDC_ROLE_ARN:
+
+  OIDCRoleArn:
     Description: "ARN of the OIDC IAM Role for GitHub Actions"
     Value: !GetAtt myOIDCIAMRole.Arn
     Export:
-      Name: !Sub "${AWS::StackName}-OIDC_ROLE_ARN"
+      Name: !Sub "${AWS::StackName}-OIDC-ROLE-ARN"
+
   CFTExecutionRoleARN:
     Description: "ARN of the CloudFormation Execution Role"
     Value: !GetAtt myCFTExecutionRole.Arn
