@@ -15,7 +15,6 @@ env:
   STACK_NAME: portfolio-dev
   TEMPLATE_FILE: Projects/Infra/main-template.yaml
   BOOTSTRAP_STACK: bootstrap-stack
-  LAMBDA_PACKAGE: Projects/Website/lambda-function-code.zip
 
 jobs:
   deploy:
@@ -28,16 +27,14 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.GITHUB_OIDC_ROLE_ARN }}
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
           aws-region: ${{ env.REGION }}
 
-      - name: Verify Lambda package exists
+      - name: Validate CloudFormation template
         run: |
-          if [ ! -f "${{ env.LAMBDA_PACKAGE }}" ]; then
-            echo "Lambda package not found: ${{ env.LAMBDA_PACKAGE }}"
-            exit 1
-          fi
-          echo "Found Lambda package: ${{ env.LAMBDA_PACKAGE }}"
+          aws cloudformation validate-template \
+            --template-body file://${{ env.TEMPLATE_FILE }} \
+            --region ${{ env.REGION }}
 
       - name: Get artifact bucket from bootstrap stack
         id: get-bucket
@@ -45,14 +42,27 @@ jobs:
           BUCKET=$(aws cloudformation describe-stacks \
             --stack-name ${{ env.BOOTSTRAP_STACK }} \
             --query "Stacks[0].Outputs[?OutputKey=='LambdaContentS3BucketName'].OutputValue" \
-            --output text)
+            --output text --region ${{ env.REGION }})
+          if [ -z "$BUCKET" ]; then
+            echo "Could not find S3 bucket output in stack: ${{ env.BOOTSTRAP_STACK }}"
+            exit 1
+          fi
           echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
           echo "Using artifact bucket: $BUCKET"
 
+      - name: Package Lambda Code
+        run: |
+          cd Projects/Website
+          zip -r lambda-function-code.zip index.js
+          ls -lh lambda-function-code.zip
+          echo "✅ Lambda package created."
+
       - name: Upload Lambda ZIP to S3
         run: |
-          aws s3 cp ${{ env.LAMBDA_PACKAGE }} s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code.zip
-          echo "Uploaded Lambda ZIP to S3"
+          aws s3 cp Projects/Website/lambda-function-code.zip \
+          s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code.zip \
+          --region ${{ env.REGION }}
+          echo "Uploaded Lambda ZIP to S3."
 
       - name: Deploy CloudFormation stack
         run: |
@@ -60,12 +70,19 @@ jobs:
             --template-file ${{ env.TEMPLATE_FILE }} \
             --stack-name ${{ env.STACK_NAME }} \
             --capabilities CAPABILITY_NAMED_IAM \
+            --role-arn ${{ secrets.CFN_EXEC_ROLE_ARN }} \
+            --region ${{ env.REGION }} \
             --parameter-overrides myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }}
+          echo "CloudFormation deployment initiated."
 
       - name: Confirm Stack Status
         run: |
           STATUS=$(aws cloudformation describe-stacks \
             --stack-name ${{ env.STACK_NAME }} \
             --query "Stacks[0].StackStatus" \
-            --output text)
-          echo "Dev Stack Status: $STATUS"
+            --output text --region ${{ env.REGION }})
+          echo "📦 Dev Stack Status: $STATUS"
+          if [[ "$STATUS" == *"FAILED"* ]]; then
+            echo "Deployment failed — check CloudFormation console."
+            exit 1
+          fi
