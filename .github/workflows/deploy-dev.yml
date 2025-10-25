@@ -65,6 +65,27 @@ jobs:
           --region ${{ env.REGION }}
           echo "Uploaded Lambda ZIP to S3."
 
+      - name: Delete failed stack if exists
+        run: |
+          STATUS=$(aws cloudformation describe-stacks \
+            --stack-name ${{ env.STACK_NAME }} \
+            --query "Stacks[0].StackStatus" \
+            --output text 2>/dev/null || echo "NONE")
+
+          if [[ "$STATUS" == "ROLLBACK_COMPLETE" ]]; then
+            echo "Deleting failed stack: ${{ env.STACK_NAME }}"
+            aws cloudformation delete-stack \
+              --stack-name ${{ env.STACK_NAME }} \
+              --region ${{ env.REGION }}
+            echo "Waiting for stack deletion..."
+            aws cloudformation wait stack-delete-complete \
+              --stack-name ${{ env.STACK_NAME }} \
+              --region ${{ env.REGION }}
+            echo "✅ Deleted failed stack."
+          else
+            echo "No failed stack found (status: $STATUS)"
+          fi
+
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
