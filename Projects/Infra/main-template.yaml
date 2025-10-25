@@ -75,7 +75,7 @@ Resources:
       Role: !GetAtt myLambdaExecutionRole.Arn
       Code:
         S3Bucket: !Ref myLambdacontentS3bucket
-        S3Key: lambda-function-code.zip
+        S3Key: dev-lambda-function-code.zip
       Environment:
         Variables:
           TABLE_NAME: !Ref myDynamoDB
