@@ -5,7 +5,7 @@ seoDescription: "A hands-on journey of building and automating my personal cloud
 datePublished: Tue Oct 28 2025 07:52:22 GMT+0000 (Coordinated Universal Time)
 cuid: cmha9qw10000f02l8hr2ufij0
 slug: how-i-built-my-cloud-portfolio-using-aws-and-github-actions
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1761649638591/45dd0ef2-2a95-4ba5-a0e0-92076c6a55aa.png
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1761718957352/c0a66ea5-b325-4f4d-a8f9-687cb2fe78b6.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1761649678474/8608e4b6-d479-4ca6-a016-82b97635907d.png
 tags: cloudformation, aws, devops, serverless, ci-cd, github-actions-1, cloudarchitecture, career-journey
 
