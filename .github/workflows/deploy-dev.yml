@@ -108,3 +108,16 @@ jobs:
             echo "Deployment failed — check CloudFormation console."
             exit 1
           fi
+
+      - name: Upload Frontend Website to S3
+        run: |
+          FRONTEND_BUCKET=$(aws cloudformation describe-stack-resources \
+            --stack-name ${{ env.STACK_NAME }} \
+            --query "StackResources[?LogicalResourceId=='myPortfolioContentS3bucket'].PhysicalResourceId" \
+            --output text --region ${{ env.REGION }})
+
+          echo "Frontend bucket detected: $FRONTEND_BUCKET"
+
+          aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
+
+          echo "Website files uploaded successfully to $FRONTEND_BUCKET"
