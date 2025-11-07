@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Bootstrap stack — creates artifact bucket, CFN execution role, and GitHub OIDC role for CI/CD."
 
-#S3 bucket for running code for lambda
 Resources:
 
+  # S3 bucket for storing Lambda code artifacts
   myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
@@ -27,7 +27,7 @@ Resources:
           - Sid: "ForMyLambdaBucket"
             Effect: "Allow"
             Principal:
-              Service: 
+              Service:
                 - cloudformation.amazonaws.com
                 - lambda.amazonaws.com
             Action:
@@ -36,12 +36,12 @@ Resources:
             Resource:
               - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
 
-
+  
   # OIDC IAM Role for GitHub Actions
   myOIDCIAMRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: myS3AccessRoleForGitHubActions
+      RoleName: OIDCIAMRoleforGitHubActions
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -51,7 +51,7 @@ Resources:
             Action: sts:AssumeRoleWithWebIdentity
             Condition:
               StringLike:
-                token.actions.githubusercontent.com:sub: 
+                token.actions.githubusercontent.com:sub:
                   - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
                   - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
       Policies:
@@ -59,6 +59,7 @@ Resources:
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
+              # Allow S3 access for both artifact and frontend buckets
               - Sid: AllowS3Access
                 Effect: Allow
                 Action:
@@ -67,10 +68,16 @@ Resources:
                   - "s3:GetObject"
                   - "s3:ListBucket"
                   - "s3:GetObjectVersion"
-                Resource: 
-                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
+                  - "s3:DeleteObject"
+                Resource:
+                  # Lambda artifact bucket
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
-              
+                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
+                  # Frontend content bucket (passed via parameter)
+                  - !Sub "arn:aws:s3:::${FrontendBucketName}"
+                  - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
+
+              # Allow CloudFormation and IAM operations
               - Sid: AllowCFT
                 Effect: Allow
                 Action:
@@ -79,6 +86,7 @@ Resources:
                   - "iam:GetRole"
                 Resource: "*"
 
+  
   # CloudFormation Execution Role
   myCFTExecutionRole:
     Type: AWS::IAM::Role
@@ -94,6 +102,13 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
+# Parameters
+Parameters:
+  FrontendBucketName:
+    Type: String
+    Description: "Frontend S3 bucket name for website deployment"
+
+# Outputs
 Outputs:
   LambdaContentS3BucketName:
     Description: "Name of the S3 bucket for Lambda content"
