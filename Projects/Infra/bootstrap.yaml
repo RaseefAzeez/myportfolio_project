@@ -1,20 +1,22 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Bootstrap stack — creates artifact bucket, CFN execution role, and GitHub OIDC role for CI/CD."
 
-# -------------------------------------------------------------
-# Parameters
-# -------------------------------------------------------------
+# ------------------------------------------------------------------------
+# PARAMETERS
+# ------------------------------------------------------------------------
 Parameters:
   FrontendBucketName:
     Type: String
     Description: "Frontend S3 bucket name for website deployment"
 
-# -------------------------------------------------------------
-# Resources
-# -------------------------------------------------------------
+# ------------------------------------------------------------------------
+# RESOURCES
+# ------------------------------------------------------------------------
 Resources:
 
+  # ----------------------------------------------------------------------
   # S3 bucket for storing Lambda code artifacts
+  # ----------------------------------------------------------------------
   myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
@@ -47,9 +49,9 @@ Resources:
             Resource:
               - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
 
-  # -------------------------------------------------------------
+  # ----------------------------------------------------------------------
   # OIDC IAM Role for GitHub Actions
-  # -------------------------------------------------------------
+  # ----------------------------------------------------------------------
   myOIDCIAMRole:
     Type: AWS::IAM::Role
     Properties:
@@ -71,16 +73,16 @@ Resources:
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              # ✅ Bucket-level permissions (needed for ListBucket)
+              # ✅ Allow S3 access for both artifact and frontend buckets
               - Sid: AllowS3Access
                 Effect: Allow
                 Action:
                   - "s3:ListBucket"
                 Resource:
+                  # Bucket-level permissions
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}"
 
-              # ✅ Object-level permissions
               - Sid: AllowS3ObjectAccess
                 Effect: Allow
                 Action:
@@ -90,21 +92,23 @@ Resources:
                   - "s3:GetObjectVersion"
                   - "s3:DeleteObject"
                 Resource:
+                  # Object-level permissions
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
 
-              # ✅ CloudFormation and IAM permissions
+              # ✅ Allow CloudFormation and IAM inspection operations
               - Sid: AllowCFT
                 Effect: Allow
                 Action:
                   - "cloudformation:*"
                   - "iam:PassRole"
                   - "iam:GetRole"
+                  - "iam:GetRolePolicy"
                 Resource: "*"
 
-  # -------------------------------------------------------------
+  # ----------------------------------------------------------------------
   # CloudFormation Execution Role
-  # -------------------------------------------------------------
+  # ----------------------------------------------------------------------
   myCFTExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -119,9 +123,9 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
-# -------------------------------------------------------------
-# Outputs
-# -------------------------------------------------------------
+# ------------------------------------------------------------------------
+# OUTPUTS
+# ------------------------------------------------------------------------
 Outputs:
   LambdaContentS3BucketName:
     Description: "Name of the S3 bucket for Lambda content"
