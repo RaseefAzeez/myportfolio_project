@@ -63,20 +63,24 @@ Resources:
               - Sid: AllowS3Access
                 Effect: Allow
                 Action:
+                  - "s3:ListBucket"
+                Resource:
+                  # Bucket-level permissions
+                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
+                  - !Sub "arn:aws:s3:::${FrontendBucketName}"
+
+              - Sid: AllowS3ObjectAccess
+                Effect: Allow
+                Action:
                   - "s3:PutObject"
                   - "s3:PutObjectAcl"
                   - "s3:GetObject"
-                  - "s3:ListBucket"
                   - "s3:GetObjectVersion"
                   - "s3:DeleteObject"
                 Resource:
-                  # Lambda artifact bucket
-                  - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
+                  # Object-level permissions
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
-                  # Frontend content bucket (hardcoded)
-                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-0zil45emomcy"
-                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-0zil45emomcy/*"
-
+                  - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
 
               # Allow CloudFormation and IAM operations
               - Sid: AllowCFT
