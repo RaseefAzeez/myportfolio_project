@@ -73,9 +73,10 @@ Resources:
                   # Lambda artifact bucket
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
-                  # Frontend content bucket (passed via parameter)
-                  - !Sub "arn:aws:s3:::${FrontendBucketName}"
-                  - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
+                  # Frontend content bucket (hardcoded)
+                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-0zil45emomcy"
+                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-0zil45emomcy/*"
+
 
               # Allow CloudFormation and IAM operations
               - Sid: AllowCFT
