@@ -97,6 +97,7 @@ Resources:
       RestApiId: !Ref RestAPI
       Description: !Sub "Deployment - ${AWS::StackName} - ${AWS::Region}"
     DependsOn:
+      - submitResource
       - myPOSTMethod
       - myOPTIONMethod
 
