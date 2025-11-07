@@ -19,7 +19,6 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Checkout code
@@ -108,6 +107,33 @@ jobs:
             echo "Deployment failed — check CloudFormation console."
             exit 1
           fi
+
+      # ✅ NEW STEP: Verify OIDC Role Permissions
+      - name: Verify OIDC Role S3 Access Policy
+        run: |
+          echo "🔍 Verifying S3 bucket access permissions in OIDC role..."
+
+          ROLE_NAME="myS3AccessRoleForGitHubActions"
+          REGION="${{ env.REGION }}"
+          EXPECTED_BUCKET="portfolio-dev-myportfoliocontents3bucket-0zil45emomcy"
+
+          POLICY=$(aws iam get-role-policy \
+            --role-name $ROLE_NAME \
+            --policy-name S3AccessForGitHubActions \
+            --region $REGION \
+            --query "PolicyDocument.Statement[*].Resource" \
+            --output json)
+
+          echo "🔎 Current policy resources:"
+          echo "$POLICY"
+
+          echo "$POLICY" | grep -q "$EXPECTED_BUCKET"
+          if [ $? -ne 0 ]; then
+            echo "❌ OIDC role does not have permissions for $EXPECTED_BUCKET"
+            exit 1
+          fi
+
+          echo "✅ OIDC role permissions verified successfully."
 
       - name: Upload Frontend Website to S3
         run: |
