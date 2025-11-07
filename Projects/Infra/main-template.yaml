@@ -88,7 +88,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref myLambdaFunction
       Principal: apigateway.amazonaws.com
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/*/*/*"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/prod/POST/submit"
 
   # API Gateway deployment and stage
   myAPIDeployment:
