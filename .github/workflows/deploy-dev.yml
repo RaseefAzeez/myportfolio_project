@@ -107,32 +107,53 @@ jobs:
             echo "❌ Deployment failed — check CloudFormation console."
             exit 1
           fi
+          # Ensure stack deployment is truly complete before proceeding
+          aws cloudformation wait stack-update-complete \
+            --stack-name ${{ env.STACK_NAME }} \
+            --region ${{ env.REGION }} || aws cloudformation wait stack-create-complete \
+            --stack-name ${{ env.STACK_NAME }} \
+            --region ${{ env.REGION }}
+          echo "✅ Stack deployment confirmed."
 
-      # ✅ NEW STEP: Verify S3 Access via Actual Test (Option 2)
-      - name: Verify OIDC Role S3 Access
-        run: |
-          echo "🔍 Verifying S3 bucket access via actual S3 operation..."
-
-          REGION="${{ env.REGION }}"
-          EXPECTED_BUCKET="portfolio-dev-myportfoliocontents3bucket-0zil45emomcy"
-
-          echo "🔎 Checking if OIDC role can list s3://$EXPECTED_BUCKET ..."
-          if aws s3 ls "s3://$EXPECTED_BUCKET" --region "$REGION" > /dev/null 2>&1; then
-            echo "✅ OIDC role has access to $EXPECTED_BUCKET."
-          else
-            echo "❌ OIDC role does NOT have access to $EXPECTED_BUCKET!"
-            echo "Ensure the role includes s3:ListBucket and s3:GetObject permissions."
-            exit 1
-          fi
-
-      - name: Upload Frontend Website to S3
+      # New step to retrieve the dynamic frontend bucket name after creation
+      - name: Get Frontend S3 Bucket Name
+        id: get-frontend-bucket
         run: |
           FRONTEND_BUCKET=$(aws cloudformation describe-stack-resources \
             --stack-name ${{ env.STACK_NAME }} \
             --query "StackResources[?LogicalResourceId=='myPortfolioContentS3bucket'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
-
+          
+          if [ -z "$FRONTEND_BUCKET" ]; then
+            echo "❌ Error: Frontend bucket (myPortfolioContentS3bucket) not found."
+            exit 1
+          fi
+          echo "frontend_bucket=$FRONTEND_BUCKET" >> $GITHUB_OUTPUT
           echo "Frontend bucket detected: $FRONTEND_BUCKET"
 
+      # UPDATED STEP: Now uses the actual, retrieved bucket name.
+      - name: Verify OIDC Role S3 Access
+        run: |
+          FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
+          REGION="${{ env.REGION }}"
+          
+          echo "🔎 Checking if OIDC role can list s3://$FRONTEND_BUCKET ..."
+          # The list command should now pass because: 
+          # 1. The bucket exists (due to prior deployment).
+          # 2. The OIDC role's wildcard policy covers the name.
+          if aws s3 ls "s3://$FRONTEND_BUCKET" --region "$REGION" > /dev/null 2>&1; then
+            echo "✅ OIDC role has access to $FRONTEND_BUCKET."
+          else
+            echo "❌ OIDC role does NOT have access to $FRONTEND_BUCKET! This indicates a policy issue."
+            echo "The bucket exists, so check the IAM policy in the bootstrap stack."
+            exit 1
+          fi
+
+      # UPDATED STEP: Now uses the bucket name from the new shared step.
+      - name: Upload Frontend Website to S3
+        run: |
+          FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
+          echo "Frontend bucket detected: $FRONTEND_BUCKET"
+          
           aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
           echo "✅ Website files uploaded successfully to $FRONTEND_BUCKET"
