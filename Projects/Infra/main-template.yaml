@@ -1,6 +1,3 @@
-# This is a YAML file for creating a CloudFormation stack with API Gateway, Lambda, DynamoDB, and SNS for GitSync
-# Initial CloudFormation template
-
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "CloudFormation template for creating AWS services for my portfolio website"
 
@@ -8,6 +5,9 @@ Parameters:
   myLambdacontentS3bucket:
     Type: String
     Description: "Name of the artifact bucket created by the bootstrap stack for Lambda code"
+  OidcRoleArn: # <-- NEW PARAMETER: ARN of the OIDC IAM Role
+    Type: String
+    Description: "ARN of the OIDC IAM Role used by GitHub Actions for S3 access"
 
 Resources:
 
@@ -183,11 +183,28 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
+          # Statement 1: Public Read Access (for website viewing)
           - Action:
               - "s3:GetObject"
             Effect: Allow
             Principal: "*"
             Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
+          
+          # Statement 2: OIDC Role Deploy Access (NEW - fixes deployment error)
+          - Sid: AllowOidcRoleDeployAccess
+            Effect: Allow
+            Principal:
+              AWS: !Ref OidcRoleArn # Grants permission to the GitHub OIDC Role Principal
+            Action:
+              # Permissions required for 'aws s3 sync' (list, read, write, delete)
+              - "s3:ListBucket"
+              - "s3:GetBucketLocation"
+              - "s3:PutObject"
+              - "s3:DeleteObject"
+              - "s3:GetObject"
+            Resource:
+              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}" # Bucket level
+              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*" # Object level
 
 Outputs:
   WebsiteURL:
