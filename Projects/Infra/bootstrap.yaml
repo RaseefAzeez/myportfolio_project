@@ -11,7 +11,7 @@ Description: >
 Parameters:
   FrontendBucketName:
     Type: String
-    Description: "Frontend S3 bucket name for website deployment"
+    Description: "Frontend S3 bucket name for website deployment (Used for explicit permissions)"
 
 # ------------------------------------------------------------------------
 # RESOURCES
@@ -19,7 +19,7 @@ Parameters:
 Resources:
 
   # ----------------------------------------------------------------------
-  # S3 bucket for storing Lambda code artifacts
+  # S3 bucket for storing Lambda code artifacts (Created here)
   # ----------------------------------------------------------------------
   myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
@@ -85,6 +85,7 @@ Resources:
                 Effect: Allow
                 Action:
                   - "s3:ListBucket"
+                  - "s3:GetBucketLocation" # <-- CRITICAL FIX: Added for 'aws s3 ls' and general access check
                 Resource:
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}"
