@@ -43,10 +43,12 @@ jobs:
             --stack-name ${{ env.BOOTSTRAP_STACK }} \
             --query "Stacks[0].Outputs[?OutputKey=='LambdaContentS3BucketName'].OutputValue" \
             --output text --region ${{ env.REGION }})
+
           if [ -z "$BUCKET" ]; then
-            echo "Could not find S3 bucket output in stack: ${{ env.BOOTSTRAP_STACK }}"
+            echo "❌ Could not find S3 bucket output in stack: ${{ env.BOOTSTRAP_STACK }}"
             exit 1
           fi
+
           echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
           echo "Using artifact bucket: $BUCKET"
 
@@ -60,8 +62,8 @@ jobs:
       - name: Upload Lambda ZIP to S3
         run: |
           aws s3 cp Projects/Website/lambda-function-code.zip \
-          s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code-v2.zip \
-          --region ${{ env.REGION }}
+            s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code-v2.zip \
+            --region ${{ env.REGION }}
           echo "✅ Lambda ZIP uploaded to artifact bucket."
 
       - name: Delete failed stack if exists
@@ -72,7 +74,7 @@ jobs:
             --output text 2>/dev/null || echo "NONE")
 
           if [[ "$STATUS" == "ROLLBACK_COMPLETE" ]]; then
-            echo "Deleting failed stack: ${{ env.STACK_NAME }}"
+            echo "🧹 Deleting failed stack: ${{ env.STACK_NAME }}"
             aws cloudformation delete-stack \
               --stack-name ${{ env.STACK_NAME }} \
               --region ${{ env.REGION }}
@@ -93,7 +95,10 @@ jobs:
             --capabilities CAPABILITY_NAMED_IAM \
             --role-arn ${{ secrets.CFN_EXEC_ROLE_ARN }} \
             --region ${{ env.REGION }} \
-            --parameter-overrides myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }}
+            --parameter-overrides \
+                myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
+                OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }}
+
           echo "✅ CloudFormation deployment initiated."
 
       - name: Confirm Stack Status
@@ -102,20 +107,23 @@ jobs:
             --stack-name ${{ env.STACK_NAME }} \
             --query "Stacks[0].StackStatus" \
             --output text --region ${{ env.REGION }})
+
           echo "📦 Dev Stack Status: $STATUS"
+
           if [[ "$STATUS" == *"FAILED"* ]]; then
             echo "❌ Deployment failed — check CloudFormation console."
             exit 1
           fi
-          # Ensure stack deployment is truly complete before proceeding
+
+          # Ensure stack deployment is complete before proceeding
           aws cloudformation wait stack-update-complete \
             --stack-name ${{ env.STACK_NAME }} \
             --region ${{ env.REGION }} || aws cloudformation wait stack-create-complete \
             --stack-name ${{ env.STACK_NAME }} \
             --region ${{ env.REGION }}
+
           echo "✅ Stack deployment confirmed."
 
-      # New step to retrieve the dynamic frontend bucket name after creation
       - name: Get Frontend S3 Bucket Name
         id: get-frontend-bucket
         run: |
@@ -123,37 +131,33 @@ jobs:
             --stack-name ${{ env.STACK_NAME }} \
             --query "StackResources[?LogicalResourceId=='myPortfolioContentS3bucket'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
-          
+
           if [ -z "$FRONTEND_BUCKET" ]; then
             echo "❌ Error: Frontend bucket (myPortfolioContentS3bucket) not found."
             exit 1
           fi
+
           echo "frontend_bucket=$FRONTEND_BUCKET" >> $GITHUB_OUTPUT
           echo "Frontend bucket detected: $FRONTEND_BUCKET"
 
-      # UPDATED STEP: Now uses the actual, retrieved bucket name.
       - name: Verify OIDC Role S3 Access
         run: |
           FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
           REGION="${{ env.REGION }}"
-          
-          echo "🔎 Checking if OIDC role can list s3://$FRONTEND_BUCKET ..."
-          # The list command should now pass because: 
-          # 1. The bucket exists (due to prior deployment).
-          # 2. The OIDC role's wildcard policy covers the name.
+
+          echo "🔍 Verifying OIDC role access to s3://$FRONTEND_BUCKET ..."
           if aws s3 ls "s3://$FRONTEND_BUCKET" --region "$REGION" > /dev/null 2>&1; then
             echo "✅ OIDC role has access to $FRONTEND_BUCKET."
           else
-            echo "❌ OIDC role does NOT have access to $FRONTEND_BUCKET! This indicates a policy issue."
-            echo "The bucket exists, so check the IAM policy in the bootstrap stack."
+            echo "❌ OIDC role does NOT have access to $FRONTEND_BUCKET!"
+            echo "Check the bucket policy in the main CloudFormation template (AllowOidcRoleDeployAccess)."
             exit 1
           fi
 
-      # UPDATED STEP: Now uses the bucket name from the new shared step.
       - name: Upload Frontend Website to S3
         run: |
           FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
-          echo "Frontend bucket detected: $FRONTEND_BUCKET"
-          
+          echo "🌐 Uploading frontend files to: $FRONTEND_BUCKET"
+
           aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
           echo "✅ Website files uploaded successfully to $FRONTEND_BUCKET"
