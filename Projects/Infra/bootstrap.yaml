@@ -1,5 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Bootstrap stack — creates artifact bucket, CFN execution role, and GitHub OIDC role for CI/CD."
+Description: >
+  Bootstrap stack — creates:
+  - S3 artifact bucket for Lambda packages
+  - CloudFormation Execution Role
+  - GitHub OIDC Role for CI/CD (GitHub Actions)
 
 # ------------------------------------------------------------------------
 # PARAMETERS
@@ -38,7 +42,7 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Sid: "ForMyLambdaBucket"
-            Effect: "Allow"
+            Effect: Allow
             Principal:
               Service:
                 - cloudformation.amazonaws.com
@@ -64,43 +68,46 @@ Resources:
               Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
             Action: sts:AssumeRoleWithWebIdentity
             Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
               StringLike:
                 token.actions.githubusercontent.com:sub:
                   - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/main"
                   - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
+
       Policies:
         - PolicyName: S3AccessForGitHubActions
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              # ✅ Allow S3 access for artifact, frontend, and environment buckets
-              - Sid: AllowS3Access
+              # ✅ Allow S3 bucket-level access
+              - Sid: AllowS3BucketAccess
                 Effect: Allow
                 Action:
                   - "s3:ListBucket"
                 Resource:
-                  # Bucket-level permissions
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}"
-                  # 🆕 Allow access to any dev-stage portfolio bucket (match naming convention)
-                  - !Sub "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*"
+                  # ✅ Include dynamically created dev-stage bucket (literal wildcard)
+                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*"
 
+              # ✅ Allow S3 object-level access
               - Sid: AllowS3ObjectAccess
                 Effect: Allow
                 Action:
-                  - "s3:PutObject"
-                  - "s3:PutObjectAcl"
                   - "s3:GetObject"
                   - "s3:GetObjectVersion"
+                  - "s3:PutObject"
+                  - "s3:PutObjectAcl"
                   - "s3:DeleteObject"
                 Resource:
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
-                  # 🆕 Match any object in dynamically named dev-stage buckets
-                  - !Sub "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*/*"
+                  # ✅ Include all objects in dynamic dev-stage bucket
+                  - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*/*"
 
-              # ✅ Allow CFN + IAM inspection for deployments
-              - Sid: AllowCFT
+              # ✅ Allow CloudFormation + IAM operations for deployments
+              - Sid: AllowCloudFormationAndIAM
                 Effect: Allow
                 Action:
                   - "cloudformation:*"
@@ -109,9 +116,8 @@ Resources:
                   - "iam:GetRolePolicy"
                 Resource: "*"
 
-
   # ----------------------------------------------------------------------
-  # CloudFormation Execution Role
+  # CloudFormation Execution Role (for deploying stacks)
   # ----------------------------------------------------------------------
   myCFTExecutionRole:
     Type: AWS::IAM::Role
