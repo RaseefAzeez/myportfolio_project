@@ -5,13 +5,154 @@ Parameters:
   myLambdacontentS3bucket:
     Type: String
     Description: "Name of the artifact bucket created by the bootstrap stack for Lambda code"
-  OidcRoleArn: # <-- NEW PARAMETER: ARN of the OIDC IAM Role
+  OidcRoleArn:
     Type: String
     Description: "ARN of the OIDC IAM Role used by GitHub Actions for S3 access"
 
 Resources:
 
-  # API Gateway Resource and Method Definition
+  # ----------------------------------------------------------------------
+  # DynamoDB Table
+  # ----------------------------------------------------------------------
+  myDynamoDB:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: submissionId
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: S
+      KeySchema:
+        - AttributeName: submissionId
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
+  # ----------------------------------------------------------------------
+  # SNS Topic
+  # ----------------------------------------------------------------------
+  MySNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: "raseefaz@gmail.com"
+          Protocol: email
+
+  # ----------------------------------------------------------------------
+  # Frontend S3 Bucket (Stable Name)
+  # ----------------------------------------------------------------------
+  myPortfolioContentS3bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      # 👇 Stable bucket name (no random suffix)
+      BucketName: !Sub "portfolio-dev-myportfoliocontents3bucket-${AWS::AccountId}"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  # ----------------------------------------------------------------------
+  # Frontend Bucket Policy (Website + GitHub Deploy Access)
+  # ----------------------------------------------------------------------
+  myS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref myPortfolioContentS3bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          # 1️⃣ Allow public read for website access
+          - Sid: PublicReadAccess
+            Effect: Allow
+            Principal: "*"
+            Action: "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
+
+          # 2️⃣ Allow GitHub Actions OIDC role to deploy files
+          - Sid: AllowOidcRoleDeployAccess
+            Effect: Allow
+            Principal:
+              AWS: !Ref OidcRoleArn
+            Action:
+              - "s3:ListBucket"
+              - "s3:GetBucketLocation"
+              - "s3:GetObject"
+              - "s3:PutObject"
+              - "s3:DeleteObject"
+            Resource:
+              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}"
+              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
+
+  # ----------------------------------------------------------------------
+  # Lambda Execution Role
+  # ----------------------------------------------------------------------
+  myLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: inlineForDynamoDbAndSnsAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: DynamoDBPutItem
+                Effect: Allow
+                Action: dynamodb:PutItem
+                Resource: !GetAtt myDynamoDB.Arn
+              - Sid: SNSemail
+                Effect: Allow
+                Action: sns:Publish
+                Resource: !Ref MySNSTopic
+
+  # ----------------------------------------------------------------------
+  # Lambda Function (uses stable frontend bucket for CORS)
+  # ----------------------------------------------------------------------
+  myLambdaFunction:
+    Type: AWS::Lambda::Function
+    DependsOn:
+      - myLambdaExecutionRole
+      - myPortfolioContentS3bucket
+    Properties:
+      Runtime: nodejs20.x
+      Handler: index.handler
+      Role: !GetAtt myLambdaExecutionRole.Arn
+      Code:
+        S3Bucket: !Ref myLambdacontentS3bucket
+        S3Key: dev-lambda-function-code-v2.zip
+      Environment:
+        Variables:
+          DYNAMODB_TABLE_NAME: !Ref myDynamoDB
+          SNS_TOPIC_ARN: !Ref MySNSTopic
+          # 👇 Automatically aligns CORS origin with stable bucket
+          ALLOWED_ORIGIN: !Sub "https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+
+  myLambdaPermissions:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref myLambdaFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/prod/POST/submit"
+
+  # ----------------------------------------------------------------------
+  # API Gateway
+  # ----------------------------------------------------------------------
   RestAPI:
     Type: AWS::ApiGateway::RestApi
     Properties:
@@ -44,20 +185,17 @@ Resources:
       ResourceId: !Ref submitResource
       RestApiId: !Ref RestAPI
       AuthorizationType: NONE
-      RequestParameters:
-        method.request.header.myheader: false
       Integration:
         Type: MOCK
         RequestTemplates:
           application/json: '{"statusCode": 200}'
-        RequestParameters:
-          integration.request.header.header1: method.request.header.myheader
         IntegrationResponses:
           - StatusCode: "200"
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
+              # 👇 Matches ALLOWED_ORIGIN automatically
+              method.response.header.Access-Control-Allow-Origin: !Sub "'https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
@@ -65,32 +203,6 @@ Resources:
             method.response.header.Access-Control-Allow-Headers: true
             method.response.header.Access-Control-Allow-Origin: true
 
-  # Lambda function creation
-  myLambdaFunction:
-    Type: AWS::Lambda::Function
-    DependsOn: myLambdaExecutionRole
-    Properties:
-      Runtime: nodejs20.x
-      Handler: index.handler
-      Role: !GetAtt myLambdaExecutionRole.Arn
-      Code:
-        S3Bucket: !Ref myLambdacontentS3bucket
-        S3Key: dev-lambda-function-code-v2.zip
-      Environment:
-        Variables:
-          DYNAMODB_TABLE_NAME: !Ref myDynamoDB
-          SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: !Sub "https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
-
-  myLambdaPermissions:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref myLambdaFunction
-      Principal: apigateway.amazonaws.com
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/prod/POST/submit"
-
-  # API Gateway deployment and stage
   myAPIDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
@@ -108,104 +220,9 @@ Resources:
       DeploymentId: !Ref myAPIDeployment
       StageName: prod
 
-  # DynamoDB Table
-  myDynamoDB:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: submissionId
-          AttributeType: S
-        - AttributeName: timestamp
-          AttributeType: S
-      KeySchema:
-        - AttributeName: submissionId
-          KeyType: HASH
-        - AttributeName: timestamp
-          KeyType: RANGE
-      BillingMode: PAY_PER_REQUEST
-
-  # SNS Topic for email notification
-  MySNSTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      Subscription:
-        - Endpoint: "raseefaz@gmail.com"
-          Protocol: email
-
-  # IAM Role for Lambda Execution
-  myLambdaExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-      Policies:
-        - PolicyName: inlineForDynamoDbAndSnsAccess
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Sid: DynamoDBPutItem
-                Effect: Allow
-                Action: dynamodb:PutItem
-                Resource: !GetAtt myDynamoDB.Arn
-              - Sid: SNSemail
-                Effect: Allow
-                Action: sns:Publish
-                Resource: !Ref MySNSTopic
-
-  # S3 bucket creation and policy for front end data to be saved on
-  myPortfolioContentS3bucket:
-    Type: AWS::S3::Bucket
-    DeletionPolicy: Retain
-    Properties:
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: false
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: false
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerPreferred
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        # ErrorDocument: error.html
-
-  myS3BucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref myPortfolioContentS3bucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          # Statement 1: Public Read Access (for website viewing)
-          - Action:
-              - "s3:GetObject"
-            Effect: Allow
-            Principal: "*"
-            Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
-          
-          # Statement 2: OIDC Role Deploy Access (NEW - fixes deployment error)
-          - Sid: AllowOidcRoleDeployAccess
-            Effect: Allow
-            Principal:
-              AWS: !Ref OidcRoleArn # Grants permission to the GitHub OIDC Role Principal
-            Action:
-              # Permissions required for 'aws s3 sync' (list, read, write, delete)
-              - "s3:ListBucket"
-              - "s3:GetBucketLocation"
-              - "s3:PutObject"
-              - "s3:DeleteObject"
-              - "s3:GetObject"
-            Resource:
-              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}" # Bucket level
-              - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*" # Object level
-
+# ----------------------------------------------------------------------
+# Outputs
+# ----------------------------------------------------------------------
 Outputs:
   WebsiteURL:
     Description: "URL of the static portfolio website hosted on S3"
