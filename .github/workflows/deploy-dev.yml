@@ -62,7 +62,7 @@ jobs:
       - name: Upload Lambda ZIP to S3
         run: |
           aws s3 cp Projects/Website/lambda-function-code.zip \
-            s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code-v2.zip \
+            s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code-v3.zip \
             --region ${{ env.REGION }}
           echo "✅ Lambda ZIP uploaded to artifact bucket."
 
