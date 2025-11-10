@@ -3,9 +3,25 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 const sns = new AWS.SNS();
 
 exports.handler = async (event) => {
-  const allowedOrigin = process.env.ALLOWED_ORIGIN;
-  console.log("Allowed Origin:", allowedOrigin);
-  console.log("Event:", JSON.stringify(event));
+  const allowedOrigin =
+    process.env.ALLOWED_ORIGIN ||
+    "http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com";
+
+  console.log("🔹 Allowed Origin:", allowedOrigin);
+  console.log("🔹 Incoming Event:", JSON.stringify(event));
+
+  // ✅ Handle CORS preflight request
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": allowedOrigin,
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers":
+          "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
+      },
+    };
+  }
 
   try {
     const body = JSON.parse(event.body);
@@ -31,6 +47,8 @@ exports.handler = async (event) => {
       })
       .promise();
 
+    console.log("✅ Data saved and SNS sent");
+
     return {
       statusCode: 200,
       headers: {
@@ -44,7 +62,7 @@ exports.handler = async (event) => {
       }),
     };
   } catch (error) {
-    console.error("Error submitting form:", error);
+    console.error("❌ Error submitting form:", error);
 
     return {
       statusCode: 500,

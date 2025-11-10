@@ -18,9 +18,7 @@ Parameters:
 # ----------------------------------------------------------------------
 Resources:
 
-  # ----------------------------------------------------------------------
   # DynamoDB Table
-  # ----------------------------------------------------------------------
   myDynamoDB:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -36,9 +34,7 @@ Resources:
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
 
-  # ----------------------------------------------------------------------
   # SNS Topic for email notification
-  # ----------------------------------------------------------------------
   MySNSTopic:
     Type: AWS::SNS::Topic
     Properties:
@@ -46,9 +42,7 @@ Resources:
         - Endpoint: "raseefaz@gmail.com"
           Protocol: email
 
-  # ----------------------------------------------------------------------
   # Frontend S3 Bucket (Stable Name)
-  # ----------------------------------------------------------------------
   myPortfolioContentS3bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
@@ -65,9 +59,7 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
 
-  # ----------------------------------------------------------------------
-  # Frontend Bucket Policy (for Website + OIDC Deployment)
-  # ----------------------------------------------------------------------
+  # Frontend Bucket Policy (Website + OIDC)
   myS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -80,7 +72,6 @@ Resources:
             Principal: "*"
             Action: "s3:GetObject"
             Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
-
           - Sid: AllowOidcRoleDeployAccess
             Effect: Allow
             Principal:
@@ -95,9 +86,7 @@ Resources:
               - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}"
               - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
 
-  # ----------------------------------------------------------------------
   # Lambda Execution Role
-  # ----------------------------------------------------------------------
   myLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -124,9 +113,7 @@ Resources:
                 Action: sns:Publish
                 Resource: !Ref MySNSTopic
 
-  # ----------------------------------------------------------------------
-  # Lambda Function (with proper CORS environment variable)
-  # ----------------------------------------------------------------------
+  # Lambda Function
   myLambdaFunction:
     Type: AWS::Lambda::Function
     DependsOn:
@@ -153,9 +140,7 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/prod/POST/submit"
 
-  # ----------------------------------------------------------------------
-  # API Gateway (CORS + Proxy Integration)
-  # ----------------------------------------------------------------------
+  # API Gateway
   RestAPI:
     Type: AWS::ApiGateway::RestApi
     Properties:
@@ -169,7 +154,7 @@ Resources:
       ParentId: !GetAtt RestAPI.RootResourceId
       PathPart: submit
 
-  # ✅ POST Method (connects API Gateway → Lambda)
+  # POST Method
   myPOSTMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -181,14 +166,8 @@ Resources:
         IntegrationHttpMethod: POST
         Type: AWS_PROXY
         Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${myLambdaFunction.Arn}/invocations"
-      MethodResponses:
-        - StatusCode: "200"
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Origin: true
-            method.response.header.Access-Control-Allow-Methods: true
-            method.response.header.Access-Control-Allow-Headers: true
 
-  # ✅ OPTIONS Method (CORS preflight)
+  # OPTIONS Method (CORS preflight)
   myOPTIONMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -213,9 +192,7 @@ Resources:
             method.response.header.Access-Control-Allow-Headers: true
             method.response.header.Access-Control-Allow-Origin: true
 
-  # ----------------------------------------------------------------------
-  # API Gateway Deployment + Stage
-  # ----------------------------------------------------------------------
+  # API Deployment + Stage
   myAPIDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
