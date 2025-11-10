@@ -130,7 +130,7 @@ Resources:
         Variables:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: "http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com"
+          ALLOWED_ORIGIN: "https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -185,7 +185,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com'"
+              method.response.header.Access-Control-Allow-Origin: "'https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com/'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
