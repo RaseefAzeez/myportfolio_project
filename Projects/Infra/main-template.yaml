@@ -37,7 +37,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
 
   # ----------------------------------------------------------------------
-  # SNS Topic
+  # SNS Topic for email notification
   # ----------------------------------------------------------------------
   MySNSTopic:
     Type: AWS::SNS::Topic
@@ -66,7 +66,7 @@ Resources:
         IndexDocument: index.html
 
   # ----------------------------------------------------------------------
-  # Frontend Bucket Policy (Website + GitHub Deploy Access)
+  # Frontend Bucket Policy (for Website + OIDC Deployment)
   # ----------------------------------------------------------------------
   myS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -125,7 +125,7 @@ Resources:
                 Resource: !Ref MySNSTopic
 
   # ----------------------------------------------------------------------
-  # Lambda Function (CORS + Environment Configured)
+  # Lambda Function (with proper CORS environment variable)
   # ----------------------------------------------------------------------
   myLambdaFunction:
     Type: AWS::Lambda::Function
@@ -169,7 +169,7 @@ Resources:
       ParentId: !GetAtt RestAPI.RootResourceId
       PathPart: submit
 
-  # ✅ POST method integration
+  # ✅ POST Method (connects API Gateway → Lambda)
   myPOSTMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -188,7 +188,7 @@ Resources:
             method.response.header.Access-Control-Allow-Methods: true
             method.response.header.Access-Control-Allow-Headers: true
 
-  # ✅ OPTIONS method for CORS preflight
+  # ✅ OPTIONS Method (CORS preflight)
   myOPTIONMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -213,6 +213,9 @@ Resources:
             method.response.header.Access-Control-Allow-Headers: true
             method.response.header.Access-Control-Allow-Origin: true
 
+  # ----------------------------------------------------------------------
+  # API Gateway Deployment + Stage
+  # ----------------------------------------------------------------------
   myAPIDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
