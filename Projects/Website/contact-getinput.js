@@ -8,7 +8,7 @@ const submitButton = document.getElementById('submitButton');
 const loadingSpinner = document.getElementById('loadingSpinner');
 
 // IMPORTANT: This API_GATEWAY_URL must be replaced with your actual API Gateway Invoke URL.
-const API_GATEWAY_URL = 'https://0nmkce0qnc.execute-api.us-east-1.amazonaws.com/prod/submit';
+const API_GATEWAY_URL = 'https://9jrcfloh2g.execute-api.us-east-1.amazonaws.com/prod/submit';
 
 /**s
  * Helper function to display messages to the user.
