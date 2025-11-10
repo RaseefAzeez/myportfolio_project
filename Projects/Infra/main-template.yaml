@@ -120,7 +120,7 @@ Resources:
       - myLambdaExecutionRole
       - myPortfolioContentS3bucket
     Properties:
-      Runtime: nodejs20.x
+      Runtime: nodejs16.x
       Handler: index.handler
       Role: !GetAtt myLambdaExecutionRole.Arn
       Code:
