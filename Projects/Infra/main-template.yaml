@@ -1,14 +1,21 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "CloudFormation template for creating AWS services for my portfolio website"
 
+# ----------------------------------------------------------------------
+# PARAMETERS
+# ----------------------------------------------------------------------
 Parameters:
   myLambdacontentS3bucket:
     Type: String
     Description: "Name of the artifact bucket created by the bootstrap stack for Lambda code"
+
   OidcRoleArn:
     Type: String
     Description: "ARN of the OIDC IAM Role used by GitHub Actions for S3 access"
 
+# ----------------------------------------------------------------------
+# RESOURCES
+# ----------------------------------------------------------------------
 Resources:
 
   # ----------------------------------------------------------------------
@@ -46,7 +53,6 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
-      # 👇 Stable bucket name (no random suffix)
       BucketName: !Sub "portfolio-dev-myportfoliocontents3bucket-${AWS::AccountId}"
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
@@ -69,14 +75,12 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          # 1️⃣ Allow public read for website access
           - Sid: PublicReadAccess
             Effect: Allow
             Principal: "*"
             Action: "s3:GetObject"
             Resource: !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
 
-          # 2️⃣ Allow GitHub Actions OIDC role to deploy files
           - Sid: AllowOidcRoleDeployAccess
             Effect: Allow
             Principal:
@@ -121,7 +125,7 @@ Resources:
                 Resource: !Ref MySNSTopic
 
   # ----------------------------------------------------------------------
-  # Lambda Function (uses stable frontend bucket for CORS)
+  # Lambda Function (CORS + Environment Configured)
   # ----------------------------------------------------------------------
   myLambdaFunction:
     Type: AWS::Lambda::Function
@@ -139,9 +143,7 @@ Resources:
         Variables:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
-          # 👇 Automatically aligns CORS origin with stable bucket
-          ALLOWED_ORIGIN: 
-            Fn::Sub: "https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+          ALLOWED_ORIGIN: "http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -152,7 +154,7 @@ Resources:
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/prod/POST/submit"
 
   # ----------------------------------------------------------------------
-  # API Gateway
+  # API Gateway (CORS + Proxy Integration)
   # ----------------------------------------------------------------------
   RestAPI:
     Type: AWS::ApiGateway::RestApi
@@ -167,6 +169,7 @@ Resources:
       ParentId: !GetAtt RestAPI.RootResourceId
       PathPart: submit
 
+  # ✅ POST method integration
   myPOSTMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -178,7 +181,14 @@ Resources:
         IntegrationHttpMethod: POST
         Type: AWS_PROXY
         Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${myLambdaFunction.Arn}/invocations"
+      MethodResponses:
+        - StatusCode: "200"
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Headers: true
 
+  # ✅ OPTIONS method for CORS preflight
   myOPTIONMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -195,10 +205,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              # Matches ALLOWED_ORIGIN automatically
-              method.response.header.Access-Control-Allow-Origin: 
-                Fn::Sub: "'https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
-
+              method.response.header.Access-Control-Allow-Origin: "'http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
@@ -224,7 +231,7 @@ Resources:
       StageName: prod
 
 # ----------------------------------------------------------------------
-# Outputs
+# OUTPUTS
 # ----------------------------------------------------------------------
 Outputs:
   WebsiteURL:
