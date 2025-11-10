@@ -140,7 +140,8 @@ Resources:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
           # 👇 Automatically aligns CORS origin with stable bucket
-          ALLOWED_ORIGIN: !Sub "https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+          ALLOWED_ORIGIN: 
+            Fn::Sub: "https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -194,8 +195,10 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              # 👇 Matches ALLOWED_ORIGIN automatically
-              method.response.header.Access-Control-Allow-Origin: !Sub "'https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
+              # Matches ALLOWED_ORIGIN automatically
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'https://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com'"
+
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
