@@ -1,80 +1,90 @@
-const AWS = require("aws-sdk");
-const dynamo = new AWS.DynamoDB.DocumentClient();
+const AWS = require('aws-sdk');
+const dynamodb = new AWS.DynamoDB.DocumentClient();
 const sns = new AWS.SNS();
 
+// Remove 'uuid' since we're running from console without npm modules.
+// We'll use timestamp-based unique IDs instead.
+
+// Environment variables
+const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME;
+const SNS_TOPIC_ARN = process.env.SNS_TOPIC_ARN;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
+
 exports.handler = async (event) => {
-  const allowedOrigin =
-    process.env.ALLOWED_ORIGIN ||
-    "http://portfolio-dev-myportfoliocontents3bucket-061051251789.s3-website-us-east-1.amazonaws.com";
+    let statusCode = 200;
+    let body;
 
-  console.log("🔹 Allowed Origin:", allowedOrigin);
-  console.log("🔹 Incoming Event:", JSON.stringify(event));
-
-  // ✅ Handle CORS preflight request
-  if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": allowedOrigin,
-        "Access-Control-Allow-Methods": "POST,OPTIONS",
-        "Access-Control-Allow-Headers":
-          "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
-      },
+    const defaultHeaders = {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+        'Access-Control-Allow-Methods': 'POST,OPTIONS',
+        'Content-Type': 'application/json'
     };
-  }
 
-  try {
-    const body = JSON.parse(event.body);
-    const submissionId = Date.now().toString();
+    // Handle CORS preflight
+    if (event.httpMethod === 'OPTIONS') {
+        console.log('Received OPTIONS request.');
+        return {
+            statusCode: 204,
+            headers: {
+                'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+                'Access-Control-Allow-Methods': 'POST,OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+            },
+            body: ''
+        };
+    }
 
-    // ✅ Store data in DynamoDB
-    await dynamo
-      .put({
-        TableName: process.env.DYNAMODB_TABLE_NAME,
-        Item: {
-          submissionId,
-          timestamp: new Date().toISOString(),
-          ...body,
-        },
-      })
-      .promise();
+    try {
+        const formData = JSON.parse(event.body);
 
-    // ✅ Send SNS email notification
-    await sns
-      .publish({
-        TopicArn: process.env.SNS_TOPIC_ARN,
-        Message: `New portfolio submission: ${JSON.stringify(body)}`,
-      })
-      .promise();
+        if (!formData.name || !formData.email || !formData.message) {
+            statusCode = 400;
+            body = JSON.stringify({ message: 'Name, email, and message are required.' });
+            return { statusCode, body, headers: defaultHeaders };
+        }
 
-    console.log("✅ Data saved and SNS sent");
+        const submissionId = `submission-${Date.now()}`;
+        const timestamp = new Date().toISOString();
 
-    return {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": allowedOrigin,
-        "Access-Control-Allow-Methods": "POST,OPTIONS",
-        "Access-Control-Allow-Headers":
-          "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
-      },
-      body: JSON.stringify({
-        message: "Form submitted successfully ✅",
-      }),
-    };
-  } catch (error) {
-    console.error("❌ Error submitting form:", error);
+        const item = {
+            submissionId,
+            timestamp,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || 'N/A',
+            message: formData.message,
+            ipAddress: event.requestContext?.identity?.sourceIp || 'N/A'
+        };
 
-    return {
-      statusCode: 500,
-      headers: {
-        "Access-Control-Allow-Origin": allowedOrigin,
-        "Access-Control-Allow-Methods": "POST,OPTIONS",
-        "Access-Control-Allow-Headers":
-          "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
-      },
-      body: JSON.stringify({
-        error: "Failed to process submission ❌",
-      }),
-    };
-  }
+        await dynamodb.put({
+            TableName: DYNAMODB_TABLE_NAME,
+            Item: item
+        }).promise();
+        console.log('✅ Saved to DynamoDB:', item);
+
+        const snsMessage = `New Contact Form Submission:\n\n` +
+            `Name: ${item.name}\n` +
+            `Email: ${item.email}\n` +
+            `Phone: ${item.phone}\n` +
+            `Message: ${item.message}\n` +
+            `Timestamp: ${item.timestamp}\n` +
+            `Submission ID: ${item.submissionId}`;
+
+        await sns.publish({
+            Message: snsMessage,
+            Subject: `New Portfolio Contact Form Submission (${item.name})`,
+            TopicArn: SNS_TOPIC_ARN
+        }).promise();
+        console.log('✅ SNS notification sent.');
+
+        body = JSON.stringify({ message: 'Form submitted successfully!', submissionId });
+
+    } catch (error) {
+        console.error('❌ Error processing form submission:', error);
+        statusCode = 500;
+        body = JSON.stringify({ message: 'Failed to submit form.', error: error.message });
+    } finally {
+        return { statusCode, body, headers: defaultHeaders };
+    }
 };
