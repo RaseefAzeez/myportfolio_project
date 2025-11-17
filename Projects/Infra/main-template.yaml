@@ -9,6 +9,11 @@ Parameters:
     Type: String
     Description: "Name of the artifact bucket created by the bootstrap stack for Lambda code"
 
+  LambdaCodeKey:
+    Type: String
+    Default: "dev-lambda.zip"
+    Description: "S3 key of Lambda ZIP for the deployment"
+
   OidcRoleArn:
     Type: String
     Description: "ARN of the OIDC IAM Role used by GitHub Actions for S3 access"
@@ -120,12 +125,12 @@ Resources:
       - myLambdaExecutionRole
       - myPortfolioContentS3bucket
     Properties:
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Handler: index.handler
       Role: !GetAtt myLambdaExecutionRole.Arn
       Code:
         S3Bucket: !Ref myLambdacontentS3bucket
-        S3Key: dev-lambda.zip
+        S3Key: !Ref LambdaCodeKey
       Environment:
         Variables:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
@@ -139,7 +144,6 @@ Resources:
       FunctionName: !Ref myLambdaFunction
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/*/POST/submit"
-
 
   # API Gateway
   RestAPI:
