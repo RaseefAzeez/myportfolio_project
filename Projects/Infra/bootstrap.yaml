@@ -19,7 +19,7 @@ Parameters:
 Resources:
 
   # ----------------------------------------------------------------------
-  # S3 bucket for storing Lambda code artifacts (Created here)
+  # S3 bucket for storing Lambda code artifacts are (Created here)
   # ----------------------------------------------------------------------
   myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
@@ -113,7 +113,7 @@ Resources:
                   - "lambda:UpdateFunctionCode"
                   - "lambda:UpdateFunctionConfiguration"
                 Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
-                
+
               # Allow CloudFormation and minimal IAM ops for stack execution
               - Sid: AllowCloudFormationAndIAM
                 Effect: Allow
