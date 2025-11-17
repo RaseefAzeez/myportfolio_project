@@ -13,7 +13,8 @@ permissions:
 env:
   REGION: us-east-1
   STACK_NAME: portfolio-dev
-  TEMPLATE_FILE: Projects/Infra/main-template.yaml # Using the relative path in the current directory
+  # FIX: Change to use the explicit relative path to the template file
+  TEMPLATE_FILE: Projects/Infra/main-template.yaml
   BOOTSTRAP_STACK: bootstrap-stack
   FUNCTION_LOGICAL_ID: myLambdaFunction  # Logical ID in CF template
 
@@ -25,6 +26,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Show working directory contents (Diagnostic)
+        run: ls -R
+        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -33,9 +37,9 @@ jobs:
 
       - name: Validate CloudFormation template
         run: |
-          # Note: Using main-template.yaml from the root directory for simplicity
+          # FIX 1: Use the TEMPLATE_FILE environment variable, which holds the full path.
           aws cloudformation validate-template \
-            --template-body file://main-template.yaml \
+            --template-body file://${{ env.TEMPLATE_FILE }} \
             --region ${{ env.REGION }}
 
       - name: Get artifact bucket from bootstrap stack
@@ -87,16 +91,14 @@ jobs:
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
-            --template-file main-template.yaml \
+            --template-file ${{ env.TEMPLATE_FILE }} \
             --stack-name ${{ env.STACK_NAME }} \
             --capabilities CAPABILITY_NAMED_IAM \
             --role-arn ${{ secrets.CFN_EXEC_ROLE_ARN }} \
             --region ${{ env.REGION }} \
             --parameter-overrides \
               myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
-              OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }} \
-              # CRITICAL FIX: Pass the Amplify URL to the CloudFormation parameter
-              AmplifyWebAppOrigin=https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com 
+              OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }}
 
           echo "🚀 CloudFormation deployment completed."
 
