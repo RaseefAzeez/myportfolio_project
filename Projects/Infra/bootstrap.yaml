@@ -104,13 +104,13 @@ Resources:
                   - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
                   - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*/*"
 
-              # Allow direct Lambda code updates
+              # Secure Lambda code update (Scoped to account)
               - Sid: AllowLambdaUpdateCode
                 Effect: Allow
                 Action:
                   - "lambda:GetFunction"
                   - "lambda:UpdateFunctionCode"
-                Resource: "*"
+                Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
 
               # Allow CloudFormation and minimal IAM ops for stack execution
               - Sid: AllowCloudFormationAndIAM
