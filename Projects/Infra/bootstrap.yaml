@@ -19,7 +19,7 @@ Parameters:
 Resources:
 
   # ----------------------------------------------------------------------
-  # S3 bucket for storing Lambda code artifacts
+  # S3 bucket for storing Lambda code artifacts (Created here)
   # ----------------------------------------------------------------------
   myLambdacontentS3bucket:
     Type: AWS::S3::Bucket
@@ -41,7 +41,7 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Sid: "ForMyLambdaBucket"
+          - Sid: ForMyLambdaBucket
             Effect: Allow
             Principal:
               Service:
@@ -50,8 +50,7 @@ Resources:
             Action:
               - "s3:GetObject"
               - "s3:GetObjectVersion"
-            Resource:
-              - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
+            Resource: !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
 
   # ----------------------------------------------------------------------
   # OIDC IAM Role for GitHub Actions
@@ -76,10 +75,11 @@ Resources:
                   - "repo:RaseefAzeez/myportfolio_project:ref:refs/heads/infra-dev-setup"
 
       Policies:
-        - PolicyName: DeploymentAccessForGitHubActions
+        - PolicyName: S3LambdaCFAccess
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
+              # Allow S3 bucket-level access
               - Sid: AllowS3BucketAccess
                 Effect: Allow
                 Action:
@@ -90,23 +90,29 @@ Resources:
                   - !Sub "arn:aws:s3:::${FrontendBucketName}"
                   - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*"
 
+              # Allow S3 object-level access
               - Sid: AllowS3ObjectAccess
                 Effect: Allow
                 Action:
                   - "s3:GetObject"
+                  - "s3:GetObjectVersion"
                   - "s3:PutObject"
+                  - "s3:PutObjectAcl"
                   - "s3:DeleteObject"
                 Resource:
                   - !Sub "arn:aws:s3:::${myLambdacontentS3bucket}/*"
                   - !Sub "arn:aws:s3:::${FrontendBucketName}/*"
                   - "arn:aws:s3:::portfolio-dev-myportfoliocontents3bucket-*/*"
 
-              - Sid: AllowLambdaUpdate
+              # Allow direct Lambda code updates
+              - Sid: AllowLambdaUpdateCode
                 Effect: Allow
                 Action:
+                  - "lambda:GetFunction"
                   - "lambda:UpdateFunctionCode"
                 Resource: "*"
 
+              # Allow CloudFormation and minimal IAM ops for stack execution
               - Sid: AllowCloudFormationAndIAM
                 Effect: Allow
                 Action:
