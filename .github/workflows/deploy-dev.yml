@@ -15,6 +15,7 @@ env:
   STACK_NAME: portfolio-dev
   TEMPLATE_FILE: Projects/Infra/main-template.yaml
   BOOTSTRAP_STACK: bootstrap-stack
+  FUNCTION_LOGICAL_ID: myLambdaFunction  # Logical ID in CF template
 
 jobs:
   deploy:
@@ -44,27 +45,22 @@ jobs:
             --query "Stacks[0].Outputs[?OutputKey=='LambdaContentS3BucketName'].OutputValue" \
             --output text --region ${{ env.REGION }})
 
-          if [ -z "$BUCKET" ]; then
-            echo "❌ Could not find S3 bucket output in stack: ${{ env.BOOTSTRAP_STACK }}"
-            exit 1
-          fi
-
           echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
           echo "Using artifact bucket: $BUCKET"
 
       - name: Package Lambda Code
         run: |
           cd Projects/Website
-          zip -r lambda-function-code.zip index.js
-          ls -lh lambda-function-code.zip
-          echo "✅ Lambda package created."
+          zip -r dev-lambda.zip index.js
+          ls -lh dev-lambda.zip
+          echo "📦 Lambda package (dev-lambda.zip) created."
 
       - name: Upload Lambda ZIP to S3
         run: |
-          aws s3 cp Projects/Website/lambda-function-code.zip \
-            s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda-function-code-v3.zip \
+          aws s3 cp Projects/Website/dev-lambda.zip \
+            s3://${{ steps.get-bucket.outputs.bucket }}/dev-lambda.zip \
             --region ${{ env.REGION }}
-          echo "✅ Lambda ZIP uploaded to artifact bucket."
+          echo "📤 Lambda code uploaded successfully."
 
       - name: Delete failed stack if exists
         run: |
@@ -78,11 +74,10 @@ jobs:
             aws cloudformation delete-stack \
               --stack-name ${{ env.STACK_NAME }} \
               --region ${{ env.REGION }}
-            echo "Waiting for stack deletion..."
             aws cloudformation wait stack-delete-complete \
               --stack-name ${{ env.STACK_NAME }} \
               --region ${{ env.REGION }}
-            echo "✅ Deleted failed stack."
+            echo "🗑️ Deleted failed stack."
           else
             echo "No failed stack found (status: $STATUS)"
           fi
@@ -99,65 +94,32 @@ jobs:
                 myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
                 OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }}
 
-          echo "✅ CloudFormation deployment initiated."
+          echo "🚀 CloudFormation deployment completed."
 
-      - name: Confirm Stack Status
+      - name: Update Lambda Function Code (without redeploying CloudFormation)
         run: |
-          STATUS=$(aws cloudformation describe-stacks \
+          FUNCTION_NAME=$(aws cloudformation describe-stack-resources \
             --stack-name ${{ env.STACK_NAME }} \
-            --query "Stacks[0].StackStatus" \
+            --query "StackResources[?LogicalResourceId=='${{ env.FUNCTION_LOGICAL_ID }}'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
 
-          echo "📦 Dev Stack Status: $STATUS"
+          echo "🔁 Updating Lambda function ($FUNCTION_NAME)..."
 
-          if [[ "$STATUS" == *"FAILED"* ]]; then
-            echo "❌ Deployment failed — check CloudFormation console."
-            exit 1
-          fi
-
-          # Ensure stack deployment is complete before proceeding
-          aws cloudformation wait stack-update-complete \
-            --stack-name ${{ env.STACK_NAME }} \
-            --region ${{ env.REGION }} || aws cloudformation wait stack-create-complete \
-            --stack-name ${{ env.STACK_NAME }} \
+          aws lambda update-function-code \
+            --function-name $FUNCTION_NAME \
+            --s3-bucket ${{ steps.get-bucket.outputs.bucket }} \
+            --s3-key dev-lambda.zip \
             --region ${{ env.REGION }}
 
-          echo "✅ Stack deployment confirmed."
+          echo "🎉 Lambda function code updated successfully!"
 
-      - name: Get Frontend S3 Bucket Name
-        id: get-frontend-bucket
+      - name: Sync Frontend to S3 (Portfolio Website)
         run: |
           FRONTEND_BUCKET=$(aws cloudformation describe-stack-resources \
             --stack-name ${{ env.STACK_NAME }} \
             --query "StackResources[?LogicalResourceId=='myPortfolioContentS3bucket'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
 
-          if [ -z "$FRONTEND_BUCKET" ]; then
-            echo "❌ Error: Frontend bucket (myPortfolioContentS3bucket) not found."
-            exit 1
-          fi
-
-          echo "frontend_bucket=$FRONTEND_BUCKET" >> $GITHUB_OUTPUT
-          echo "Frontend bucket detected: $FRONTEND_BUCKET"
-
-      - name: Verify OIDC Role S3 Access
-        run: |
-          FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
-          REGION="${{ env.REGION }}"
-
-          echo "🔍 Verifying OIDC role access to s3://$FRONTEND_BUCKET ..."
-          if aws s3 ls "s3://$FRONTEND_BUCKET" --region "$REGION" > /dev/null 2>&1; then
-            echo "✅ OIDC role has access to $FRONTEND_BUCKET."
-          else
-            echo "❌ OIDC role does NOT have access to $FRONTEND_BUCKET!"
-            echo "Check the bucket policy in the main CloudFormation template (AllowOidcRoleDeployAccess)."
-            exit 1
-          fi
-
-      - name: Upload Frontend Website to S3
-        run: |
-          FRONTEND_BUCKET=${{ steps.get-frontend-bucket.outputs.frontend_bucket }}
           echo "🌐 Uploading frontend files to: $FRONTEND_BUCKET"
-
           aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
-          echo "✅ Website files uploaded successfully to $FRONTEND_BUCKET"
+          echo "✨ Frontend website sync complete."
