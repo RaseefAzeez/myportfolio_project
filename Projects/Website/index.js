@@ -1,6 +1,9 @@
-const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-const sns = new AWS.SNS();
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
+
+// Create SDK clients
+const dynamoClient = new DynamoDBClient();
+const snsClient = new SNSClient();
 
 // Environment variables
 const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME;
@@ -11,7 +14,7 @@ exports.handler = async (event) => {
   let statusCode = 200;
   let body;
 
-  // Determine request origin
+  // Determine request origin for CORS
   const requestOrigin = event.headers.origin || event.headers.Origin;
   const allowedOrigins = ALLOWED_ORIGIN.split(',');
   const originToAllow = allowedOrigins.includes(requestOrigin) ? requestOrigin : '';
@@ -25,7 +28,6 @@ exports.handler = async (event) => {
 
   // Handle preflight CORS request
   if (event.httpMethod === 'OPTIONS') {
-    console.log('Received OPTIONS request.');
     return {
       statusCode: 204,
       headers: defaultHeaders,
@@ -46,37 +48,38 @@ exports.handler = async (event) => {
     const submissionId = `submission-${Date.now()}`;
     const timestamp = new Date().toISOString();
 
+    // Prepare DynamoDB item
     const item = {
-      submissionId,
-      timestamp,
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone || 'N/A',
-      message: formData.message,
-      ipAddress: event.requestContext?.identity?.sourceIp || 'N/A'
+      submissionId: { S: submissionId },
+      timestamp: { S: timestamp },
+      name: { S: formData.name },
+      email: { S: formData.email },
+      phone: { S: formData.phone || "N/A" },
+      message: { S: formData.message },
+      ipAddress: { S: event.requestContext?.identity?.sourceIp || "N/A" },
     };
 
     // Save to DynamoDB
-    await dynamodb.put({
+    await dynamoClient.send(new PutItemCommand({
       TableName: DYNAMODB_TABLE_NAME,
-      Item: item
-    }).promise();
-    console.log('✔️ Saved to DynamoDB:', item);
+      Item: item,
+    }));
+    console.log("✔️ Saved to DynamoDB:", item);
 
     // Send SNS notification
     const snsMessage = `New Contact Form Submission:\n\n` +
-      `Name: ${item.name}\n` +
-      `Email: ${item.email}\n` +
-      `Phone: ${item.phone}\n` +
-      `Message: ${item.message}\n` +
-      `Timestamp: ${item.timestamp}\n` +
-      `Submission ID: ${item.submissionId}`;
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone || "N/A"}\n` +
+      `Message: ${formData.message}\n` +
+      `Timestamp: ${timestamp}\n` +
+      `Submission ID: ${submissionId}`;
 
-    await sns.publish({
+    await snsClient.send(new PublishCommand({
       Message: snsMessage,
-      Subject: `New Portfolio Contact Form Submission (${item.name})`,
+      Subject: `New Portfolio Contact Form Submission (${formData.name})`,
       TopicArn: SNS_TOPIC_ARN,
-    }).promise();
+    }));
     console.log('✔️ SNS notification sent.');
 
     body = JSON.stringify({ message: 'Form submitted successfully!', submissionId });

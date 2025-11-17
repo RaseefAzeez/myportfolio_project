@@ -13,10 +13,9 @@ permissions:
 env:
   REGION: us-east-1
   STACK_NAME: portfolio-dev
-  # FIX: Change to use the explicit relative path to the template file
   TEMPLATE_FILE: Projects/Infra/main-template.yaml
   BOOTSTRAP_STACK: bootstrap-stack
-  FUNCTION_LOGICAL_ID: myLambdaFunction  # Logical ID in CF template
+  FUNCTION_LOGICAL_ID: myLambdaFunction
 
 jobs:
   deploy:
@@ -28,7 +27,7 @@ jobs:
 
       - name: Show working directory contents (Diagnostic)
         run: ls -R
-        
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -37,7 +36,6 @@ jobs:
 
       - name: Validate CloudFormation template
         run: |
-          # FIX 1: Use the TEMPLATE_FILE environment variable, which holds the full path.
           aws cloudformation validate-template \
             --template-body file://${{ env.TEMPLATE_FILE }} \
             --region ${{ env.REGION }}
@@ -49,17 +47,15 @@ jobs:
             --stack-name ${{ env.BOOTSTRAP_STACK }} \
             --query "Stacks[0].Outputs[?OutputKey=='LambdaContentS3BucketName'].OutputValue" \
             --output text --region ${{ env.REGION }})
-
           echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
           echo "Using artifact bucket: $BUCKET"
 
       - name: Package Lambda Code
         run: |
           cd Projects/Website
-          # Package the index.js file to include the latest logic
           zip -r dev-lambda.zip index.js node_modules
           ls -lh dev-lambda.zip
-          echo "📦 Lambda package (dev-lambda.zip) created."
+          echo "📦 Lambda package created."
 
       - name: Upload Lambda ZIP to S3
         run: |
@@ -74,7 +70,6 @@ jobs:
             --stack-name ${{ env.STACK_NAME }} \
             --query "Stacks[0].StackStatus" \
             --output text 2>/dev/null || echo "NONE")
-
           if [[ "$STATUS" == "ROLLBACK_COMPLETE" ]]; then
             echo "🧹 Deleting failed stack: ${{ env.STACK_NAME }}"
             aws cloudformation delete-stack \
@@ -83,9 +78,6 @@ jobs:
             aws cloudformation wait stack-delete-complete \
               --stack-name ${{ env.STACK_NAME }} \
               --region ${{ env.REGION }}
-            echo "🗑️ Deleted failed stack."
-          else
-            echo "No failed stack found (status: $STATUS)"
           fi
 
       - name: Deploy CloudFormation stack
@@ -98,36 +90,30 @@ jobs:
             --region ${{ env.REGION }} \
             --parameter-overrides \
               myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
-              OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }}
+              OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }} \
+              AmplifyWebAppOrigin="https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com"
+          echo "🚀 CloudFormation deployment complete."
 
-          echo "🚀 CloudFormation deployment completed."
-
-      - name: Update Lambda Function Code (without redeploying CloudFormation)
+      - name: Update Lambda Function Code
         run: |
           FUNCTION_NAME=$(aws cloudformation describe-stack-resources \
             --stack-name ${{ env.STACK_NAME }} \
             --query "StackResources[?LogicalResourceId=='${{ env.FUNCTION_LOGICAL_ID }}'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
-
           echo "🔁 Updating Lambda function ($FUNCTION_NAME)..."
-
           aws lambda update-function-code \
             --function-name $FUNCTION_NAME \
             --s3-bucket ${{ steps.get-bucket.outputs.bucket }} \
             --s3-key dev-lambda.zip \
             --region ${{ env.REGION }}
+          echo "🎉 Lambda function updated!"
 
-          echo "🎉 Lambda function code updated successfully!"
-
-      - name: Sync Frontend to S3 (Portfolio Website)
+      - name: Sync Frontend to S3
         run: |
           FRONTEND_BUCKET=$(aws cloudformation describe-stack-resources \
             --stack-name ${{ env.STACK_NAME }} \
             --query "StackResources[?LogicalResourceId=='myPortfolioContentS3bucket'].PhysicalResourceId" \
             --output text --region ${{ env.REGION }})
-
-          echo "🌐 Uploading frontend files to: $FRONTEND_BUCKET"
-          # Ensure you sync the correct build directory if using a framework. 
-          # Assuming Projects/Website contains the build files for now.
+          echo "🌐 Syncing website files to: $FRONTEND_BUCKET"
           aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
-          echo "✨ Frontend website sync complete."
+          echo "✨ Frontend sync complete."
