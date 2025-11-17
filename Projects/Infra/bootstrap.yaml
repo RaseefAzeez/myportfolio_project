@@ -109,9 +109,11 @@ Resources:
                 Effect: Allow
                 Action:
                   - "lambda:GetFunction"
+                  - "lambda:GetFunctionConfiguration"
                   - "lambda:UpdateFunctionCode"
+                  - "lambda:UpdateFunctionConfiguration"
                 Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
-
+                
               # Allow CloudFormation and minimal IAM ops for stack execution
               - Sid: AllowCloudFormationAndIAM
                 Effect: Allow
