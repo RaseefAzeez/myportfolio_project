@@ -13,7 +13,7 @@ permissions:
 env:
   REGION: us-east-1
   STACK_NAME: portfolio-dev
-  TEMPLATE_FILE: main-template.yaml # Using the relative path in the current directory
+  TEMPLATE_FILE: Projects/Infra/main-template.yaml # Using the relative path in the current directory
   BOOTSTRAP_STACK: bootstrap-stack
   FUNCTION_LOGICAL_ID: myLambdaFunction  # Logical ID in CF template
 
