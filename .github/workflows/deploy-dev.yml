@@ -13,7 +13,7 @@ permissions:
 env:
   REGION: us-east-1
   STACK_NAME: portfolio-dev
-  TEMPLATE_FILE: Projects/Infra/main-template.yaml
+  TEMPLATE_FILE: main-template.yaml # Using the relative path in the current directory
   BOOTSTRAP_STACK: bootstrap-stack
   FUNCTION_LOGICAL_ID: myLambdaFunction  # Logical ID in CF template
 
@@ -33,8 +33,9 @@ jobs:
 
       - name: Validate CloudFormation template
         run: |
+          # Note: Using main-template.yaml from the root directory for simplicity
           aws cloudformation validate-template \
-            --template-body file://${{ env.TEMPLATE_FILE }} \
+            --template-body file://main-template.yaml \
             --region ${{ env.REGION }}
 
       - name: Get artifact bucket from bootstrap stack
@@ -51,7 +52,8 @@ jobs:
       - name: Package Lambda Code
         run: |
           cd Projects/Website
-          zip -r dev-lambda.zip index.js
+          # Package the index.js file to include the latest logic
+          zip -r dev-lambda.zip index.js node_modules
           ls -lh dev-lambda.zip
           echo "📦 Lambda package (dev-lambda.zip) created."
 
@@ -85,14 +87,16 @@ jobs:
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
-            --template-file ${{ env.TEMPLATE_FILE }} \
+            --template-file main-template.yaml \
             --stack-name ${{ env.STACK_NAME }} \
             --capabilities CAPABILITY_NAMED_IAM \
             --role-arn ${{ secrets.CFN_EXEC_ROLE_ARN }} \
             --region ${{ env.REGION }} \
             --parameter-overrides \
-                myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
-                OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }}
+              myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
+              OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }} \
+              # CRITICAL FIX: Pass the Amplify URL to the CloudFormation parameter
+              AmplifyWebAppOrigin=https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com 
 
           echo "🚀 CloudFormation deployment completed."
 
@@ -121,5 +125,7 @@ jobs:
             --output text --region ${{ env.REGION }})
 
           echo "🌐 Uploading frontend files to: $FRONTEND_BUCKET"
+          # Ensure you sync the correct build directory if using a framework. 
+          # Assuming Projects/Website contains the build files for now.
           aws s3 sync Projects/Website s3://$FRONTEND_BUCKET --delete --region ${{ env.REGION }}
           echo "✨ Frontend website sync complete."
