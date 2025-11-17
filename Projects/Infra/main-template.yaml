@@ -185,7 +185,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com/'"
+              method.response.header.Access-Control-Allow-Origin: "'https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
