@@ -34,8 +34,8 @@
                 <h1 class="text-3xl md:text-4xl tracking-tight text-blue-400 text-center mb-16">My Projects</h1>
 
                 <article id="portfolio-viewpage" class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl mb-16 transition-transform duration-300 transform hover:scale-[1.01]">
-                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">My Portfolio Website</h2>
-                    <p class="text-gray-400 mb-8 max-w-4xl">This is a static website hosted on <span class="text-white">AWS S3 and AWS Amplify</span> with a contact form connected via <span class="text-white">API Gateway</span>, <span class="text-white">Lambda</span>, and <span class="text-white">DynamoDB</span>. The entire setup uses <span class="text-white">Infrastructure as Code (IaC)</span> with <span class="text-white">CloudFormation</span> and features a <span class="text-white">CI/CD pipeline</span> automated using <span class="text-white">GitHub Actions.</span></p>
+                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #1: My Portfolio Website</h2>
+                    <p class="text-gray-400 mb-6">This is a static website hosted on <span class="text-white">AWS S3 and AWS Amplify</span> with a contact form connected via <span class="text-white">API Gateway</span>, <span class="text-white">Lambda</span>, and <span class="text-white">DynamoDB</span>. The entire setup uses <span class="text-white">Infrastructure as Code (IaC)</span> with <span class="text-white">CloudFormation</span> and features a <span class="text-white">CI/CD pipeline</span> automated using <span class="text-white">GitHub Actions.</span></p>
                     
                     <div class="mb-12">
                         <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Overview</h3>
@@ -50,7 +50,7 @@
                             <h3 class="text-xl text-white mb-4">Technologies Used</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
                                 <li><span class="text-white">AWS Services:</span> AWS Amplify, S3, API Gateway, Lambda, DynamoDB, SNS, CloudFormation, IAM, CloudWatch</li>
-                                <li><span class="text-white">CI/CD:</span> GitHub Actions, GitHub workflow</li>
+                                <li><span class="text-white">CI/CD and IaC:</span> GitHub Actions, GitHub workflow and Cloud Formation</li>
                                 <li><span class="text-white">Version Control:</span> Git, GitHub</li>
                                 <li><span class="text-white">Frontend:</span> HTML, Tailwind CSS, JavaScript</li>
                             </ul>
@@ -85,38 +85,65 @@
                 </article>
     
                 <article id="serverless-page" class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl transition-transform duration-300 transform hover:scale-[1.01]">
-                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project Title 2: Serverless Image Processing & Analysis</h2>
-                    <p class="text-gray-400 mb-8 max-w-4xl">Project details will be added soon.</p>
-    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        <div class="bg-gray-700 p-6 rounded-xl">
-                            <h3 class="text-xl text-white mb-4">Project Goal & Solution</h3>
-                            <p class="text-gray-400">Project details will be added soon.</p>
-                        </div>
+                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #2: RaaS (Reboot As A Service)</h2>
+                    <p class="text-gray-400 mb-6">RaaS (Reboot-as-a-Service) delivers secure, self-service EC2 reboots using OAuth2 with Amazon Cognito and ABAC enforced in Lambda via Cognito groups and EC2 tags.
+It addresses real enterprise challenges including JWT authorizers, API Gateway and CloudFront integration, CORS handling, and Terraform edge cases.</p>
+                    
+<div class="mb-12">
+                        <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Diagram and Overview</h3>
+                        <p class="text-gray-400 mb-6">RaaS is built on a serverless AWS architecture using Amazon Cognito for OAuth2-based authentication, API Gateway and Lambda for secure backend automation, and ABAC enforced through Cognito group claims and EC2 tags. The frontend is hosted on Amazon S3 and delivered securely over HTTPS via CloudFront, while infrastructure and deployments are managed using Terraform and GitHub Actions with OIDC.
+                        </p>
+                        <img src="Assets/Images/Project-Details-Images/RaaS/RaaS-Arch-Image.png" alt="RaaS Architecture Diagram"
+     class="rounded-xl shadow-lg mx-auto mb-8 max-w-full md:max-w-3xl py-5 bg-white">
+                    </div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                         <div class="bg-gray-700 p-6 rounded-xl">
                             <h3 class="text-xl text-white mb-4">Technologies Used</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-400">
-                                <li>Technology 1</li>
-                                <li>Technology 2</li>
-                                <li>Technology 3</li>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                            <li><span class="text-white">AWS Services:</span> Amazon Cognito (User Pools), API Gateway (HTTP API), Lambda, EC2, S3, CloudFront, IAM, CloudWatch, OAuth2, JWT, RBAC, ABAC (Cognito groups + EC2 tags)</li>
+                                <li><span class="text-white">CI/CD and IaC:</span> GitHub Actions (OIDC-based CI/CD), Terraform (IaC)</li>
+                                <li><span class="text-white">Version Control:</span> Git, GitHub</li>
+                                <li><span class="text-white">Frontend:</span> HTML, JavaScript (static web app)</li>
                             </ul>
                         </div>
                         <div class="bg-gray-700 p-6 rounded-xl">
                             <h3 class="text-xl text-white mb-4">Key Features</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-400">
-                                <li>Feature A</li>
-                                <li>Feature B</li>
-                                <li>Feature C</li>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                                <li>Secure self-service EC2 reboots without AWS Console access</li>
+                                <li>OAuth2 authentication with Amazon Cognito</li>
+                                <li>RBAC and ABAC enforced using Cognito groups and EC2 tags</li>
+                                <li>Serverless API powered by API Gateway and AWS Lambda</li>
+                                <li>HTTPS frontend delivered via CloudFront and S3</li>
+                                <li>Automated infrastructure and deployments with Terraform and GitHub Actions</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-700 p-6 rounded-xl">
+                            <h3 class="text-xl text-white mb-4">Future Enhancements</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                                <li>Multi-account and multi-region EC2 support</li>
+                                <li>Automated group creation and dynamic role mapping</li>
+                                <li>Automatic EC2 tagging to eliminate manual ownership configuration</li>
+                                <li>Approval-based workflows for sensitive actions</li>
+                                <li>Scheduled and automated reboot operations and enhanced auditing </li>
+                                <li>Custom domain support with ACM and Route 53</li>
                             </ul>
                         </div>
                     </div>
-    
+
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+                        <a href="https://github.com/RaseefAzeez/RaaS" target="_blank"
+                            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-full transition-colors duration-300 hover:bg-blue-700 hover:scale-105">
+                            <i class="fab fa-github mr-3"></i> View on GitHub
+                        </a>
+                    </div>
+    
+                    <!-- <div class="flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-5 justify-center">
                         <button disabled
                             class="inline-flex items-center justify-center px-8 py-4 bg-gray-600 text-gray-400 font-bold rounded-full cursor-not-allowed">
                             <i class="fas fa-external-link-alt mr-3"></i> Live Demo (Coming Soon)
                         </button>
-                    </div>
+                    </div> -->
                 </article>
             </div>
         </section>
