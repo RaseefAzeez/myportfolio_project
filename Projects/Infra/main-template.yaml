@@ -163,7 +163,7 @@ Resources:
         Variables:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: "*"
+          ALLOWED_ORIGIN: "https://d3svccsjj104ji.cloudfront.net"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -217,7 +217,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'https://d3svccsjj104ji.cloudfront.net'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
