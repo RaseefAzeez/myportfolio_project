@@ -22,7 +22,6 @@ Parameters:
 # RESOURCES
 # ----------------------------------------------------------------------
 Resources:
-
   # DynamoDB Table
   myDynamoDB:
     Type: AWS::DynamoDB::Table
@@ -91,6 +90,35 @@ Resources:
               - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}"
               - !Sub "arn:aws:s3:::${myPortfolioContentS3bucket}/*"
 
+#CloudFront Distribution for Website with HTTPS
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    DependsOn: myPortfolioContentS3bucket
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+
+        Origins:
+          - Id: S3WebsiteOrigin
+            DomainName: !Sub "${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+
+        DefaultCacheBehavior:
+          TargetOriginId: S3WebsiteOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+
+        PriceClass: PriceClass_100
+
   # Lambda Execution Role
   myLambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -135,7 +163,7 @@ Resources:
         Variables:
           DYNAMODB_TABLE_NAME: !Ref myDynamoDB
           SNS_TOPIC_ARN: !Ref MySNSTopic
-          ALLOWED_ORIGIN: "https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com"
+          ALLOWED_ORIGIN: "*"
 
   myLambdaPermissions:
     Type: AWS::Lambda::Permission
@@ -189,7 +217,7 @@ Resources:
             ResponseParameters:
               method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
               method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
-              method.response.header.Access-Control-Allow-Origin: "'https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
       MethodResponses:
         - StatusCode: "200"
           ResponseParameters:
@@ -220,8 +248,14 @@ Resources:
 # OUTPUTS
 # ----------------------------------------------------------------------
 Outputs:
-  WebsiteURL:
-    Description: "URL of the static portfolio website hosted on S3"
-    Value: !Sub "http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+  # WebsiteURL:
+  #   Description: "URL of the static portfolio website hosted on S3"
+  #   Value: !Sub "http://${myPortfolioContentS3bucket}.s3-website-${AWS::Region}.amazonaws.com"
+  #   Export:
+  #     Name: !Sub "${AWS::StackName}-WebsiteURL"
+
+  CloudFrontURL:
+    Description: "HTTPS URL for portfolio website served via CloudFront"
+    Value: !Sub "https://${CloudFrontDistribution.DomainName}"
     Export:
-      Name: !Sub "${AWS::StackName}-WebsiteURL"
+      Name: !Sub "${AWS::StackName}-CloudFrontURL"
