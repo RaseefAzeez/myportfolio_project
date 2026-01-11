@@ -221,7 +221,7 @@ Every challenge forced me to think one layer deeper — about how things connect
 
 ### 🔗 Live Demo
 
-**Portfolio (AWS Amplify):**  
+**Portfolio (AWS CloudFront):**  
 [https://d3svccsjj104ji.cloudfront.net/](https://d3svccsjj104ji.cloudfront.net/)
 
 ---
