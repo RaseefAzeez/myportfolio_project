@@ -222,7 +222,7 @@ Every challenge forced me to think one layer deeper — about how things connect
 ### 🔗 Live Demo
 
 **Portfolio (AWS Amplify):**  
-[https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com](https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com)
+[https://d3svccsjj104ji.cloudfront.net/](https://d3svccsjj104ji.cloudfront.net/)
 
 ---
 
