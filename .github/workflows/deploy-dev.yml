@@ -91,7 +91,7 @@ jobs:
             --parameter-overrides \
               myLambdacontentS3bucket=${{ steps.get-bucket.outputs.bucket }} \
               OidcRoleArn=${{ secrets.OIDC_ROLE_ARN }} \
-              AmplifyWebAppOrigin="https://infra-dev-setup.d3ue8qsbe8o03n.amplifyapp.com"
+              AmplifyWebAppOrigin="https://d3svccsjj104ji.cloudfront.net"
           echo "🚀 CloudFormation deployment complete."
 
       - name: Update Lambda Function Code
