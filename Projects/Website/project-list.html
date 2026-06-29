@@ -39,8 +39,7 @@
                     
                     <div class="mb-12">
                         <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Overview</h3>
-                        <p class="text-gray-400 mb-6">This diagram illustrates the serverless architecture of my portfolio website, featuring static hosting on Amazon S3, a contact form powered by AWS API Gateway and Lambda, data storage in DynamoDB, and real-time notifications via SNS. The entire infrastructure is managed as code using CloudFormation, with CI/CD automation handled by GitHub Actions for seamless deployments and logging via CloudWatch.
-                        </p>
+                        <p class="text-gray-400 mb-6">This portfolio is built on a fully serverless AWS architecture. The frontend is hosted on Amazon S3 and securely delivered worldwide through Amazon CloudFront over HTTPS. The contact form is powered by Amazon API Gateway and AWS Lambda, which validates and processes incoming requests before storing the data in Amazon DynamoDB and sending real-time email notifications through Amazon SNS. The entire infrastructure is provisioned using AWS CloudFormation and deployed automatically through GitHub Actions with OIDC authentication, while Amazon CloudWatch provides centralized logging and monitoring.</p>
                         <img src="Assets/Images/Project-Details-Images/portfolio-architechture.drawio.png" alt="Portfolio Website Architecture Diagram"
      class="rounded-xl shadow-lg mx-auto mb-8 max-w-full md:max-w-3xl py-5 bg-white">
                     </div>
