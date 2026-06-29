@@ -136,6 +136,82 @@ It addresses real enterprise challenges including JWT authorizers, API Gateway a
                             <i class="fab fa-github mr-3"></i> View on GitHub
                         </a>
                     </div>
+
+                    ```html
+<article id="kubernetes-page" class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl transition-transform duration-300 transform hover:scale-[1.01]">
+    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #3: RaaS 2.0 (Reboot As A Service - Kubernetes Edition)</h2>
+
+    <p class="text-gray-400 mb-6">
+        RaaS 2.0 is the cloud-native evolution of the original serverless RaaS platform. The application is re-architected to run on Kubernetes, replacing AWS Lambda with containerized microservices while preserving secure, self-service EC2 management through OAuth2 authentication, RBAC, and ABAC authorization. The platform demonstrates modern DevOps practices including containerization, Kubernetes orchestration, Infrastructure as Code, GitOps-ready deployments, and centralized observability.
+    </p>
+
+    <div class="mb-12">
+        <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Diagram and Overview</h3>
+
+        <p class="text-gray-400 mb-6">
+            RaaS 2.0 follows a cloud-native Kubernetes architecture where users authenticate through Amazon Cognito before securely accessing containerized backend APIs exposed via a Kubernetes Ingress Controller. API requests are authorized using RBAC and ABAC based on Cognito group claims and EC2 resource tags. Background worker services execute AWS SDK operations against Amazon EC2, while Redis is used for asynchronous job processing. Infrastructure provisioning is automated through Terraform and GitHub Actions using OIDC authentication, with Prometheus, Grafana, and CloudWatch providing end-to-end monitoring and observability.
+        </p>
+
+        <img src="Assets/Images/Project-Details-Images/RaaS2/RaaS2-Architecture.png"
+            alt="RaaS 2.0 Kubernetes Architecture Diagram"
+            class="rounded-xl shadow-lg mx-auto mb-8 max-w-full md:max-w-3xl py-5 bg-white">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+        <div class="bg-gray-700 p-6 rounded-xl">
+            <h3 class="text-xl text-white mb-4">Technologies Used</h3>
+
+            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                <li><span class="text-white">AWS Services:</span> Amazon Cognito, EC2, IAM, CloudWatch, AWS SDK</li>
+                <li><span class="text-white">Container Platform:</span> Docker, Kubernetes, Ingress Controller</li>
+                <li><span class="text-white">Application:</span> Containerized API Service, Worker Service, Redis Queue</li>
+                <li><span class="text-white">Observability:</span> Prometheus, Grafana, CloudWatch</li>
+                <li><span class="text-white">CI/CD & IaC:</span> GitHub Actions (OIDC), Terraform</li>
+                <li><span class="text-white">Version Control:</span> Git, GitHub</li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-700 p-6 rounded-xl">
+            <h3 class="text-xl text-white mb-4">Key Features</h3>
+
+            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                <li>Cloud-native Kubernetes architecture</li>
+                <li>Dockerized API and Worker services</li>
+                <li>OAuth2 authentication with Amazon Cognito</li>
+                <li>RBAC and ABAC authorization using Cognito groups and EC2 tags</li>
+                <li>Asynchronous job execution using Redis</li>
+                <li>Kubernetes Ingress for secure API exposure</li>
+                <li>Automated infrastructure deployment using Terraform and GitHub Actions</li>
+                <li>Centralized monitoring with Prometheus, Grafana, and CloudWatch</li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-700 p-6 rounded-xl">
+            <h3 class="text-xl text-white mb-4">Future Enhancements</h3>
+
+            <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
+                <li>GitOps deployment using Argo CD</li>
+                <li>Horizontal Pod Autoscaler (HPA)</li>
+                <li>Multi-cluster and multi-region deployment</li>
+                <li>Approval-based operational workflows</li>
+                <li>Amazon EKS production deployment</li>
+                <li>Distributed tracing using OpenTelemetry</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+        <a href="https://github.com/RaseefAzeez/RaaS2.0" target="_blank"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-full transition-colors duration-300 hover:bg-blue-700 hover:scale-105">
+            <i class="fab fa-github mr-3"></i> View on GitHub
+        </a>
+    </div>
+
+</article>
+```
+
     
                     <!-- <div class="flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-5 justify-center">
                         <button disabled
@@ -150,7 +226,7 @@ It addresses real enterprise challenges including JWT authorizers, API Gateway a
 
     <footer class="bg-gray-950 text-white py-8">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500">&copy; 2025 Raseef Azeez, All rights reserved.</p>
+            <p class="text-sm text-gray-500">&copy; 2026 Raseef Azeez, All rights reserved.</p>
             <div class="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <span>V1.0</span>
