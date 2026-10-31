@@ -32,37 +32,34 @@
     <main class="pt-20">
         <section id="projects" class="py-20 px-4">
             <div class="container mx-auto">
-                <h1 class="text-3xl md:text-4xl tracking-tight text-blue-400 text-center mb-16">My Projects</h1>
+                <div class="text-center mb-16">
+                    <p class="text-sm uppercase tracking-[0.25em] text-blue-400 font-semibold mb-3">Selected Work</p>
+                    <h2 class="text-4xl md:text-5xl tracking-tight mb-4">Projects & Cloud
+                        Engineering</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Hands-on projects exploring secure AWS infrastructure,
+                        automation, and cloud-native operations.</p>
+                </div>
 
                 <article id="portfolio-viewpage"
-                    class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl mb-16 transition-transform duration-300 transform hover:scale-[1.01]">
+                    class="relative overflow-hidden bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-gray-700/80 p-7 md:p-10 rounded-3xl shadow-2xl mb-12 transition-all duration-300 hover:border-blue-500/40 hover:shadow-blue-950/30">
 
-                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #1: Personal Portfolio Platform</h2>
+                    <h2 class="text-2xl md:text-3xl text-white font-semibold mb-4">Project #1: Personal Portfolio
+                        Platform</h2>
                     <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">
-                            Serverless
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">
-                            AWS
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-purple-400 bg-purple-900 rounded-full">
-                            Infrastructure as Code
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-yellow-400 bg-yellow-900 rounded-full">
-                            CI/CD
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-red-400 bg-red-900 rounded-full">
-                            OIDC
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">
-                            CloudFront + HTTPS
-                        </span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">Serverless</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">AWS</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-purple-400 bg-purple-900 rounded-full">Infrastructure
+                            as Code</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-yellow-400 bg-yellow-900 rounded-full">CI/CD</span>
+                        <span class="px-3 py-1 text-sm font-semibold text-red-400 bg-red-900 rounded-full">OIDC</span>
+                        <span class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">CloudFront
+                            + HTTPS</span>
                     </div>
+
                     <p class="text-gray-400 mb-6">This is a static website hosted on <span class="text-white">AWS S3 and
                             AWS Amplify</span> with a contact form connected via <span class="text-white">API
                             Gateway</span>, <span class="text-white">Lambda</span>, and <span
@@ -72,7 +69,7 @@
                             pipeline</span> automated using <span class="text-white">GitHub Actions.</span></p>
 
                     <div class="mb-12">
-                        <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Overview</h3>
+                        <h3 class="text-2xl md:text-3xl text-white font-semibold mb-4">Architecture Overview</h3>
                         <p class="text-gray-400 mb-6">This portfolio is built on a fully serverless AWS architecture.
                             The frontend is hosted on Amazon S3 and securely delivered worldwide through Amazon
                             CloudFront over HTTPS. The contact form is powered by Amazon API Gateway and AWS Lambda,
@@ -87,33 +84,35 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        <div class="bg-gray-700 p-6 rounded-xl">
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Technologies Used</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li><span class="text-white">AWS Services:</span> AWS S3, Cloud Front, API Gateway,
+                                <li><span class="text-white">AWS Services:</span> AWS S3, CloudFront, API Gateway,
                                     Lambda, DynamoDB, SNS, CloudFormation, IAM, CloudWatch</li>
                                 <li><span class="text-white">CI/CD and IaC:</span> GitHub Actions, GitHub workflow and
-                                    Cloud Formation</li>
+                                    CloudFormation</li>
                                 <li><span class="text-white">Version Control:</span> Git, GitHub</li>
                                 <li><span class="text-white">Frontend:</span> HTML, Tailwind CSS, JavaScript</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-700 p-6 rounded-xl">
+
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Features</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li>Used feature of S3 + CloudFront distribution to get the HTTPS fuctionality.</li>
+                                <li>S3 and CloudFront hosting with HTTPS.</li>
                                 <li>Static website hosting with high availability.</li>
                                 <li>Serverless contact form with data persistence.</li>
                                 <li>Real-time email notifications on form submission.</li>
                                 <li>Infrastructure as Code (IaC) for consistent deployments.</li>
-                                <li>Automated CI/CD pipeline for both frontend and backend.</li>
+                                <li>Automated CI/CD pipeline for frontend and backend.</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-700 p-6 rounded-xl">
+
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Future Enhancements</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
                                 <li>Integrate a blog section with content hosted on DynamoDB.</li>
-                                <li>Implement a CI/CD pipeline for the blog content.</li>
+                                <li>Implement a CI/CD pipeline for blog content.</li>
                                 <li>Add a custom domain with Route 53 and CloudFront.</li>
                             </ul>
                         </div>
@@ -127,149 +126,140 @@
                     </div>
                 </article>
 
+                <!-- RaaS 1.0 -->
                 <article id="serverless-page"
-                    class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl mb-16 transition-transform duration-300 transform hover:scale-[1.01]">
+                    class="relative overflow-hidden bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-gray-700/80 p-7 md:p-10 rounded-3xl shadow-2xl mb-12 transition-all duration-300 hover:border-blue-500/40 hover:shadow-blue-950/30">
 
-                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #2: RaaS 1.0 - Serverless Reboot as a
-                        Service</h2>
+                    <h2 class="text-2xl md:text-3xl text-white font-semibold mb-4">Project #2: RaaS 1.0 - Serverless
+                        Reboot as a Service</h2>
+
                     <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">
-                            Serverless
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">
-                            OAuth2
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-purple-400 bg-purple-900 rounded-full">
-                            RBAC + ABAC
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-yellow-400 bg-yellow-900 rounded-full">
-                            Terraform
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-red-400 bg-red-900 rounded-full">
-                            GitHub Actions
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">
-                            JWT Authentication
-                        </span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">Serverless</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">OAuth2</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-purple-300 bg-purple-950 rounded-full border border-purple-800/70">IAM
+                            & Access Control</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-yellow-400 bg-yellow-900 rounded-full">Terraform</span>
+                        <span class="px-3 py-1 text-sm font-semibold text-red-400 bg-red-900 rounded-full">GitHub
+                            Actions</span>
+                        <span class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">JWT
+                            Authentication</span>
                     </div>
-                    <p class="text-gray-400 mb-6">RaaS (Reboot-as-a-Service) delivers secure, self-service EC2 reboots
-                        using OAuth2 with Amazon Cognito and ABAC enforced in Lambda via Cognito groups and EC2 tags.
-                        It addresses real enterprise challenges including JWT authorizers, API Gateway and CloudFront
-                        integration, CORS handling, and Terraform edge cases.</p>
+
+                    <p class="text-gray-400 mb-6">RaaS 1.0 explores a serverless approach to self-service EC2 operations
+                        using AWS Lambda and API Gateway, with Amazon Cognito authentication and infrastructure managed
+                        through Terraform. The project focuses on secure API boundaries, identity integration, and
+                        automating cloud operations. Only capabilities implemented and validated in the deployed version
+                        should be treated as live functionality.</p>
 
                     <div class="mb-12">
-                        <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Overview</h3>
-                        <p class="text-gray-400 mb-6">RaaS is built on a serverless AWS architecture using Amazon
-                            Cognito for OAuth2-based authentication, API Gateway and Lambda for secure backend
-                            automation, and ABAC enforced through Cognito group claims and EC2 tags. The frontend is
-                            hosted on Amazon S3 and delivered securely over HTTPS via CloudFront, while infrastructure
-                            and deployments are managed using Terraform and GitHub Actions with OIDC.
-                        </p>
+                        <h3 class="text-2xl md:text-3xl text-white font-semibold mb-4">Architecture Overview</h3>
+                        <p class="text-gray-400 mb-6">The intended architecture combines Amazon Cognito, API Gateway,
+                            and AWS Lambda for a serverless application, with a static frontend delivered through S3 and
+                            CloudFront. Terraform and GitHub Actions with OIDC support infrastructure automation and
+                            deployment. The repository and implementation are the source of truth for which
+                            authentication, authorization, and EC2 operations are currently functional.</p>
+
                         <img src="Assets/Images/Project-Details-Images/RaaS/RaaS-Arch-Image.png"
                             alt="RaaS Architecture Diagram"
                             class="rounded-xl shadow-lg mx-auto mb-8 max-w-full md:max-w-3xl py-5 bg-white">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        <div class="bg-gray-700 p-6 rounded-xl">
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Technologies Used</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li><span class="text-white">AWS Services:</span> Amazon Cognito (User Pools), API
-                                    Gateway (HTTP API), Lambda, EC2, S3, CloudFront, IAM, CloudWatch, OAuth2, JWT, RBAC,
-                                    ABAC (Cognito groups + EC2 tags)</li>
+                                <li><span class="text-white">AWS Services:</span> Amazon Cognito, API Gateway, Lambda,
+                                    EC2, S3, CloudFront, IAM and CloudWatch</li>
                                 <li><span class="text-white">CI/CD and IaC:</span> GitHub Actions (OIDC-based CI/CD),
-                                    Terraform (IaC)</li>
+                                    Terraform</li>
                                 <li><span class="text-white">Version Control:</span> Git, GitHub</li>
                                 <li><span class="text-white">Frontend:</span> HTML, JavaScript (static web app)</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-700 p-6 rounded-xl">
+
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Key Features</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li>Secure self-service EC2 reboots without AWS Console access</li>
-                                <li>OAuth2 authentication with Amazon Cognito</li>
-                                <li>RBAC and ABAC enforced using Cognito groups and EC2 tags</li>
-                                <li>Serverless API powered by API Gateway and AWS Lambda</li>
-                                <li>HTTPS frontend delivered via CloudFront and S3</li>
-                                <li>Automated infrastructure and deployments with Terraform and GitHub Actions</li>
+                                <li>Serverless workflow designed for self-service EC2 operations.</li>
+                                <li>Amazon Cognito authentication integration.</li>
+                                <li>Identity and resource-tag authorization concepts.</li>
+                                <li>Serverless API powered by API Gateway and AWS Lambda.</li>
+                                <li>HTTPS frontend delivered via CloudFront and S3.</li>
+                                <li>Infrastructure automation with Terraform and GitHub Actions.</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-700 p-6 rounded-xl">
+
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Future Enhancements</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li>Multi-account and multi-region EC2 support</li>
-                                <li>Automated group creation and dynamic role mapping</li>
-                                <li>Automatic EC2 tagging to eliminate manual ownership configuration</li>
-                                <li>Approval-based workflows for sensitive actions</li>
-                                <li>Scheduled and automated reboot operations and enhanced auditing </li>
-                                <li>Custom domain support with ACM and Route 53</li>
+                                <li>Multi-account and multi-region EC2 support.</li>
+                                <li>Automated group creation and dynamic role mapping.</li>
+                                <li>Automatic EC2 tagging to eliminate manual ownership configuration.</li>
+                                <li>Approval-based workflows for sensitive actions.</li>
+                                <li>Scheduled reboot operations and enhanced auditing.</li>
+                                <li>Custom domain support with ACM and Route 53.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-                        <a href="https://github.com/RaseefAzeez/RaaS" target="_blank"
-                            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-full transition-colors duration-300 hover:bg-blue-700 hover:scale-105">
-                            <i class="fab fa-github mr-3"></i> View on GitHub
+                    <!-- Keep button order consistent: GitHub first, Live Demo second -->
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+                        <a href="https://github.com/RaseefAzeez/RaaS" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center px-7 py-3.5 bg-gray-700 border border-gray-600 text-white font-semibold rounded-full transition-all duration-300 hover:bg-gray-600 hover:border-gray-500">
+                            <i class="fab fa-github mr-2"></i> View Source
+                        </a>
+                        <a href="https://d1l62wn91r29l3.cloudfront.net/" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center px-7 py-3.5 bg-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:bg-blue-500 hover:-translate-y-0.5 shadow-lg shadow-blue-950/40">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Live Demo
                         </a>
                     </div>
                 </article>
 
+                <!-- RaaS 2.0 -->
                 <article id="kubernetes-page"
-                    class="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl mb-16 transition-transform duration-300 transform hover:scale-[1.01]">
-                    <h2 class="text-2xl md:text-2xl text-white-400 mb-4">Project #3: RaaS 2.0 – Cloud Native Reboot as a
-                        Service</h2>
+                    class="relative overflow-hidden bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-gray-700/80 p-7 md:p-10 rounded-3xl shadow-2xl mb-12 transition-all duration-300 hover:border-blue-500/40 hover:shadow-blue-950/30">
+
+                    <h2 class="text-2xl md:text-3xl text-white font-semibold mb-4">Project #3: RaaS 2.0 – Cloud Native
+                        Reboot as a Service</h2>
+
                     <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">
-                            Kubernetes
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">
-                            Cloud Native
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-purple-400 bg-purple-900 rounded-full">
-                            DevOps
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-yellow-400 bg-yellow-900 rounded-full">
-                            GitOps Ready
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-red-400 bg-red-900 rounded-full">
-                            OAuth2 + RBAC + ABAC
-                        </span>
-
-                        <span class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">
-                            Observability
-                        </span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-green-400 bg-green-900 rounded-full">Kubernetes</span>
+                        <span class="px-3 py-1 text-sm font-semibold text-blue-400 bg-blue-900 rounded-full">Cloud
+                            Native</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-purple-400 bg-purple-900 rounded-full">DevOps</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-yellow-300 bg-yellow-950 rounded-full border border-yellow-800/70">Async
+                            Processing</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-red-300 bg-red-950 rounded-full border border-red-800/70">Failure
+                            Testing</span>
+                        <span
+                            class="px-3 py-1 text-sm font-semibold text-cyan-400 bg-cyan-900 rounded-full">Observability</span>
                     </div>
 
                     <p class="text-gray-400 mb-6">
-                        RaaS 2.0 is the cloud-native evolution of the original serverless RaaS platform. The application
-                        is re-architected to run on Kubernetes, replacing AWS Lambda with containerized microservices
-                        while preserving secure, self-service EC2 management through OAuth2 authentication, RBAC, and
-                        ABAC authorization. The platform demonstrates modern DevOps practices including
-                        containerization, Kubernetes orchestration, Infrastructure as Code, GitOps-ready deployments,
-                        and centralized observability.
+                        RaaS 2.0 evolves the original RaaS concept into a containerized, asynchronous application. An
+                        API submits jobs to a Redis/BullMQ queue, and a dedicated worker processes them in a Kubernetes
+                        environment. EC2 reboot actions are simulated in this project, allowing the focus to remain on
+                        job processing, workload health, observability, and failure recovery.
                     </p>
 
                     <div class="mb-12">
-                        <h3 class="text-2xl md:text-2xl text-white-400 mb-4">Architecture Overview</h3>
+                        <h3 class="text-2xl md:text-3xl text-white font-semibold mb-4">Architecture Overview</h3>
 
                         <p class="text-gray-400 mb-6">
-                            RaaS 2.0 follows a cloud-native Kubernetes architecture where users authenticate through
-                            Amazon Cognito before securely accessing containerized backend APIs exposed via a Kubernetes
-                            Ingress Controller. API requests are authorized using RBAC and ABAC based on Cognito group
-                            claims and EC2 resource tags. Background worker services execute AWS SDK operations against
-                            Amazon EC2, while Redis is used for asynchronous job processing. Infrastructure provisioning
-                            is automated through Terraform and GitHub Actions using OIDC authentication, with
-                            Prometheus, Grafana, and CloudWatch providing end-to-end monitoring and observability.
+                            The public frontend is hosted on Amazon S3 and delivered through CloudFront, with Amazon
+                            Cognito used for frontend authentication. The application architecture consists of a
+                            containerized API, Redis/BullMQ for asynchronous job handling, and a separate worker,
+                            deployed and tested locally with Kubernetes Kind. Prometheus and Grafana provide
+                            observability. The public demo showcases the frontend and authentication flow; backend job
+                            processing runs in the project environment, and EC2 operations are simulated.
                         </p>
 
                         <img src="Assets/Images/Project-Details-Images/RaaS2/RaaS2-Architecture.png"
@@ -278,69 +268,57 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-
-                        <div class="bg-gray-700 p-6 rounded-xl">
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Technologies Used</h3>
-
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li><span class="text-white">AWS Services:</span> Amazon Cognito, EC2, IAM, CloudWatch,
-                                    AWS SDK</li>
-                                <li><span class="text-white">Container Platform:</span> Docker, Kubernetes, Ingress
-                                    Controller</li>
-                                <li><span class="text-white">Application:</span> Containerized API Service, Worker
-                                    Service, Redis Queue</li>
-                                <li><span class="text-white">Observability:</span> Prometheus, Grafana, CloudWatch</li>
-                                <li><span class="text-white">CI/CD & IaC:</span> GitHub Actions (OIDC), Terraform</li>
-                                <li><span class="text-white">Version Control:</span> Git, GitHub</li>
+                                <li><span class="text-white">AWS Services:</span> Amazon Cognito and supporting AWS
+                                    services.</li>
+                                <li><span class="text-white">Container Platform:</span> Docker and Kubernetes Kind.</li>
+                                <li><span class="text-white">Application:</span> Containerized API service, worker
+                                    service and Redis queue.</li>
+                                <li><span class="text-white">Observability:</span> Prometheus and Grafana.</li>
+                                <li><span class="text-white">CI/CD & IaC:</span> GitHub Actions and Terraform.</li>
+                                <li><span class="text-white">Version Control:</span> Git and GitHub.</li>
                             </ul>
                         </div>
 
-                        <div class="bg-gray-700 p-6 rounded-xl">
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
                             <h3 class="text-xl text-white mb-4">Key Features</h3>
-
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li>Cloud-native Kubernetes architecture</li>
-                                <li>Dockerized API and Worker services</li>
-                                <li>OAuth2 authentication with Amazon Cognito</li>
-                                <li>RBAC and ABAC authorization using Cognito groups and EC2 tags</li>
-                                <li>Asynchronous job execution using Redis</li>
-                                <li>Kubernetes Ingress for secure API exposure</li>
-                                <li>Automated infrastructure deployment using Terraform and GitHub Actions</li>
-                                <li>Centralized monitoring with Prometheus, Grafana, and CloudWatch</li>
+                                <li>Cloud-native application architecture.</li>
+                                <li>Dockerized API and worker services.</li>
+                                <li>Amazon Cognito authentication on the public frontend.</li>
+                                <li>Asynchronous job processing using Redis and BullMQ.</li>
+                                <li>Kubernetes deployment and service networking.</li>
+                                <li>Infrastructure automation and operational troubleshooting.</li>
                             </ul>
                         </div>
 
-                        <div class="bg-gray-700 p-6 rounded-xl">
-                            <h3 class="text-xl text-white mb-4">Future Enhancements</h3>
-
+                        <div class="bg-gray-900/70 border border-gray-700/80 p-6 rounded-2xl">
+                            <h3 class="text-xl text-white mb-4">Engineering Focus</h3>
                             <ul class="list-disc list-outside pl-5 space-y-2 text-gray-400">
-                                <li>GitOps deployment using Argo CD</li>
-                                <li>Horizontal Pod Autoscaler (HPA)</li>
-                                <li>Multi-cluster and multi-region deployment</li>
-                                <li>Approval-based operational workflows</li>
-                                <li>Amazon EKS production deployment</li>
-                                <li>Distributed tracing using OpenTelemetry</li>
+                                <li>Asynchronous job submission and processing.</li>
+                                <li>API readiness during Redis dependency failures.</li>
+                                <li>Kubernetes pod health and resource limits.</li>
+                                <li>Grafana recovery after an OOMKilled event.</li>
+                                <li>CloudFront cache invalidation and frontend updates.</li>
                             </ul>
                         </div>
-
                     </div>
 
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-                        <a href="https://github.com/RaseefAzeez/raas-v2" target="_blank"
-                            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-full transition-colors duration-300 hover:bg-blue-700 hover:scale-105">
-                            <i class="fab fa-github mr-3"></i> View on GitHub
+                    <!-- Keep button order consistent: GitHub first, Live Demo second -->
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+                        <a href="https://github.com/RaseefAzeez/raas-v2" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center px-7 py-3.5 bg-gray-700 border border-gray-600 text-white font-semibold rounded-full transition-all duration-300 hover:bg-gray-600 hover:border-gray-500">
+                            <i class="fab fa-github mr-2"></i> View Source
+                        </a>
+                        <a href="https://d1sppsdlhlbczw.cloudfront.net/" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center px-7 py-3.5 bg-blue-600 text-white font-semibold rounded-full transition-all duration-300 hover:bg-blue-500 hover:-translate-y-0.5 shadow-lg shadow-blue-950/40">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Live Demo
                         </a>
                     </div>
-
                 </article>
 
-
-                <!-- <div class="flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-5 justify-center">
-                        <button disabled
-                            class="inline-flex items-center justify-center px-8 py-4 bg-gray-600 text-gray-400 font-bold rounded-full cursor-not-allowed">
-                            <i class="fas fa-external-link-alt mr-3"></i> Live Demo (Coming Soon)
-                        </button>
-                    </div> -->
             </div>
         </section>
     </main>
@@ -352,15 +330,15 @@
                 <a href="#" class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <span>V1.0</span>
                 </a>
-                <a href="https://x.com/RaseefAzeez" target="_blank"
+                <a href="https://x.com/RaseefAzeez" target="_blank" rel="noopener noreferrer"
                     class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-x-twitter fa-lg"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank"
+                <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank" rel="noopener noreferrer"
                     class="text-gray-500 hover:text-blue-500 transition-colors duration-300">
                     <i class="fab fa-linkedin fa-lg"></i>
                 </a>
-                <a href="https://github.com/RaseefAzeez" target="_blank"
+                <a href="https://github.com/RaseefAzeez" target="_blank" rel="noopener noreferrer"
                     class="text-gray-500 hover:text-white transition-colors duration-300">
                     <i class="fab fa-github fa-lg"></i>
                 </a>
