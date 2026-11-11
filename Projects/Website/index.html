@@ -7,46 +7,1343 @@
     <title>My Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <style>
+    <style id="consolidated-peacock-theme">
         #other-expertise {
             scroll-behavior: smooth;
-            scroll-padding-top: 80px;
+            scroll-padding-top: 80px
         }
 
-        /* New CSS for the hover effect on slider cards */
         .swiper-slide {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out
         }
 
         .swiper-slide:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2)
+        }
+
+        #about p span.text-blue-400 {
+            color: #172321 !important
+        }
+
+        :root {
+            --paper: #F7F7F2;
+            --surface: #FFFFFF;
+            --ink: #172321;
+            --muted: #5E6D68;
+            --line: #DCE5E0;
+            --peacock: #006B5B;
+            --peacock-deep: #004C43;
+            --peacock-soft: #DDEDE7
+        }
+
+        html,
+        body {
+            background: #F7F7F2 !important;
+            color: #172321 !important;
+            scroll-behavior: smooth
+        }
+
+        body {
+            background-image: radial-gradient(ellipse at 88% 12%, rgba(0, 107, 91, .10), transparent 31%), radial-gradient(ellipse at 8% 70%, rgba(0, 107, 91, .045), transparent 28%) !important
+        }
+
+        header {
+            background: rgba(247, 247, 242, .94) !important;
+            border-bottom: 1px solid #DCE5E0 !important;
+            backdrop-filter: blur(14px)
+        }
+
+        header nav,
+        header #main-nav-menu {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: 0 !important
+        }
+
+        header a,
+        #main-nav-menu a {
+            color: #172321 !important;
+            background: transparent !important
+        }
+
+        header a:hover,
+        #main-nav-menu a:hover {
+            color: #006B5B !important
+        }
+
+        #home,
+        #about,
+        #portfolio,
+        #other-expertise,
+        #contact {
+            background: transparent !important;
+            color: #172321 !important
+        }
+
+        #home {
+            background: radial-gradient(ellipse at 82% 30%, rgba(0, 107, 91, .12), transparent 43%), linear-gradient(115deg, #F7F7F2 0%, #F3F7F3 58%, #E5F0EB 100%) !important
+        }
+
+        #home>.absolute.inset-0 {
+            background: radial-gradient(ellipse at 80% 35%, rgba(0, 107, 91, .10), transparent 46%), linear-gradient(115deg, transparent 55%, rgba(0, 107, 91, .08)) !important;
+            opacity: 1 !important
+        }
+
+        #home h1,
+        #home h2,
+        #about h2,
+        #portfolio h2,
+        #other-expertise h2,
+        #contact h2,
+        #portfolio h3,
+        #other-expertise h3 {
+            color: #172321 !important
+        }
+
+        #home p,
+        #about p,
+        #portfolio p,
+        #other-expertise p,
+        #contact p,
+        #about li,
+        #contact label {
+            color: #5E6D68 !important
+        }
+
+        #typed-text,
+        .text-blue-400,
+        .text-blue-300,
+        .text-cyan-300,
+        .text-teal-300,
+        .text-green-400,
+        .text-emerald-400 {
+            color: #006B5B !important
+        }
+
+        #home a.bg-blue-600,
+        #home a.inline-flex.bg-blue-600,
+        #contact button,
+        #contact button[type="submit"],
+        #contact #submitButton {
+            background: #006B5B !important;
+            color: #FFFFFF !important;
+            border: 1px solid #006B5B !important;
+            box-shadow: 0 7px 20px rgba(0, 107, 91, .14) !important
+        }
+
+        #home a.bg-blue-600:hover,
+        #contact button:hover,
+        #contact #submitButton:hover {
+            background: #004C43 !important
+        }
+
+        #home a.border-2 {
+            background: rgba(255, 255, 255, .7) !important;
+            color: #004C43 !important;
+            border-color: #8EB8AA !important
+        }
+
+        #home a.border-2:hover {
+            background: #DDEDE7 !important
+        }
+
+        #portfolio {
+            background: rgba(255, 255, 255, .35) !important
+        }
+
+        #portfolio .grid>div,
+        #other-expertise .grid>div,
+        #about .bg-white,
+        #contact form,
+        #contact>div>div {
+            background: rgba(255, 255, 255, .92) !important;
+            color: #172321 !important;
+            border: 1px solid #DCE5E0 !important;
+            border-radius: 18px !important;
+            box-shadow: 0 10px 28px rgba(26, 56, 47, .055) !important;
+            backdrop-filter: blur(10px)
+        }
+
+        #portfolio .grid>div:hover,
+        #other-expertise .grid>div:hover {
+            border-color: #8EB8AA !important;
+            box-shadow: 0 14px 32px rgba(0, 107, 91, .09) !important
+        }
+
+        #portfolio .grid>div a,
+        #other-expertise .grid>div a {
+            color: #006B5B !important
+        }
+
+        #contact {
+            background: transparent !important
+        }
+
+        #contact>.absolute {
+            display: none !important
+        }
+
+        #contact h2,
+        #contact label {
+            color: #172321 !important
+        }
+
+        #contact p {
+            color: #5E6D68 !important
+        }
+
+        #contact i,
+        #contact .text-blue-500,
+        #contact .text-green-500,
+        #contact .text-emerald-500 {
+            color: #006B5B !important
+        }
+
+        #contact input,
+        #contact textarea,
+        #contact select {
+            background: #FFFFFF !important;
+            color: #172321 !important;
+            -webkit-text-fill-color: #172321 !important;
+            border: 1px solid #CBD9D2 !important;
+            border-radius: 9px !important;
+            caret-color: #006B5B !important
+        }
+
+        #contact input::placeholder,
+        #contact textarea::placeholder {
+            color: #7C8A84 !important;
+            -webkit-text-fill-color: #7C8A84 !important;
+            opacity: 1 !important
+        }
+
+        #contact input:focus,
+        #contact textarea:focus,
+        #contact select:focus {
+            border-color: #006B5B !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(0, 107, 91, .12) !important
+        }
+
+        footer {
+            background: #E8F0EB !important;
+            color: #42544D !important;
+            border-top: 1px solid #D5E2DA !important
+        }
+
+        footer * {
+            color: #42544D !important
+        }
+
+        footer a:hover {
+            color: #006B5B !important
+        }
+
+        .experience-timeline {
+            border-left: 2px solid #B7D2C7;
+            margin-left: 7px;
+            padding-left: 18px
+        }
+
+        .experience-item {
+            position: relative;
+            color: #24332E;
+            font-size: .91rem;
+            line-height: 1.45;
+            margin: 0 0 13px
+        }
+
+        .experience-item:before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: .42rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #006B5B;
+            box-shadow: 0 0 0 3px #E5F0EB
+        }
+
+        .experience-item strong {
+            color: #172321;
+            font-weight: 700
+        }
+
+        .experience-item span {
+            display: block;
+            margin-top: 2px;
+            color: #687770;
+            font-size: .82rem
+        }
+
+        #home .bike,
+        #home .motorcycle,
+        #home [alt*="bike" i],
+        #home [alt*="motorcycle" i] {
+            display: none !important
+        }
+
+        ::selection {
+            background: #B8D9CC;
+            color: #172321
+        }
+
+        @media (max-width:767px) {
+            .experience-timeline {
+                padding-left: 15px
+            }
+
+            .experience-item {
+                font-size: .88rem
+            }
+        }
+
+        #home,
+        #home .relative.z-10 {
+            color: #172321 !important
+        }
+
+        #home h1,
+        #home h2,
+        #home .relative.z-10 p {
+            color: #172321 !important
+        }
+
+        #home .relative.z-10 p strong {
+            color: #172321 !important;
+            font-weight: 750 !important
+        }
+
+        #home .relative.z-10 p span#typed-text {
+            color: #006B5B !important
+        }
+
+        #contact {
+            background: #F7F7F2 !important;
+            color: #172321 !important
+        }
+
+        #contact>.absolute {
+            display: none !important
+        }
+
+        #contact form,
+        #contact .relative.container>div[data-aos="fade-left"] {
+            background: #FFFFFF !important;
+            color: #172321 !important;
+            border: 1px solid #DCE5E0 !important;
+            border-radius: 18px !important;
+            box-shadow: 0 10px 28px rgba(26, 56, 47, .07) !important;
+            backdrop-filter: none !important
+        }
+
+        #contact h2,
+        #contact form h2,
+        #contact .relative.container>div[data-aos="fade-left"] h2 {
+            color: #172321 !important
+        }
+
+        #contact p,
+        #contact .relative.container>div[data-aos="fade-left"] p {
+            color: #42564E !important
+        }
+
+        #contact .relative.container>div[data-aos="fade-left"] i {
+            color: #006B5B !important
+        }
+
+        #contact .relative.container>div[data-aos="fade-left"] p a {
+            color: #006B5B !important
+        }
+
+        #contact input,
+        #contact textarea,
+        #contact select {
+            background: #F8FAF8 !important;
+            color: #172321 !important;
+            -webkit-text-fill-color: #172321 !important;
+            border: 1px solid #CBD9D2 !important
+        }
+
+        #contact input::placeholder,
+        #contact textarea::placeholder {
+            color: #718078 !important;
+            -webkit-text-fill-color: #718078 !important;
+            opacity: 1 !important
+        }
+
+        #contact input:focus,
+        #contact textarea:focus,
+        #contact select:focus {
+            border-color: #006B5B !important;
+            box-shadow: 0 0 0 3px rgba(0, 107, 91, .12) !important
+        }
+
+        #contact #submitButton,
+        #contact button[type="submit"] {
+            background: #006B5B !important;
+            color: #FFFFFF !important;
+            border-color: #006B5B !important
+        }
+
+        #contact #submitButton *,
+        #contact button[type="submit"] * {
+            color: #FFFFFF !important
+        }
+
+        #contact #submitButton:hover,
+        #contact button[type="submit"]:hover {
+            background: #004C43 !important
+        }
+
+        #contact #form-message {
+            color: #172321 !important;
+            background: #EAF3EE !important;
+            border: 1px solid #C9DED3 !important
+        }
+
+        header nav>a:first-child {
+            color: #172321 !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.025em;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            transition: color .25s ease, transform .25s ease, letter-spacing .25s ease
+        }
+
+        header nav>a:first-child::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 100%;
+            bottom: -5px;
+            height: 2px;
+            border-radius: 2px;
+            background: #006B5B;
+            transition: right .28s ease
+        }
+
+        header nav>a:first-child:hover {
+            color: #006B5B !important;
+            transform: translateY(-2px);
+            letter-spacing: 0
+        }
+
+        header nav>a:first-child:hover::after {
+            right: 0
+        }
+
+        header #main-nav-menu a {
+            color: #34443E !important;
+            position: relative;
+            transition: color .22s ease, transform .22s ease
+        }
+
+        header #main-nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 100%;
+            bottom: 2px;
+            height: 2px;
+            border-radius: 2px;
+            background: #006B5B;
+            transition: right .25s ease
+        }
+
+        header #main-nav-menu a:hover {
+            color: #006B5B !important;
+            transform: translateY(-1px)
+        }
+
+        header #main-nav-menu a:hover::after {
+            right: 0
+        }
+
+        header #mobile-menu-button {
+            color: #172321 !important;
+            transition: color .2s ease, transform .2s ease
+        }
+
+        header #mobile-menu-button:hover {
+            color: #006B5B !important;
+            transform: scale(1.06)
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+
+            header nav>a:first-child,
+            header #main-nav-menu a,
+            header #mobile-menu-button,
+            header nav>a:first-child::after,
+            header #main-nav-menu a::after {
+                transition: none !important
+            }
+        }
+
+        header nav>a:first-child {
+            color: #172321 !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.035em !important;
+            text-decoration: none !important;
+            transform: none !important;
+            transition: color .22s ease, opacity .22s ease !important
+        }
+
+        header nav>a:first-child::after {
+            display: none !important;
+            content: none !important
+        }
+
+        header nav>a:first-child:hover {
+            color: #006B5B !important;
+            transform: none !important;
+            letter-spacing: -0.035em !important;
+            text-decoration: none !important
+        }
+
+        header #main-nav-menu a::after {
+            display: none !important
+        }
+
+        header #main-nav-menu a {
+            text-decoration: none !important;
+            transition: color .22s ease, opacity .22s ease !important
+        }
+
+        #portfolio .grid>div {
+            background: #FFFFFF !important;
+            border: 1px solid #DCE5E0 !important;
+            color: #172321 !important
+        }
+
+        #portfolio .grid>div h3 {
+            color: #172321 !important;
+            font-weight: 700 !important
+        }
+
+        #portfolio .grid>div p {
+            color: #344A41 !important
+        }
+
+        #portfolio .grid>div p.text-sm,
+        #portfolio .grid>div p.text-xs {
+            color: #42574E !important
+        }
+
+        #portfolio .grid>div p.text-sm.font-semibold {
+            color: #172321 !important;
+            font-weight: 700 !important
+        }
+
+        #portfolio .grid>div>div:first-child {
+            color: #006B5B !important
+        }
+
+        #portfolio .grid>div a {
+            background: #006B5B !important;
+            color: #FFFFFF !important;
+            border: 1px solid #006B5B !important
+        }
+
+        #portfolio .grid>div a:hover {
+            background: #004C43 !important;
+            color: #FFFFFF !important
+        }
+
+        #other-expertise .grid>div h3 {
+            color: #172321 !important
+        }
+
+        #other-expertise .grid>div p {
+            color: #344A41 !important
+        }
+
+        #other-expertise .grid>div p.text-sm,
+        #other-expertise .grid>div p.text-gray-400,
+        #other-expertise .grid>div p.text-gray-500 {
+            color: #344A41 !important
+        }
+
+        #other-expertise .grid>div a {
+            color: #006B5B !important;
+            font-weight: 700 !important
+        }
+
+        #other-expertise .grid>div a:hover {
+            color: #004C43 !important
+        }
+
+        #other-expertise .grid>div .fa-brands,
+        #other-expertise .grid>div .fa-certificate {
+            color: #006B5B !important
+        }
+
+        #portfolio .grid>div h3 {
+            font-weight: 400 !important;
+            color: #172321 !important
+        }
+
+        #portfolio .grid>div a {
+            background: #006B5B !important;
+            color: #FFFFFF !important;
+            border: 1px solid #006B5B !important;
+            font-weight: 600 !important;
+            box-shadow: 0 7px 20px rgba(0, 107, 91, .14) !important;
+            transition: background .2s ease, transform .2s ease, box-shadow .2s ease !important
+        }
+
+        #portfolio .grid>div a:hover {
+            background: #004C43 !important;
+            border-color: #004C43 !important;
+            color: #FFFFFF !important;
+            transform: translateY(-1px);
+            box-shadow: 0 9px 22px rgba(0, 76, 67, .18) !important
+        }
+
+        #skills-tools {
+            background: #F7F7F2 !important;
+            color: #172321 !important
+        }
+
+        #skills-tools h2 {
+            color: #172321 !important;
+            font-weight: 600
+        }
+
+        #skills-tools p {
+            color: #42574E !important
+        }
+
+        #skills-tools .skills-logo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 16px
+        }
+
+        #skills-tools .skill-logo-card {
+            min-height: 126px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 12px;
+            border: 1px solid #DCE5E0;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .88);
+            box-shadow: 0 6px 18px rgba(23, 35, 33, .045);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease
+        }
+
+        #skills-tools .skill-logo-card:hover {
+            transform: translateY(-4px);
+            border-color: #9BC8BE;
+            box-shadow: 0 10px 24px rgba(0, 107, 91, .10)
+        }
+
+        #skills-tools .skill-logo-card img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain
+        }
+
+        #skills-tools .skill-logo-card .aws-brand-mark {
+            display: flex;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            color: #232F3E;
+            font-size: 42px;
+            line-height: 1
+        }
+
+        #skills-tools .skill-logo-card span {
+            color: #172321;
+            font-size: .9rem;
+            font-weight: 600;
+            line-height: 1.25;
+            text-align: center
+        }
+
+        @media (max-width:768px) {
+            #skills-tools .skills-logo-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px
+            }
+
+            #skills-tools .skill-logo-card {
+                min-height: 112px
+            }
+        }
+
+        @media (min-width:769px) and (max-width:1024px) {
+            #skills-tools .skills-logo-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr))
+            }
+        }
+
+        .hero-name,
+        #hero h1,
+        .hero h1 {
+            font-weight: 800 !important;
+            color: #172321
+        }
+
+        #contact a,
+        #contact a:visited,
+        .contact a,
+        .contact a:visited,
+        .contact-links a,
+        .contact-links a:visited {
+            color: #006B5B !important
+        }
+
+        #contact a:hover,
+        .contact a:hover,
+        .contact-links a:hover {
+            color: #004C43 !important
+        }
+
+        #home {
+            isolation: isolate;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 84% 28%, rgba(112, 190, 169, .23), transparent 42%), radial-gradient(ellipse at 12% 78%, rgba(221, 237, 231, .58), transparent 38%), linear-gradient(115deg, #F7F7F2 0%, #F2F7F3 52%, #E4F1EB 100%) !important
+        }
+
+        #home>.absolute.inset-0 {
+            display: none !important
+        }
+
+        #home::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            inset: auto 0 0;
+            height: 27%;
+            pointer-events: none;
+            opacity: .72;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            background-size: 100% 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 260' preserveAspectRatio='none'%3E%3Cpath d='M0 90 C230 10 360 180 590 145 S990 45 1190 105 S1450 175 1600 65 L1600 260 L0 260Z' fill='%23DDEDE7' fill-opacity='.72'/%3E%3Cpath d='M0 155 C250 65 410 225 680 185 S1080 90 1290 150 S1480 205 1600 145 L1600 260 L0 260Z' fill='%239BCDBD' fill-opacity='.34'/%3E%3Cpath d='M0 205 C260 135 430 250 710 220 S1110 150 1350 205 S1510 240 1600 205' fill='none' stroke='%237FB9A7' stroke-opacity='.42' stroke-width='3'/%3E%3C/svg%3E")
+        }
+
+        #home::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: 17%;
+            right: 5.5%;
+            width: clamp(115px, 15vw, 220px);
+            height: clamp(105px, 13vw, 190px);
+            pointer-events: none;
+            opacity: .40;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 180' fill='none' stroke='%23006B5B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M48 115H32c-17 0-29-12-29-27 0-14 11-26 26-27 5-22 25-38 48-38 20 0 37 12 45 29 5-2 10-3 15-3 20 0 36 15 36 34 16 2 27 14 27 29 0 17-14 30-31 30H48'/%3E%3Cpath d='M86 78l20-12 20 12-20 12-20-12Z M86 78v24l20 12v-24 M126 78v24l-20 12 M106 90l20-12 20 12-20 12-20-12Z M126 102v24l20-12V90'/%3E%3C/svg%3E")
+        }
+
+        #home .relative.z-10 {
+            position: relative;
+            z-index: 2
+        }
+
+        #home .relative.z-10 h1 {
+            font-weight: 400 !important
+        }
+
+        #home .absolute.bottom-3 {
+            z-index: 2
+        }
+
+        @media (max-width:767px) {
+            #home::after {
+                top: 13%;
+                right: -2%;
+                width: 100px;
+                height: 85px;
+                opacity: .25
+            }
+
+            #home::before {
+                height: 19%
+            }
+        }
+
+        #back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 60;
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 107, 91, .28);
+            border-radius: 9999px;
+            background: #006B5B;
+            color: #FFFFFF;
+            box-shadow: 0 8px 22px rgba(0, 76, 67, .20);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease, background .22s ease
+        }
+
+        #back-to-top.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0)
+        }
+
+        #back-to-top:hover {
+            background: #004C43
+        }
+
+        #back-to-top:focus-visible {
+            outline: 3px solid #9BCDBD;
+            outline-offset: 3px
+        }
+
+        @media (max-width:767px) {
+            #back-to-top {
+                right: 16px;
+                bottom: 16px;
+                width: 44px;
+                height: 44px
+            }
+        }
+
+        :root {
+            --paper: #F7F7F2;
+            --paper-soft: #F1F6F2;
+            --surface: rgba(255, 255, 255, .78);
+            --ink: #172321;
+            --muted: #5E6D68;
+            --line: #DCE5E0;
+            --peacock: #006B5B;
+            --peacock-deep: #004C43;
+            --peacock-soft: #DDEDE7;
+            --mint-line: rgba(0, 107, 91, .14)
+        }
+
+        html,
+        body {
+            background-color: var(--paper) !important;
+            color: var(--ink) !important
+        }
+
+        body {
+            background-image: radial-gradient(ellipse at 92% 9%, rgba(112, 190, 169, .14), transparent 28%), radial-gradient(ellipse at 4% 48%, rgba(221, 237, 231, .46), transparent 30%), linear-gradient(180deg, #F7F7F2 0%, #F4F7F3 52%, #F7F7F2 100%) !important
+        }
+
+        #portfolio,
+        #skills-tools,
+        #about,
+        #other-expertise,
+        #contact {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            color: var(--ink) !important;
+            background: transparent !important
+        }
+
+        #portfolio {
+            background: radial-gradient(ellipse at 92% 18%, rgba(112, 190, 169, .13), transparent 34%), linear-gradient(135deg, rgba(247, 247, 242, .96), rgba(239, 247, 242, .94)) !important
+        }
+
+        #skills-tools {
+            background: radial-gradient(ellipse at 8% 72%, rgba(112, 190, 169, .12), transparent 34%), rgba(247, 247, 242, .90) !important
+        }
+
+        #about {
+            background: radial-gradient(ellipse at 88% 25%, rgba(112, 190, 169, .16), transparent 38%), linear-gradient(120deg, #F1F6F2 0%, #F7F7F2 72%) !important
+        }
+
+        #other-expertise {
+            background: radial-gradient(ellipse at 10% 20%, rgba(112, 190, 169, .13), transparent 34%), linear-gradient(135deg, #F7F7F2 0%, #EEF5F0 100%) !important
+        }
+
+        #contact {
+            background: radial-gradient(ellipse at 86% 18%, rgba(112, 190, 169, .17), transparent 38%), linear-gradient(120deg, #F2F7F3 0%, #F7F7F2 70%) !important
+        }
+
+        #portfolio::before,
+        #about::before,
+        #other-expertise::before,
+        #contact::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            right: 0;
+            width: min(34vw, 390px);
+            height: 100%;
+            pointer-events: none;
+            opacity: .36;
+            background-image: radial-gradient(rgba(0, 107, 91, .25) .9px, transparent .9px);
+            background-size: 17px 17px;
+            mask-image: linear-gradient(135deg, black, transparent 76%)
+        }
+
+        #skills-tools::after,
+        #about::after,
+        #other-expertise::after,
+        #contact::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: -4%;
+            bottom: -52px;
+            width: 108%;
+            height: 105px;
+            border-top: 1px solid rgba(0, 107, 91, .12);
+            border-radius: 50% 50% 0 0 / 55% 55% 0 0;
+            transform: rotate(-1.2deg);
+            pointer-events: none
+        }
+
+        #portfolio>*,
+        #skills-tools>*,
+        #about>*,
+        #other-expertise>*,
+        #contact>* {
+            position: relative;
+            z-index: 1
+        }
+
+        #portfolio h2,
+        #skills-tools h2,
+        #about h2,
+        #other-expertise h2,
+        #contact h2,
+        #portfolio h3,
+        #about h3,
+        #other-expertise h3 {
+            color: var(--ink) !important
+        }
+
+        #portfolio p,
+        #skills-tools p,
+        #about p,
+        #other-expertise p,
+        #contact p,
+        #about li,
+        #contact label {
+            color: var(--muted) !important
+        }
+
+        #portfolio a:not(.project-action),
+        #about a,
+        #other-expertise a,
+        #contact a {
+            transition: color .22s ease, border-color .22s ease, background-color .22s ease
+        }
+
+        #portfolio a:not(.project-action):hover,
+        #about a:hover,
+        #other-expertise a:hover,
+        #contact a:hover {
+            color: var(--peacock) !important
+        }
+
+        #portfolio .swiper-slide,
+        #portfolio .grid>div,
+        #other-expertise .swiper-slide,
+        #other-expertise .grid>div,
+        #skills-tools .skill-logo-card {
+            background: rgba(255, 255, 255, .82) !important;
+            border: 1px solid var(--line) !important;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(23, 35, 33, .055)
+        }
+
+        #portfolio .swiper-slide:hover,
+        #other-expertise .swiper-slide:hover,
+        #portfolio .grid>div:hover,
+        #other-expertise .grid>div:hover {
+            border-color: #A8CEC1 !important;
+            box-shadow: 0 12px 28px rgba(0, 107, 91, .10)
+        }
+
+        #portfolio button,
+        #portfolio .grid>div a,
+        #contact button,
+        #contact input[type="submit"] {
+            background: var(--peacock) !important;
+            color: #FFFFFF !important;
+            border-color: var(--peacock) !important
+        }
+
+        #portfolio button:hover,
+        #portfolio .grid>div a:hover,
+        #contact button:hover,
+        #contact input[type="submit"]:hover {
+            background: var(--peacock-deep) !important;
+            border-color: var(--peacock-deep) !important
+        }
+
+        #contact input,
+        #contact textarea,
+        #contact select {
+            background: rgba(255, 255, 255, .88) !important;
+            color: var(--ink) !important;
+            border: 1px solid #CBDAD3 !important;
+            border-radius: 10px
+        }
+
+        #contact input:focus,
+        #contact textarea:focus,
+        #contact select:focus {
+            outline: none;
+            border-color: var(--peacock) !important;
+            box-shadow: 0 0 0 3px rgba(0, 107, 91, .10)
+        }
+
+        @media (max-width:767px) {
+
+            #portfolio::before,
+            #about::before,
+            #other-expertise::before,
+            #contact::before {
+                width: 48vw;
+                opacity: .22
+            }
+
+            #skills-tools::after,
+            #about::after,
+            #other-expertise::after,
+            #contact::after {
+                height: 70px;
+                bottom: -38px
+            }
+        }
+
+        #home,
+        #portfolio,
+        #skills-tools,
+        #about,
+        #other-expertise,
+        #contact {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            background-color: #F7F7F2 !important;
+            background-image: radial-gradient(ellipse at 86% 24%, rgba(112, 190, 169, .19), transparent 39%), radial-gradient(ellipse at 10% 78%, rgba(221, 237, 231, .40), transparent 38%), linear-gradient(118deg, #F7F7F2 0%, #F2F7F3 55%, #E5F1EB 100%) !important
+        }
+
+        #home::before,
+        #portfolio::before,
+        #skills-tools::before,
+        #about::before,
+        #other-expertise::before,
+        #contact::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            inset: auto 0 0;
+            width: 100%;
+            height: 23%;
+            min-height: 105px;
+            pointer-events: none;
+            opacity: .58;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            background-size: 100% 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 260' preserveAspectRatio='none'%3E%3Cpath d='M0 90 C230 10 360 180 590 145 S990 45 1190 105 S1450 175 1600 65 L1600 260 L0 260Z' fill='%23DDEDE7' fill-opacity='.72'/%3E%3Cpath d='M0 155 C250 65 410 225 680 185 S1080 90 1290 150 S1480 205 1600 145 L1600 260 L0 260Z' fill='%239BCDBD' fill-opacity='.34'/%3E%3Cpath d='M0 205 C260 135 430 250 710 220 S1110 150 1350 205 S1510 240 1600 205' fill='none' stroke='%237FB9A7' stroke-opacity='.42' stroke-width='3'/%3E%3C/svg%3E")
+        }
+
+        #home::after,
+        #portfolio::after,
+        #skills-tools::after,
+        #about::after,
+        #other-expertise::after,
+        #contact::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: 12%;
+            right: 4.5%;
+            width: clamp(105px, 11vw, 165px);
+            height: clamp(90px, 9vw, 135px);
+            pointer-events: none;
+            opacity: .28;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 180' fill='none' stroke='%23006B5B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M48 115H32c-17 0-29-12-29-27 0-14 11-26 26-27 5-22 25-38 48-38 20 0 37 12 45 29 5-2 10-3 15-3 20 0 36 15 36 34 16 2 27 14 27 29 0 17-14 30-31 30H48'/%3E%3Cpath d='M86 78l20-12 20 12-20 12-20-12Z M86 78v24l20 12v-24 M126 78v24l-20 12 M106 90l20-12 20 12-20 12-20-12Z M126 102v24l20-12V90'/%3E%3C/svg%3E")
+        }
+
+        #home>*,
+        #portfolio>*,
+        #skills-tools>*,
+        #about>*,
+        #other-expertise>*,
+        #contact>* {
+            position: relative;
+            z-index: 1
+        }
+
+        @media (max-width:767px) {
+
+            #home::after,
+            #portfolio::after,
+            #skills-tools::after,
+            #about::after,
+            #other-expertise::after,
+            #contact::after {
+                top: 9%;
+                right: -2%;
+                width: 82px;
+                height: 72px;
+                opacity: .19
+            }
+
+            #home::before,
+            #portfolio::before,
+            #skills-tools::before,
+            #about::before,
+            #other-expertise::before,
+            #contact::before {
+                height: 17%;
+                min-height: 72px;
+                opacity: .44
+            }
+        }
+
+        #home>.relative.z-10 {
+            transform: translateY(-38px)
+        }
+
+        @media (max-width:767px) {
+            #home>.relative.z-10 {
+                transform: translateY(-22px)
+            }
+        }
+
+        #home,
+        #portfolio,
+        #skills-tools,
+        #about,
+        #other-expertise,
+        #contact {
+            background-color: #F6F8F3 !important;
+            background-image: radial-gradient(ellipse at 84% 22%, rgba(76, 170, 151, .25), transparent 40%), radial-gradient(ellipse at 12% 76%, rgba(173, 216, 202, .40), transparent 39%), radial-gradient(ellipse at 56% 100%, rgba(190, 215, 231, .22), transparent 42%), linear-gradient(118deg, #F7F8F2 0%, #EDF5F0 48%, #E1F0EA 100%) !important;
+            animation: none !important
+        }
+
+        #home::before,
+        #portfolio::before,
+        #skills-tools::before,
+        #about::before,
+        #other-expertise::before,
+        #contact::before {
+            opacity: .78 !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 260' preserveAspectRatio='none'%3E%3Cpath d='M0 90 C230 10 360 180 590 145 S990 45 1190 105 S1450 175 1600 65 L1600 260 L0 260Z' fill='%23C7E7DB' fill-opacity='.88'/%3E%3Cpath d='M0 155 C250 65 410 225 680 185 S1080 90 1290 150 S1480 205 1600 145 L1600 260 L0 260Z' fill='%239FD5C5' fill-opacity='.48'/%3E%3Cpath d='M0 205 C260 135 430 250 710 220 S1110 150 1350 205 S1510 240 1600 205' fill='none' stroke='%235FAE9A' stroke-opacity='.52' stroke-width='3'/%3E%3C/svg%3E") !important
+        }
+
+        #home::after,
+        #portfolio::after,
+        #skills-tools::after,
+        #about::after,
+        #other-expertise::after,
+        #contact::after {
+            opacity: .38 !important;
+            filter: drop-shadow(0 4px 12px rgba(69, 151, 137, .12))
+        }
+
+        :root {
+            --paper: #F6F8F3;
+            --paper-soft: #EDF5F0;
+            --peacock: #006B5B;
+            --peacock-deep: #004C43;
+            --peacock-soft: #D9EEE5
+        }
+
+        #portfolio .grid>div,
+        #other-expertise .grid>div {
+            text-align: center !important;
+            align-items: center
+        }
+
+        #portfolio .grid>div>p,
+        #other-expertise .grid>div>p,
+        #portfolio .grid>div>h3,
+        #other-expertise .grid>div>h3 {
+            width: 100%;
+            text-align: center !important
+        }
+
+        #portfolio .grid>div>a {
+            align-self: center
+        }
+
+        #other-expertise .experience-timeline,
+        #other-expertise .experience-item {
+            text-align: center;
+            width: 100%
+        }
+
+        #other-expertise .experience-item span {
+            display: block;
+            text-align: center
+        }
+
+        #skills-tools .skill-logo-card {
+            text-align: center;
+            justify-content: center;
+            align-items: center
+        }
+
+        #about .container>div:last-child {
+            text-align: center
+        }
+
+        #contact .contact-details,
+        #contact .contact-info {
+            text-align: center
+        }
+
+        .hero-explore {
+            position: absolute;
+            z-index: 20;
+            left: 0;
+            right: 0;
+            bottom: 12px;
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto;
+            transform: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #006B5B;
+            text-decoration: none
+        }
+
+        .hero-explore-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .22em;
+            color: #006B5B
+        }
+
+        .hero-explore-circle {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(0, 107, 91, .65);
+            border-radius: 50%;
+            color: #006B5B;
+            background: rgba(255, 255, 255, .52);
+            box-shadow: 0 5px 16px rgba(0, 76, 67, .10);
+            transition: transform .22s ease, color .22s ease, background .22s ease, box-shadow .22s ease
+        }
+
+        .hero-explore:hover .hero-explore-circle {
+            transform: translateY(3px);
+            color: #FFFFFF;
+            background: #006B5B;
+            box-shadow: 0 8px 20px rgba(0, 76, 67, .18)
+        }
+
+        .hero-explore:focus-visible {
+            outline: 3px solid #9BCDBD;
+            outline-offset: 5px;
+            border-radius: 24px
+        }
+
+        @media (max-width:767px) {
+            .hero-explore {
+                bottom: 8px
+            }
+
+            .hero-explore-circle {
+                width: 38px;
+                height: 38px
+            }
+        }
+
+        /* Explore cue: subtle motion without a text label */
+        .hero-explore {
+            animation: explore-float 2.2s ease-in-out infinite;
+        }
+
+        .hero-explore-circle {
+            position: relative;
+        }
+
+        .hero-explore-circle::before {
+            content: "";
+            position: absolute;
+            inset: -7px;
+            border: 1px solid rgba(0, 107, 91, .22);
+            border-radius: 50%;
+            animation: explore-halo 2.2s ease-out infinite;
+            pointer-events: none;
+        }
+
+        .hero-explore svg,
+        .hero-explore i,
+        .hero-explore .fa,
+        .hero-explore .fas {
+            display: block;
+        }
+
+        @keyframes explore-float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-7px)
+            }
+        }
+
+        @keyframes explore-halo {
+            0% {
+                transform: scale(.88);
+                opacity: .65
+            }
+
+            75%,
+            100% {
+                transform: scale(1.35);
+                opacity: 0
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .hero-explore,
+            .hero-explore-circle::before {
+                animation: none
+            }
         }
     </style>
 
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            AOS.init({
-                duration: 900, // Animation duration in ms
-                easing: 'ease-out-cubic',
-                once: true // Animation happens only once when scrolling down
-            });
-        });
-    </script>
-
-
 </head>
 
-<body class="font-[Public_Sans] bg-gray-900 text-gray-200">
+<body id="page-top" class="font-[Public_Sans] bg-gray-900 text-gray-200">
     <header class="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-xl border-b border-gray-800">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center relative">
             <a href="#" class="text-2xl text-white hover:text-blue-500 transition-colors duration-300">Raseef Azeez</a>
@@ -66,44 +1363,34 @@
 
         <section id="home"
             class="relative h-screen flex flex-col items-center justify-center bg-gray-900 text-white overflow-hidden">
-            <!-- Background Gradient -->
+
             <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-90"></div>
 
-            <!-- Decorative Glow Element -->
             <div
                 class="absolute top-1/4 left-1/3 w-72 h-72 bg-blue-600/30 rounded-full mix-blend-overlay filter blur-3xl opacity-40 animate-pulse">
             </div>
 
-            <!-- Content -->
             <div class="relative z-10 max-w-4xl p-6 text-center" data-aos="fade-up">
-                <!-- Intro -->
-                <h2 class="text-2xl md:text-3xl font-light mb-4 text-gray-400 tracking-wide">
-                    Hello, I'm
-                </h2>
 
-                <!-- Name -->
-                <h1 class="text-5xl md:text-7xl lg:text-8xl leading-tight tracking-tight mb-6">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl leading-tight tracking-tight mb-4 text-[#172321] font-bold">
                     Raseef Azeez
                 </h1>
 
-                <!-- Typing Animation -->
-                <p class="text-lg md:text-xl text-blue-400 font-semibold max-w-2xl mx-auto mb-6">
-                    <span id="typed-text"></span>
+                <p class="text-lg md:text-xl text-[#006B5B] font-semibold max-w-2xl mx-auto mb-6 min-h-[1.8em]">
+                    <span id="typed-text"
+                        aria-label="Cloud Engineer, DevOps Enthusiast, Solution Architect in Progress"></span>
                 </p>
 
-                <!-- Personal tagline -->
-                <p class="text-lg md:text-xl text-blue-300 max-w-3xl mx-auto mb-4 leading-relaxed">
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-4 leading-relaxed text-[#006B5B] font-semibold">
                     Architecting Simplicity in the Cloud. One Why at a Time!
                 </p>
 
-                <!-- Professional summary -->
-                <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                <p class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed text-[#263B34]">
                     Building secure, scalable, and automated cloud infrastructure through thoughtful engineering.
                 </p>
 
-                <!-- Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="project-list.html" class="inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold bg-blue-600 hover:bg-blue-500 
+                    <a href="project-list.html" class="inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold bg-blue-600 hover:bg-blue-500
                        transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-900/50">
                         My Projects <i class="fa-solid fa-arrow-right-long ml-2"></i>
                     </a>
@@ -115,17 +1402,12 @@
                 </div>
             </div>
 
-            <!-- Scroll Indicator Code -->
-            <div class="absolute bottom-6 flex flex-col items-center space-y-2 animate-bounce">
-                <span class="text-gray-400 text-sm">Scroll Down</span>
-                <a href="#portfolio">
-                    <i
-                        class="fa-solid fa-chevron-down text-gray-400 text-2xl hover:text-blue-400 transition-colors"></i>
-                </a>
-            </div>
+            <a href="#portfolio" class="hero-explore" aria-label="Explore portfolio" title="Explore portfolio">
+
+                <span class="hero-explore-circle"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i></span>
+            </a>
         </section>
 
-        <!-- Typed.js Script -->
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +1427,7 @@
 
         <section id="portfolio" class="py-24 px-6 bg-gray-800 text-white">
             <div class="container mx-auto">
-                <!-- Heading -->
+
                 <div class="text-center mb-16" data-aos="fade-up">
                     <h2 class="text-4xl md:text-5xl tracking-tight mb-4">
                         My Portfolio
@@ -156,10 +1438,8 @@
                     </p>
                 </div>
 
-                <!-- Projects Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-                    <!-- Project Card 1 -->
                     <div data-aos="fade-up" data-aos-delay="100"
                         class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-user-tie"></i></div>
@@ -173,13 +1453,12 @@
                             Amazon S3, CloudFront, API Gateway, Lambda, DynamoDB, IAM, SNS, CloudWatch,
                             CloudFormation, and GitHub Actions with OIDC.
                         </p>
-                        <a href="project-list.html#portfolio-viewpage" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                        <a href="project-list.html#portfolio-viewpage" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500
                                                       rounded-lg text-sm font-semibold transition">
                             View More
                         </a>
                     </div>
 
-                    <!-- Project Card 2 -->
                     <div data-aos="fade-up" data-aos-delay="200"
                         class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-code"></i></div>
@@ -195,13 +1474,12 @@
                             Amazon Cognito, API Gateway, Lambda, EC2, IAM, S3, CloudFront, Terraform,
                             GitHub Actions with OIDC, and CloudWatch.
                         </p>
-                        <a href="project-list.html#serverless-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                        <a href="project-list.html#serverless-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500
                                                       rounded-lg text-sm font-semibold transition">
                             View More
                         </a>
                     </div>
 
-                    <!-- Project Card 3 -->
                     <div data-aos="fade-up" data-aos-delay="300"
                         class="bg-gray-700/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-blue-400 text-4xl mb-6"><i class="fas fa-chart-line"></i></div>
@@ -216,7 +1494,7 @@
                             Docker, Kubernetes (Kind), Redis, BullMQ, Prometheus, Grafana, AWS S3/CloudFront,
                             and infrastructure/deployment automation.
                         </p>
-                        <a href="project-list.html#kubernetes-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 
+                        <a href="project-list.html#kubernetes-page" class="mt-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500
                                                       rounded-lg text-sm font-semibold transition">
                             View More
                         </a>
@@ -226,9 +1504,59 @@
             </div>
         </section>
 
+        <section id="skills-tools" class="py-16 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-10" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl tracking-tight mb-3">Core Skills &amp; Tools</h2>
+                    <p class="max-w-2xl mx-auto">Technologies I use across cloud infrastructure, automation,
+                        containerisation, and observability.</p>
+                </div>
+
+                <div class="skills-logo-grid" data-aos="fade-up">
+                    <div class="skill-logo-card">
+                        <i class="fab fa-aws aws-brand-mark" role="img" aria-label="Amazon Web Services logo"></i>
+                        <span>AWS</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="Kubernetes logo" loading="lazy">
+                        <span>Kubernetes</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker logo" loading="lazy">
+                        <span>Docker</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform logo" loading="lazy">
+                        <span>Terraform</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub logo" loading="lazy">
+                        <span>GitHub</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/githubactions/2088FF" alt="GitHub Actions logo"
+                            loading="lazy">
+                        <span>GitHub Actions</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus logo" loading="lazy">
+                        <span>Prometheus</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana logo" loading="lazy">
+                        <span>Grafana</span>
+                    </div>
+                    <div class="skill-logo-card">
+                        <img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux logo" loading="lazy">
+                        <span>Linux</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="about" class="py-24 px-6 bg-gray-900 text-white">
             <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <!-- Image Section -->
+
                 <div class="relative flex justify-center md:justify-end" data-aos="fade-right">
                     <div class="relative group">
                         <img src="Assets/Images/Raseef_portfolio_image.jpeg" alt="Raseef Azeez"
@@ -239,7 +1567,6 @@
                     </div>
                 </div>
 
-                <!-- Text Section -->
                 <div class="space-y-6 text-center md:text-left" data-aos="fade-left">
                     <h2 class="text-4xl md:text-5xl tracking-tight">
                         About Me
@@ -256,10 +1583,9 @@
             </div>
         </section>
 
-
         <section id="other-expertise" class="py-24 px-6 bg-gray-900 text-white">
             <div class="container mx-auto">
-                <!-- Heading -->
+
                 <div class="text-center mb-16" data-aos="fade-up">
                     <h2 class="text-4xl md:text-5xl tracking-tight mb-4">
                         Previous Work Experience & Certifications
@@ -269,26 +1595,36 @@
                     </p>
                 </div>
 
-                <!-- Cards Section -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-                    <!-- Work Experience Card -->
                     <div data-aos="fade-up" data-aos-delay="100"
                         class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-blue-500 text-4xl mb-6"><i class="fas fa-briefcase"></i></div>
                         <h3 class="text-2xl font-semibold mb-2">Previous Work Experience</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">
-                            Cloud Infrastructure &amp; DevOps experience at UST, supporting enterprise client
-                            environments and progressing across cloud support, IAM, cloud infrastructure, and DevOps
-                            responsibilities. Worked with AWS services, identity integrations, automation, and CI/CD.
-                            Contributed to three internal promotions during a five-year journey at UST.
-                        </p>
-                        <p class="text-sm text-gray-500 mt-auto">
-                            UST · February 2021 – August 2026
-                        </p>
+                        <div class="experience-timeline mb-5 flex-grow">
+                            <div class="experience-item">
+                                <strong>UST</strong> — Cloud Infrastructure &amp; DevOps
+                                <span>Trivandrum, IN | Feb 2021 – Aug 2026</span>
+                            </div>
+                            <div class="experience-item">
+                                <strong>Indesphere Consulting</strong> — Technical Support Engineer
+                                <span>Bangalore, IN | Dec 2018 – Jul 2020</span>
+                            </div>
+                            <div class="experience-item">
+                                <strong>SYT Marketing FZ LLC</strong> — Technical Support Specialist
+                                <span>Dubai, UAE | May 2017 – May 2018</span>
+                            </div>
+                            <div class="experience-item">
+                                <strong>Sutherland Global Services</strong> — Tier-2 Support Engineer
+                                <span>Kochi, IN | Apr 2015 – Jan 2017</span>
+                            </div>
+                            <div class="experience-item">
+                                <strong>Glazer Software Solutions</strong> — Junior iOS Developer
+                                <span>Chennai, IN | Nov 2013 – Jan 2015</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Certification 1 -->
                     <div data-aos="fade-up" data-aos-delay="200"
                         class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-yellow-400 text-4xl mb-6"><i class="fa-brands fa-aws"></i></div>
@@ -302,7 +1638,6 @@
                         </a>
                     </div>
 
-                    <!-- Certification 2 (Placeholder for Future) -->
                     <div data-aos="fade-up" data-aos-delay="300"
                         class="bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 flex flex-col hover:scale-[1.03] transform transition duration-300">
                         <div class="text-green-400 text-4xl mb-6"><i class="fas fa-certificate"></i></div>
@@ -321,11 +1656,11 @@
         </section>
 
         <section id="contact" class="relative py-24 px-6 bg-gray-900 text-white">
-            <!-- Decorative Background Glow -->
+
             <div class="absolute top-1/3 left-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl opacity-40"></div>
 
             <div class="relative container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <!-- Contact Form -->
+
                 <form id="contactForm"
                     class="bg-gray-800/80 backdrop-blur-lg p-10 rounded-2xl shadow-lg space-y-6 border border-gray-700"
                     data-aos="fade-up">
@@ -334,41 +1669,36 @@
 
                     <div id="form-message" class="hidden py-2 px-4 rounded-md text-sm"></div>
 
-                    <!-- Name -->
                     <div>
-                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
-                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none
                          transition-all duration-300" type="text" id="userName" name="userName" placeholder="Your Name"
                             required>
                     </div>
 
-                    <!-- Email -->
                     <div>
-                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
-                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none
                          transition-all duration-300" type="email" id="userEmail" name="userEmail" placeholder="Email"
                             required>
                     </div>
 
-                    <!-- Phone -->
                     <div>
-                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
-                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                        <input class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none
                          transition-all duration-300" type="tel" id="userPhone" name="userPhone"
                             placeholder="Phone Number (Optional)">
                     </div>
 
-                    <!-- Message -->
                     <div>
-                        <textarea class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400 
-                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                        <textarea class="w-full px-4 py-3 rounded-xl bg-gray-900/70 text-white placeholder-gray-400
+                         border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none
                          transition-all duration-300" placeholder="Write your message here..." name="userMessage"
                             id="userMessage" rows="6" required></textarea>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button id="submitButton" type="submit" class="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-lg font-semibold 
-                       bg-blue-600 hover:bg-blue-500 transition-all duration-300 transform hover:scale-[1.03] 
+                    <button id="submitButton" type="submit" class="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-lg font-semibold
+                       bg-blue-600 hover:bg-blue-500 transition-all duration-300 transform hover:scale-[1.03]
                        shadow-lg shadow-blue-900/50">
                         <span id="buttonText">Send Message</span>
                         <span id="loadingSpinner" class="hidden">
@@ -377,27 +1707,27 @@
                     </button>
                 </form>
 
-                <!-- Contact Details -->
                 <div class="bg-gray-800/80 backdrop-blur-lg p-10 rounded-2xl shadow-lg border border-gray-700 space-y-8"
                     data-aos="fade-left">
                     <h2 class="text-3xl md:text-4xl text-white mb-6 text-center">Contact Details</h2>
 
                     <div class="space-y-6">
-                        <!-- Email -->
+
                         <div class="flex items-center gap-4 group">
                             <i
                                 class="fa-solid fa-envelope text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
-                            <p class="text-gray-300 group-hover:text-white transition-colors">raseefazeez@gmail.com</p>
+                            <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=raseefazeez@gmail.com"
+                                target="_blank" rel="noopener noreferrer" aria-label="Email Raseef Azeez using Gmail"
+                                class="text-gray-300 group-hover:text-[#006B5B] transition-colors">raseefazeez@gmail.com</a>
                         </div>
 
-                        <!-- Phone -->
                         <div class="flex items-center gap-4 group">
                             <i
                                 class="fa-solid fa-phone text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
-                            <p class="text-gray-300 group-hover:text-white transition-colors">+91-6383890464</p>
+                            <a href="tel:+916383890464" aria-label="Call Raseef Azeez"
+                                class="text-gray-300 group-hover:text-[#006B5B] transition-colors">+91-6383890464</a>
                         </div>
 
-                        <!-- Location -->
                         <div class="flex items-center gap-4 group">
                             <i
                                 class="fa-solid fa-location-dot text-blue-500 text-2xl group-hover:scale-110 transition-transform"></i>
@@ -408,8 +1738,6 @@
                 </div>
             </div>
         </section>
-
-
 
     </main>
     <footer class="bg-gray-950 text-white py-8">
@@ -438,6 +1766,24 @@
     <script src="swiper-init.js"></script>
     <script src="mobile-menu.js"></script>
     <script src="contact-getinput.js"></script>
+
+    <a id="back-to-top" href="#page-top" aria-label="Back to top" title="Back to top">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </a>
+    <script>
+        (() => {
+            const backToTop = document.getElementById('back-to-top');
+            if (!backToTop) return;
+
+            const updateBackToTop = () => {
+                backToTop.classList.toggle('is-visible', window.scrollY > 350);
+            };
+
+            window.addEventListener('scroll', updateBackToTop, { passive: true });
+            updateBackToTop();
+        })();
+    </script>
+
 </body>
 
 </html>

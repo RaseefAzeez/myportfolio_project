@@ -12,6 +12,210 @@
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style id="portfolio-index-matching-theme">
+        :root {
+            --paper: #F7F7F2;
+            --surface: #FFFFFF;
+            --ink: #172321;
+            --muted: #42574E;
+            --line: #DCE5E0;
+            --green: #006B5B;
+            --green-deep: #004C43;
+            --sage: #DDEDE7;
+            --heading: Tahoma, Geneva, sans-serif;
+            --sans: "Public Sans", Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 88px;
+        }
+
+        body {
+            background: var(--paper) !important;
+            color: var(--ink) !important;
+            font-family: var(--sans) !important;
+            letter-spacing: -0.012em;
+        }
+
+        h1,
+        h2,
+        h3,
+        header a.text-2xl {
+            font-family: var(--heading) !important;
+            color: var(--ink) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.025em;
+        }
+
+        p,
+        li {
+            line-height: 1.75;
+        }
+
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Navigation matches index.html */
+        header {
+            background: rgba(255, 255, 255, .94) !important;
+            border-bottom: 1px solid var(--line) !important;
+            box-shadow: 0 3px 18px rgba(23, 35, 33, .045) !important;
+            backdrop-filter: blur(14px);
+        }
+
+        header nav {
+            max-width: 1180px;
+        }
+
+        header a.text-2xl {
+            color: var(--ink) !important;
+            font-size: 1.55rem !important;
+            text-decoration: none !important;
+        }
+
+        header a.text-2xl:hover {
+            color: var(--green) !important;
+        }
+
+        header nav ul a {
+            color: #53665D !important;
+            text-decoration: none !important;
+            transition: color .2s ease;
+        }
+
+        header nav ul a:hover {
+            color: var(--green) !important;
+        }
+
+        /* Project page canvas and heading */
+        main,
+        #projects {
+            background: var(--paper) !important;
+        }
+
+        #projects>.container>div:first-child p:first-child {
+            color: var(--green) !important;
+        }
+
+        #projects>.container>div:first-child p:last-child {
+            color: var(--muted) !important;
+        }
+
+        /* Project panels */
+        #projects article {
+            background: #FFFFFF !important;
+            border: 1px solid var(--line) !important;
+            box-shadow: 0 12px 34px rgba(23, 35, 33, .055) !important;
+            color: var(--ink) !important;
+        }
+
+        #projects article:hover {
+            border-color: #9BC8BE !important;
+            box-shadow: 0 16px 38px rgba(0, 107, 91, .09) !important;
+        }
+
+        #projects article h2,
+        #projects article h3 {
+            color: var(--ink) !important;
+        }
+
+        #projects article p,
+        #projects article li {
+            color: #42574E !important;
+        }
+
+        #projects article span.text-white {
+            color: var(--ink) !important;
+        }
+
+        /* Technology/category pills */
+        #projects article>.flex.flex-wrap.gap-2 span {
+            color: var(--green-deep) !important;
+            background: var(--sage) !important;
+            border: 1px solid #C8DED5 !important;
+            border-radius: 999px !important;
+        }
+
+        /* Inner information cards */
+        #projects article .grid>div {
+            background: #F9FAF7 !important;
+            border: 1px solid var(--line) !important;
+            color: var(--ink) !important;
+            box-shadow: none !important;
+        }
+
+        #projects article .grid>div h3 {
+            color: var(--ink) !important;
+        }
+
+        #projects article .grid>div li {
+            color: #42574E !important;
+        }
+
+        #projects article .grid>div li span.text-white {
+            color: var(--ink) !important;
+        }
+
+        /* Architecture diagrams retain their original image paths and white canvas */
+        #projects article img {
+            border: 1px solid var(--line);
+            background: #FFFFFF !important;
+        }
+
+        /* Project action buttons: dark green at rest, light green on hover */
+        #projects article a.inline-flex {
+            background: var(--green-deep) !important;
+            color: #FFFFFF !important;
+            border: 1px solid var(--green-deep) !important;
+            box-shadow: 0 7px 18px rgba(0, 76, 67, .13) !important;
+            text-decoration: none !important;
+            transition: background-color .28s ease, color .28s ease,
+                border-color .28s ease, transform .28s ease,
+                box-shadow .28s ease !important;
+        }
+
+        #projects article a.inline-flex:hover {
+            background: var(--sage) !important;
+            color: var(--green-deep) !important;
+            border-color: #9BC8BE !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 107, 91, .10) !important;
+        }
+
+        /* Footer */
+        footer {
+            background: #EEF1EB !important;
+            border-top: 1px solid var(--line);
+            color: var(--ink) !important;
+        }
+
+        footer p,
+        footer a {
+            color: #53665D !important;
+        }
+
+        footer a:hover {
+            color: var(--green) !important;
+        }
+
+        @media (max-width: 640px) {
+            header nav ul {
+                gap: .8rem !important;
+            }
+
+            header nav ul a {
+                font-size: .78rem;
+            }
+
+            #projects article {
+                padding: 1.35rem !important;
+            }
+        }
+    </style>
+
 </head>
 
 <body class="font-[Public_Sans] bg-gray-900 text-gray-200">
