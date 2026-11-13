@@ -89,7 +89,7 @@
         }
 
         .brand {
-            font: 800 1.25rem var(--display);
+            font: 600 1.25rem var(--display);
             letter-spacing: -0.04em;
             color: #123D34;
         }
@@ -159,6 +159,7 @@
 
         h1 {
             font-size: clamp(3.2rem, 7vw, 5.7rem);
+            font-weight: 600;
             letter-spacing: -0.075em;
             margin: 0 0 10px;
             color: #123D34;
@@ -192,8 +193,12 @@
         }
 
         .hero-lead {
-            font: 800 clamp(1.2rem, 2.2vw, 1.65rem)/1.4 var(--display);
-            max-width: 660px;
+            font: 700 clamp(0.66rem, 1.8vw, 1.35rem)/1.3 var(--display);
+            letter-spacing: -0.035em;
+            white-space: nowrap;
+            max-width: none;
+            width: max-content;
+            max-width: 100%;
             margin: 0 0 18px;
             color: #183D34;
         }
@@ -604,6 +609,16 @@
             object-fit: contain;
         }
 
+        .skill .aws-skill-icon {
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: #232F3E;
+        }
+
         @keyframes skill-scroll {
             from {
                 transform: translateX(0);
@@ -995,7 +1010,7 @@
             <div class="wrap hero-grid">
                 <div class="hero-copy">
                     <p class="eyebrow">Hi I’m</p>
-                    <h1>Raseef<br>Azeez<span style="color:#087D69">.</span></h1>
+                    <h1>Raseef<br>Azeez</h1>
                     <p class="role-line"><span id="animatedRole"
                             aria-label="AWS Cloud Infrastructure | DevOps Engineer"></span><span class="typing-cursor"
                             aria-hidden="true"></span></p>
@@ -1047,7 +1062,8 @@
                 </div>
                 <div class="skill-marquee" aria-label="Core skills and tools">
                     <div class="skill-track">
-                        <div class="skill"><img src="https://cdn.simpleicons.org/amazonaws/232F3E" alt="AWS">AWS</div>
+                        <div class="skill"><i class="fa-brands fa-aws aws-skill-icon" role="img"
+                                aria-label="AWS"></i>AWS</div>
                         <div class="skill"><img src="https://cdn.simpleicons.org/kubernetes/326CE5"
                                 alt="Kubernetes">Kubernetes</div>
                         <div class="skill"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker">Docker
@@ -1064,8 +1080,7 @@
                         </div>
                         <div class="skill"><img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux">Linux</div>
                         <!-- Loop duplication for seamless infinite marquee -->
-                        <div class="skill" aria-hidden="true"><img src="https://cdn.simpleicons.org/amazonaws/232F3E"
-                                alt="">AWS</div>
+                        <div class="skill" aria-hidden="true"><i class="fa-brands fa-aws aws-skill-icon"></i>AWS</div>
                         <div class="skill" aria-hidden="true"><img src="https://cdn.simpleicons.org/kubernetes/326CE5"
                                 alt="">Kubernetes</div>
                         <div class="skill" aria-hidden="true"><img src="https://cdn.simpleicons.org/docker/2496ED"
