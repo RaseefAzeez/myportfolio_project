@@ -10,7 +10,7 @@
     <meta property="og:title" content="Raseef Azeez | Cloud Infrastructure &amp; DevOps Engineer">
     <meta property="og:description"
         content="Cloud Infrastructure &amp; DevOps Engineer with 11+ years of IT experience, focused on AWS, infrastructure as code, Kubernetes and CI/CD.">
-    <meta property="og:image" content="https://YOUR-DOMAIN/Assets/Images/Raseef_portfolio_image-1.jpeg">
+    <meta property="og:image" content="https://YOUR-DOMAIN/Assets/Images/Raseef_portfolio_image.jpg">
     <meta property="og:image:alt" content="Professional portrait of Raseef Azeez">
     <meta name="twitter:card" content="summary_large_image">
     <!-- Replace YOUR-DOMAIN in og:image with the live portfolio domain before publishing. -->
@@ -128,9 +128,20 @@
         }
 
         .hero {
-            padding: 76px 0 68px;
-            background: radial-gradient(circle at 78% 20%, rgba(66, 197, 168, 0.12), transparent 29%), linear-gradient(135deg, #FBFCF8 0%, #EAF3ED 100%);
-            color: #183D34;
+            position: relative;
+            isolation: isolate;
+            min-height: 760px;
+            padding: 76px 0 150px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.28), transparent 30%),
+                linear-gradient(180deg, #E2ECE5 0%, #B8D5C6 43%, #6FAE99 68%, #0B5749 100%);
+            color: #123D34;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-grid {
@@ -964,7 +975,9 @@
             }
 
             .hero {
-                padding: 52px 0 55px;
+                min-height: 0;
+                padding: 52px 0 110px;
+                background: linear-gradient(180deg, #E2ECE5 0%, #B8D5C6 48%, #0B5749 100%);
             }
 
             h1 {
@@ -1045,7 +1058,7 @@
 
                 <div class="hero-side">
                     <div class="portrait-shell">
-                        <img class="portrait" src="Assets/Images/Raseef_portfolio_image-1.jpeg"
+                        <img class="portrait" src="Assets/Images/Raseef_portfolio_image.jpg"
                             alt="Professional portrait of Raseef Azeez" loading="eager" decoding="async">
                     </div>
                 </div>
@@ -1210,12 +1223,10 @@
                         <div class="education-grid">
                             <div class="education-item">
                                 <h4>Master of Computer Applications (MCA)</h4>
-                                <p>Hindusthan College of Engineering & Technology | Coimbatore, IN</p>
                                 <p>2012</p>
                             </div>
                             <div class="education-item">
                                 <h4>Bachelor of Computer Applications (BCA)</h4>
-                                <p>Sree Narayana Guru College | Coimbatore, IN</p>
                                 <p>2009</p>
                             </div>
                         </div>
@@ -1260,7 +1271,7 @@
 
     <footer>
         <div class="wrap footer-row">
-            <span>© 2026 Raseef Azeez.</span>
+            <span>© 2026 Raseef Azeez. All rights reserved.</span>
             <div class="footer-social">
                 <a href="https://www.linkedin.com/in/raseef-azeez/" target="_blank" rel="noopener noreferrer"
                     aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
